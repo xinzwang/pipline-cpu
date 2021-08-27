@@ -4,20 +4,14 @@
 实现流水线CPU
 
 #### 软件架构
-软件架构说明
+Vivado2019.2
 
 
 #### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+pass
 
 #### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+保持Vivado工程文件架构
 
 #### 参与贡献
 
