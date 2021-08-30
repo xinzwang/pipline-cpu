@@ -51,8 +51,8 @@
 | 执行单元     | EX                        | EX                        |
 | 除法单元     | Divider                   | DIV                       |
 | 访存单元     | Memory_Unit               | MEM                       |
-| 乘法辅助单元 | HILO                      | HILO                      |
-|              |                           |                           |
+| 移位辅助单元 | HILO                      | HILO                      |
+| 暂停辅助单元 | Ctrl                      | CL                        |
 |              |                           |                           |
 |              |                           |                           |
 |              |                           |                           |
