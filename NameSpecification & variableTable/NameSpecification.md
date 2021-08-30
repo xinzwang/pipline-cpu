@@ -42,15 +42,22 @@
 
 ## 模块命名与缩写
 
-| 模块名       | module 名称               | 缩写                      |  
+| 模块名       | module 名称               | 缩写                      |
 | ------------ | ------------------------- | ------------------------- |
 | 程序计数器   | Program_Counter           | PC                        |
-| 算数逻辑单元 | Arithmetic_Logic_Unit     | ALU                       |
+| 译码器       | Instruction_Decoder       | ID                        |
 | 寄存器堆栈   | Register_File             | RF                        |
-| 符号扩展单元 | Sign_Extend               | SE                        | 
-| 控制单元     | Control_Unit              | CU                        |   
-| 多路复用器   | MUX_[序号]                | eg: M1                    |     
-| 流水锁存器   | IF_ID,ID_EX,EX_MEM,MEM_WB | IF_ID,ID_EX,EX_MEM,MEM_WB |  
+| 符号扩展单元 | Sign_Extend               | SE                        |
+| 执行单元     | EX                        | EX                        |
+| 除法单元     | Divider                   | DIV                       |
+| 访存单元     | Memory_Unit               | MEM                       |
+| 乘法辅助单元 | HILO                      | HILO                      |
+|              |                           |                           |
+|              |                           |                           |
+|              |                           |                           |
+|              |                           |                           |
+| 多路复用器   | MUX_[序号]                | eg: M1                    |
+| 流水锁存器   | IF_ID,ID_EX,EX_MEM,MEM_WB | IF_ID,ID_EX,EX_MEM,MEM_WB |
 
 ## 强调
 
