@@ -58,6 +58,31 @@ wire MEMWB_RF_wreg;//写使能
 wire [4:0] MEMWB_RF_wreg_addr;//写地址
 wire [31:0] MEMWB_RF_wreg_data;//写数据
 //IDEX相关引线
+wire CL_IDEX_stall;//暂停信号
+wire [7:0] ID_IDEX_aluop;//译码操作符子类型
+wire [2:0] ID_IDEX_alusel;//译码操作符类型
+wire [31:0] ID_IDEX_reg1;//译码阶段要进行运算的原操作数一
+wire [31:0] ID_IDEX_reg2;//译码阶段要进行运算的原操作数二
+wire ID_IDEX_wreg;//译码阶段指令是否写目的寄存器地址
+wire [4:0] ID_IDEX_wreg_addr;//译码阶段指令写目的寄存器地址
+wire [31:0] ID_IDEX_ins;//译码阶段指令
+wire ID_IDEX_isindelaysolt;//延迟槽标志
+wire ID_IDEX_next_isindelaysolt;//延迟槽标志
+
+//EX相关引线
+wire [7:0] IDEX_EX_aluop;//译码操作符子类型
+wire [2:0] IDEX_EX_alusel;//译码操作符类型
+wire [31:0] IDEX_EX_reg1_data;//原操作数一
+wire [31:0] IDEX_EX_reg2_data;//原操作数二
+wire IDEX_EX_wreg;//指令执行是否要写入目的寄存器
+wire [4:0] IDEX_EX_wreg_addr;//写入目的寄存器地址
+wire [31:0] IDEX_EX_ins;//执行阶段指令
+wire [31:0] IDEX_EX_ins_addr;//执行阶段指令地址
+wire IDEX_EX_isindelayslot;//执行阶段指令在延迟槽
+
+
+
+
 
 
 
