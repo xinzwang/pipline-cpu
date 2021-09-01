@@ -29,9 +29,10 @@ module EX(
     input wire [31:0] I_FromIDEX_reg2,//参与运算的源操作数二
     input wire I_FromIDEX_wreg,//指令执行是否 要写入目的寄存器
     input wire I_FromIDEX_wreg_addr,//指令执行要写入的目的寄存器地址
-    output reg O_ToEXMEM_wreg,//执行阶段指令是否最终要写入目的寄存器
-    output reg [31:0] O_ToEXMEM_wreg_addr,//执行阶段指令最终要写入目的寄存器地址
-    output reg [31:0] O_ToEXMEM_wreg_data,//执行阶段指令最终要写入目的寄存器的值
+    output reg [31:0] O_ToEXMEM_reg2,//存储指令要存储的数据，或者lwr指令要写入的目的寄存器原始值
+//    output reg O_ToEXMEM_wreg,//执行阶段指令是否最终要写入目的寄存器
+//    output reg [31:0] O_ToEXMEM_wreg_addr,//执行阶段指令最终要写入目的寄存器地址
+//    output reg [31:0] O_ToEXMEM_wreg_data,//执行阶段指令最终要写入目的寄存器的值
 //HILO模块量
     input wire [31:0] I_FromHILO_hi,//hilo中hi的值
     input wire [31:0] I_FromHILO_lo,//hilo中lo的值
@@ -58,10 +59,13 @@ module EX(
 //延迟槽相关变量
     input wire I_FromIDEX_isindelayslot,//延迟槽标记
     output wire O_TOEXMEM_isindelayslot,//延迟槽标记
-//访存相关的接口
-    output wire [7:0] O_ToEXMEM_aluop,//执行阶段指令进行的运算子类型
-    output wire [31:0] O_ToEXMEM_mem_addr,//加载存储指令对应的存储器地址
-    output wire [31:0] O_ToEXMEM_mem_data,//存储指令要存储的数据，以及加载到目的寄存器的原始值
+//与访存，ID相关的接口
+    output reg O_To_EXMEM_mem_addr,//加载存储指令对应的存储器地址
+    output reg O_To_ID_EXMEM_wreg,//执行阶段指令最终是否有要写入目的寄存器
+    output reg [7:0] O_To_ID_EXMEM_aluop,//执行阶段指令进行的运算子类型
+    output reg [31:0] O_To_ID_EXMEM_wreg_addr,//加载存储指令对应的存储器地址
+    output reg [31:0] O_To_ID_EXMEM_wreg_data,//存储指令要存储的数据，以及加载到目的寄存器的原始值
+
 //流水暂停请求
     output reg stallreq//请求流水暂停
     );
