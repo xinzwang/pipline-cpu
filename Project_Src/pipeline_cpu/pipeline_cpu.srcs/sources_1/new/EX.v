@@ -71,4 +71,185 @@ module EX(
 //流水暂停请求
     output reg stallreq//请求流水暂停
     );
+
+
+	/*** 临时代码块 ***/
+		// 8'b01111100: begin  //sllv
+		// end
+		// 8'b00000010: begin  //srlv
+		// end
+		// 8'b00001011: begin  //movn
+		// exe logic
+
+				// 8'b10101001: begin //mul
+				// end
+				// 8'b00011000: begin //mult
+				// 	if((I_FromIDEX_reg1[31] ^I_FromIDEX_reg2[31]) == 1'b1) begin
+				// 		arithmetic_out <= ~hilo_temp +1;
+				// 	end
+				// end
+				// 8'b00011001: begin //multu
+				// end
+				// 8'b00011010: begin //div
+				// end
+				// 8'b00011011: begin //divu
+				// end
+
+	/** 计算层 **/
+
+	// logic
+	reg[31:0] logic_out
+	always @(*) begin
+		if(rst == 1'b1) begin
+			logic_out <= 32'h00000000;
+		end else begin
+			case (I_FromIDEX_aluop)
+				8'b0010010: begin 	//or
+					logic_out <= I_FromIDEX_reg1 | I_FromIDEX_reg2;
+				end
+				8'b00100100: begin  //and
+					logic_out <= I_FromIDEX_reg1 & I_FromIDEX_reg2;
+				end
+				8'b00100111: begin  //nor
+					logic_out <= ~(I_FromIDEX_reg1 | I_FromIDEX_reg2);
+				end
+				8'b00100110: begin  //xor
+					logic_out <= I_FromIDEX_reg1 ^ I_FromIDEX_reg2;
+				end
+				default: begin
+					logic_out <= 32'h00000000;
+				end
+			endcase
+		end
+	end
+
+	// exe shift
+	reg[31:0] shift_out;
+	always @ (*) begin
+		if(rst == 1'b1) begin
+			shift_out <= 32'h00000000;
+		end else begin
+		case (I_FromIDEX_aluop)
+			8'b01111100: begin  //sll
+				shift_out <= I_FromIDEX_reg1 << I_FromIDEX_reg2[4:0];
+			end
+			8'b00000010: begin //srl
+				shift_out <= I_FromIDEX_reg1 >> I_FromIDEX_reg2[4:0];
+			end
+		 	8'b00000011: begin //sra
+				shift_out <= ({32{I_FromIDEX_reg2[31]}} << (6'd32-{1'b0,I_FromIDEX_reg1[4:0]}))| I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
+			end
+			default: begin
+				shift_out <= 32'h000000;
+			end
+		endcase
+	end
+
+	// exe arithmetic 
+	reg[31:0] arithmetic_out;
+	// add, sub
+	wire switch_complement_reg2;	//根据符号取补码
+	wire mux_sum;
+	wire mux_lt;
+	assign switch_complement_reg2 = (I_FromIDEX_aluop == 8'b00100010) || 
+								 (I_FromIDEX_aluop == 8'b00100011) ?
+								  ~(I_FromIDEX_reg2)+1 :I_FromIDEX_reg2;
+	assign mux_sum = I_FromIDEX_reg1 + switch_complement_reg2;
+	assign mux_lt = ((I_FromEX_aluop_i == 8'b00101010)) ?
+					((I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31]) ||
+					(!I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31] && mux_sum[31]) ||
+					(I_FromIDEX_reg1[31] && I_FromIDEX_reg2[31] && mux_sum[31]))
+					: (I_FromIDEX_reg1 < I_FromIDEX_reg2)
+	always @ (*) begin
+		if(rst == 1'b1) begin
+			arithmetic_out <= 32'h00000000;
+		end else begin
+			case (I_FromIDEX_aluop)
+				8'b00100000,8'b00100001,8'b01010101,8'b01010110: begin //add,addu,addi,addiu
+					arithmetic_out <= mux_sum;
+				end
+				// 8'b00100001: begin //addu
+				// 	arithmetic_out <= mux_sum;
+				// end
+				// 8'b01010101: begin //addi
+				// 	arithmetic_out <= mux_sum;
+				// end
+				// 8'b01010110: begin //addiu
+				// 	arithmetic_out <= mux_sum;
+				// end
+				8'b00100010,8'b00100011: begin //sub,subu
+					arithmetic_out <= mux_sum;
+				end
+				// 8'b00100011: begin //subu
+				// 	arithmetic_out <= mux_sum;
+				// end
+				8'b00101010,8'b00101011: begin //slt,sltu
+					arithmetic_out <= mux_slt;
+				end
+				// 8'b00101011: begin //sltu
+				// 	arithmetic_out <= mux_slt;
+				// end
+				default: begin
+					arithmetic_out <= 32'h00000000;
+				end
+			endcase
+		end
+
+	// mul
+	reg[31:0] mul_out;
+	wire switch_mult_reg1;	//处理负数
+	wire switch_mult_reg2;	//处理负数
+	wire mux_mul;
+	assign switch_mult_reg1 = (((I_FromIDEX_aluop == 8'b00011000) || 
+							  (I_FromIDEX_aluop == 8'b00011000) || 
+							  (I_FromIDEX_aluop == 8'b00011001)) &&
+							  ( I_FROMIDEX_reg1[31] == 1'b1)) ? 
+							  (~I_FromIDEX_reg1+1) : I_FromIDEX_reg1;
+	assign switch_mult_reg2 = (((I_FromIDEX_aluop == 8'b00011000) || 
+							  (I_FromIDEX_aluop == 8'b00011000) || 
+							  (I_FromIDEX_aluop == 8'b00011001)) &&
+							  ( I_FROMIDEX_reg2[31] == 1'b1)) ? 
+							  (~I_FromIDEX_reg2+1) : I_FromIDEX_reg2;
+	assign mux_mul = I_FromIDEX_reg1 * I_FromIDEX_reg2;
+	always @ (*) begin
+		if(rst==1'b1) begin
+			mul_res <= 32'h00000000;
+		end else if (I_FromIDEX_aluop == 8'b00011000 || 		//mult
+			I_FromIDEX_aluop == 8'b10101001) begin		//mul
+				if((I_FromIDEX_reg1[31] ^I_FromIDEX_reg2[31]) == 1'b1) begin
+					mul_out <= ~mux_mul +1;
+				end else begin
+					mul_out <= mux_mul;
+				end
+		end else begin
+			mul_out <= 32'h00000000;		
+		end		
+	end
+
+	// div
+	// TODO: 除法的实现，需要其它模块的支持？！
+	// reg [31:0]div_out;
+	// always @ (*) begin
+	// 	// TODO: 流水线暂停
+	// 	if(rst == 1'b1) begin
+	// 		div_out <= 32'h00000000;
+	// 	end else begin
+	// 		case(I_FromIDEX_aluop)
+	// 			8'b00011010: begin //div
+					
+	// 			end
+	// 			8'b00011011: begin //divu
+					
+	// 			end
+	// 	end
+	// end
+
+	//TODO:movn
+
+	/** 输出层 **/
+	//TODO: 处理输出
+	always @ (*) begin
+		
+	end
+
 endmodule
