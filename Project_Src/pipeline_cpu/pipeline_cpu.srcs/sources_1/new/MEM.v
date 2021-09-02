@@ -18,37 +18,37 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-//·Ã´æ²¿¼þ
+//ï¿½Ã´æ²¿ï¿½ï¿½
 
 module MEM(
     input clk,
     input rst,
 //
-    input wire I_FromEXMEM_wreg,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-    input wire [4:0] I_FromEXMEM_wreg_addr,//·Ã´æ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µÄµØÖ·
-    input wire [31:0] I_FromEXMEM_wreg_data,//·Ã´æ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µÄÖµ
-    output reg O_ToMEMWB_wreg,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñ×îÖÕÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-    output reg [4:0] O_ToMEMWB_wreg_addr,//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´Ä¿µÄ¼Ä´æÆ÷µÄµØÖ·
-    output reg [31:0] O_ToMEMWB_wreg_data,//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´Ä¿µÄ¼Ä´æÆ÷µÄÖµ
-//ÒÆ¶¯²Ù×÷Ö¸ÁîÏà¹Ø
-    input wire I_FromEXMEM_whilo,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´HILO
-    input wire [31:0] I_FromEXMEM_hi,//·Ã´æ½×¶ÎÖ¸ÁîÒªÐ´HIµÄÖµ
-    input wire [31:0] I_FromEXMEM_lo,//·Ã´æ½×¶ÎÖ¸ÁîÒªÐ´LOµÄÖµ
-    output wire  O_TOMEMWB_whilo,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñ×îÖÕÒªÐ´hilo
-    output reg [31:0] O_TOMEMWB_hi,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñ×îÖÕÐ´hiµÄÖµ
-    output reg [31:0] O_TOMEMWB_lo,//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñ×îÖÕÐ´loµÄÖµ
-//¼ÓÔØ´æ´¢Ö¸ÁîÏà¹Ø
-    input wire [7:0] I_FromEXMEM_aluop,//·Ã´æ½×¶ÎÖ¸ÁîÒª½øÐÐµÄÔËËãµÄ×ÓÀàÐÍ
-    input wire [31:0] I_FromEXMEM_mem_addr,//·Ã´æ½×¶Î¼ÓÔØ´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
-    input wire [31:0] I_FromEXMEM_mem_data,//´æ´¢Ö¸ÁîÒª´æ´¢µÄÊý¾Ý£¬ÒÔ¼°¼ÓÔØµ½Ä¿µÄ¼Ä´æÆ÷µÄÔ­Ê¼Öµ
+    input wire I_FromEXMEM_wreg,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    input wire [4:0] I_FromEXMEM_wreg_addr,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+    input wire [31:0] I_FromEXMEM_wreg_data,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    output reg O_ToMEMWB_wreg,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    output reg [4:0] O_ToMEMWB_wreg_addr,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+    output reg [31:0] O_ToMEMWB_wreg_data,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+//ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½
+    input wire I_FromEXMEM_whilo,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HILO
+    input wire [31:0] I_FromEXMEM_hi,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´HIï¿½ï¿½Öµ
+    input wire [31:0] I_FromEXMEM_lo,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´LOï¿½ï¿½Öµ
+    output wire  O_TOMEMWB_whilo,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´hilo
+    output reg [31:0] O_TOMEMWB_hi,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ð´hiï¿½ï¿½Öµ
+    output reg [31:0] O_TOMEMWB_lo,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ð´loï¿½ï¿½Öµ
+//ï¿½ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½
+    input wire [7:0] I_FromEXMEM_aluop,//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    input wire [31:0] I_FromEXMEM_mem_addr,//ï¿½Ã´ï¿½×¶Î¼ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+    input wire [31:0] I_FromEXMEM_mem_data,//ï¿½æ´¢Ö¸ï¿½ï¿½Òªï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Øµï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼Öµ
 //datamem related
-    input wire [31:0] I_FromDM_data,//´ÓÊý¾Ý´æ´¢Æ÷¶ÁÈ¡µÄÖµ
-    output reg [31:0] O_ToDM_data,//Òª·ÃÎÊÊý¾Ý´æ´¢Æ÷µØÖ·
-    output reg [31:0] O_ToDM_we,//¶ÔÊý¾Ý´æ´¢Æ÷ÊÇ·ñÎªÐ´²Ù×÷1--->Ð´²Ù×÷
-    output reg [31:0] O_ToDM_we_data,//ÒªÐ´ÈëÊý¾Ý´æ´¢Æ÷µÄÊý¾Ý
-    output reg [3:0] O_ToDM_sel,//×Ö½ÚÑ¡ÔñÐÅºÅ
-//ÑÓ³Ù²ÛÏà¹Ø
-    input wire I_FromEXMEM_isindelayslot,//ÑÓ³Ù²Û±ê¼Ç
-    output wire O_TOMEMWB_isindelayslot//ÑÓ³Ù²Û±ê¼Ç
+    input wire [31:0] I_FromDM_data,//ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Öµ
+    output reg [31:0] O_ToDM_data,//Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+    output reg [31:0] O_ToDM_we,//ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½Ç·ï¿½ÎªÐ´ï¿½ï¿½ï¿½ï¿½1--->Ð´ï¿½ï¿½ï¿½ï¿½
+    output reg [31:0] O_ToDM_we_data,//ÒªÐ´ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    output reg [3:0] O_ToDM_sel,//ï¿½Ö½ï¿½Ñ¡ï¿½ï¿½ï¿½Åºï¿½
+//ï¿½Ó³Ù²ï¿½ï¿½ï¿½ï¿½
+    input wire I_FromEXMEM_isindelayslot,//ï¿½Ó³Ù²Û±ï¿½ï¿½
+    output wire O_TOMEMWB_isindelayslot//ï¿½Ó³Ù²Û±ï¿½ï¿½
 );
 endmodule
