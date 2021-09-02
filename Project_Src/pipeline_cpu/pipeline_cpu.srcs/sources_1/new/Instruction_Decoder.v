@@ -52,15 +52,15 @@ module Instruction_Decoder(
     output reg [31:0] O_ToPC_branch_taraddr,//跳转目的地址
 //多周期指令流水停止请求信号
     output wire stallreq, //修改为wire类型
-
+    output wire [31:0] O_ToIDEX_ins_addr//指令地址
 //新增变量
-    input wire [7:0] I_FromEX_aluop_i, //处于执行阶段指令的运算子类型
-    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
-    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
-    output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
-    output wire[31:0] O_ToIDEX_inst, //当前处于译码阶段的指令
-    output wire[31:0] O_ToIDEX_excepttype, //收集的异常信息
-    output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
+//    input wire [7:0] I_FromEX_aluop_i, //处于执行阶段指令的运算子类型
+//    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
+//    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
+//    output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
+//    output wire[31:0] O_ToIDEX_inst, //当前处于译码阶段的指令
+//    output wire[31:0] O_ToIDEX_excepttype, //收集的异常信息
+//    output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
 );
 
 

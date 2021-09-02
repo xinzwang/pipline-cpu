@@ -29,6 +29,8 @@ module EX(
     input wire [31:0] I_FromIDEX_reg2,//参与运算的源操作数二
     input wire I_FromIDEX_wreg,//指令执行是否 要写入目的寄存器
     input wire I_FromIDEX_wreg_addr,//指令执行要写入的目的寄存器地址
+    input wire [31:0] I_FromIDEX_ins,//执行阶段指令
+    input wire [31:0] I_FromIDEX_ins_addr,//执行阶段指令地址
     output reg [31:0] O_ToEXMEM_reg2,//存储指令要存储的数据，或者lwr指令要写入的目的寄存器原始值
 //    output reg O_ToEXMEM_wreg,//执行阶段指令是否最终要写入目的寄存器
 //    output reg [31:0] O_ToEXMEM_wreg_addr,//执行阶段指令最终要写入目的寄存器地址

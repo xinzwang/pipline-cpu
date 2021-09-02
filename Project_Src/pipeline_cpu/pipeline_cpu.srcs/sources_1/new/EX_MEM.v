@@ -23,12 +23,34 @@
 module EX_MEM(
     input clk,
     input rst,
+    input wire CL_stall,
+    input wire CL_flush,
+    input wire [31:0] EX_mem_addr,//执行阶段要写的内存地址
+    input wire [31:0] EX_reg2,
+    input wire EX_whilo,
+    input wire [31:0] EX_hi,
+    input wire [31:0] EX_lo,
+    input wire [63:0] EX_hilo,
+    input wire [1:0] EX_cnt,
+    input wire EX_isindelayslot,
+    input wire [31:0] EX_ins_addr,
+    input wire [7:0] Ex_aluop,
     input wire EX_wreg,//执行阶段指令执行后是否要写入目的寄存器
     input wire [4:0] EX_wreg_addr,//执行阶段指令执行后要写入目的寄存器的地址
     input wire [31:0] EX_wreg_data,//执行阶段指令执行后要写入目的寄存器的值
     output reg MEM_wreg,//访存阶段指令执行后是否要写入目的寄存器
     output reg [4:0] MEM_wreg_addr,//访存阶段指令执行后要写入目的寄存器的地址
-    output reg [31:0] MEM_wreg_data//访存阶段指令执行后要写入目的寄存器的值
+    output reg [31:0] MEM_wreg_data,//访存阶段指令执行后要写入目的寄存器的值
+    output reg [31:0] MEM_hi,
+    output reg [31:0] MEM_lo,
+    output reg MEM_whilo,
+    output reg [7:0] MEM_aluop ,
+    output reg [31:0] MEM_mem_addr,//写内存地址
+    output reg [31:0] MEM_reg2 ,
+    output reg MEM_isindelayslot,
+    output reg [31:0] MEM_ins_adddr ,
+    output reg [63:0] MEM_hilo ,
+    output reg [1:0] MEM_cnt 
     );
     //时序控制部分，每个时钟上升沿信号传送到锁存器另一端
 always @(posedge clk) begin
