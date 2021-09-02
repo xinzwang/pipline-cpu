@@ -18,138 +18,138 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-//Á÷Ë®Ïß¶¥²ãÄ£¿é
-//¶¥²ãÄ£¿é¶¨Òå¹æ·¶£¬[ÐÅºÅ·¢³öÄ£¿éÃû]_[ÐÅºÅ½ÓÊÕÄ£¿éÃû]_[ÐÅºÅÃèÊö]
+//ï¿½ï¿½Ë®ï¿½ß¶ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Ä£ï¿½é¶¨ï¿½ï¿½æ·¶ï¿½ï¿½[ï¿½ÅºÅ·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½]_[ï¿½ÅºÅ½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½]_[ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½]
 
 module TOP_CPU(
     input clk,
     input rst
 );
-//pcÏà¹ØÒýÏß
-wire CL_PC_stall;//ctrl·¢»ØµÄÔÝÍ£ÐÅºÅ
-wire [31:0] CL_PC_newpc;//CtrllÓÃÓÚÒì³£ºóÐÂpcµÄÐÅºÅ
-wire ID_PC_branchflag;//ID·¢³öµÄÌø×ªÐÅºÅ
-wire [31:0] ID_PC_branch_taraddr;//IdÌø×ªµÄÄ¿µÄµØÖ·
-wire [31:0] PC_OUT_1;//¶àÂ·ÒýÏß¶¨Òå
-//IMÏà¹ØÒýÏß
-wire [31:0] PC_IM_addr;//pc´«ÈëµÄÈ¡Ö¸µØÖ·
-//IFIDÏà¹ØÒýÏß
-wire CL_IFID_stall;//ctrl·¢»ØµÄÔÝÍ£ÐÅºÅ
-wire [31:0] PC_IFID_pc;//pcÖÐµÄµØÖ·
-wire [31:0] IM_IFID_ins;//imÖÐµÄÖ¸Áî
-//IDÏà¹ØÒýÏß
-wire [31:0] IFID_ID_pc;//´«ÈëidµÄpcÖµ
-wire [31:0] IFID_ID_ins;//´«ÈëpcµÄinsÖµ
-wire [7:0] EX_ID_aluop;//ÒëÂë½×¶ÎÒª½øÐÐµÄÔËËã×ÓÀàÐÍ
-wire EX_ID_wreg;//Ö´ÐÐ½×¶ÎÖ¸ÁîÊÇ·ñ×îÖÕÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-wire [31:0] EX_ID_wreg_addr;//¼ÓÔØ´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
-wire [31:0] EX_ID_wreg_data;//Ö´ÐÐ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ
-wire MEM_ID_wreg;//Ö´ÐÐ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-wire [31:0] MEM_ID_wreg_addr;//Ö´ÐÐ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-wire [31:0] MEM_ID_wreg_data;//Ö´ÐÐ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷Êý¾Ý
-wire IDEX_ID_isindelayslot;//´¦ÔÚÑÓ³Ù²ÛÖÐ
-wire [31:0] RF_ID_reg1_data;//¼Ä´æÆ÷¶Á³öÖµÒ»
-wire [31:0] RF_ID_reg2_data;//¼Ä´æÆ÷¶Á³öÖµ¶þ
-//¼Ä´æÆ÷¶ÑÕ»Ïà¹ØÒýÏß
-wire [4:0] ID_RF_reg1_addr;//¶ÁµØÖ·
-wire [4:0] ID_RF_reg2_addr;//¶ÁµØÖ·
-wire ID_RF_reg1;//¶ÁÊ¹ÄÜ
-wire ID_RF_reg2;//¶ÁÊ¹ÄÜ
-wire MEMWB_RF_wreg;//Ð´Ê¹ÄÜ
-wire [4:0] MEMWB_RF_wreg_addr;//Ð´µØÖ·
-wire [31:0] MEMWB_RF_wreg_data;//Ð´Êý¾Ý
-//IDEXÏà¹ØÒýÏß
-wire CL_IDEX_stall;//ÔÝÍ£ÐÅºÅ
-wire [7:0] ID_IDEX_aluop;//ÒëÂë²Ù×÷·û×ÓÀàÐÍ
-wire [2:0] ID_IDEX_alusel;//ÒëÂë²Ù×÷·ûÀàÐÍ
-wire [31:0] ID_IDEX_reg1;//ÒëÂë½×¶ÎÒª½øÐÐÔËËãµÄÔ­²Ù×÷ÊýÒ»
-wire [31:0] ID_IDEX_reg2;//ÒëÂë½×¶ÎÒª½øÐÐÔËËãµÄÔ­²Ù×÷Êý¶þ
-wire ID_IDEX_wreg;//ÒëÂë½×¶ÎÖ¸ÁîÊÇ·ñÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-wire [4:0] ID_IDEX_wreg_addr;//ÒëÂë½×¶ÎÖ¸ÁîÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-wire [31:0] ID_IDEX_ins;//ÒëÂë½×¶ÎÖ¸Áî
-wire [31:0] ID_IDEX_ins_addr;//Ö¸ÁîµØÖ·
-wire ID_IDEX_isindelaysolt;//ÑÓ³Ù²Û±êÖ¾
-wire ID_IDEX_next_isindelaysolt;//ÑÓ³Ù²Û±êÖ¾
+//pcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire CL_PC_stall;//ctrlï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Í£ï¿½Åºï¿½
+wire [31:0] CL_PC_newpc;//Ctrllï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½pcï¿½ï¿½ï¿½Åºï¿½
+wire ID_PC_branchflag;//IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Åºï¿½
+wire [31:0] ID_PC_branch_taraddr;//Idï¿½ï¿½×ªï¿½ï¿½Ä¿ï¿½Äµï¿½Ö·
+wire [31:0] PC_OUT_1;//ï¿½ï¿½Â·ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½
+//IMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [31:0] PC_IM_addr;//pcï¿½ï¿½ï¿½ï¿½ï¿½È¡Ö¸ï¿½ï¿½Ö·
+//IFIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire CL_IFID_stall;//ctrlï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Í£ï¿½Åºï¿½
+wire [31:0] PC_IFID_pc;//pcï¿½ÐµÄµï¿½Ö·
+wire [31:0] IM_IFID_ins;//imï¿½Ðµï¿½Ö¸ï¿½ï¿½
+//IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [31:0] IFID_ID_pc;//ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½pcÖµ
+wire [31:0] IFID_ID_ins;//ï¿½ï¿½ï¿½ï¿½pcï¿½ï¿½insÖµ
+wire [7:0] EX_ID_aluop;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EX_ID_wreg;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire [31:0] EX_ID_wreg_addr;//ï¿½ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+wire [31:0] EX_ID_wreg_data;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+wire MEM_ID_wreg;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire [31:0] MEM_ID_wreg_addr;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire [31:0] MEM_ID_wreg_data;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire IDEX_ID_isindelayslot;//ï¿½ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½ï¿½ï¿½
+wire [31:0] RF_ID_reg1_data;//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÒ»
+wire [31:0] RF_ID_reg2_data;//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [4:0] ID_RF_reg1_addr;//ï¿½ï¿½ï¿½ï¿½Ö·
+wire [4:0] ID_RF_reg2_addr;//ï¿½ï¿½ï¿½ï¿½Ö·
+wire ID_RF_reg1;//ï¿½ï¿½Ê¹ï¿½ï¿½
+wire ID_RF_reg2;//ï¿½ï¿½Ê¹ï¿½ï¿½
+wire MEMWB_RF_wreg;//Ð´Ê¹ï¿½ï¿½
+wire [4:0] MEMWB_RF_wreg_addr;//Ð´ï¿½ï¿½Ö·
+wire [31:0] MEMWB_RF_wreg_data;//Ð´ï¿½ï¿½ï¿½ï¿½
+//IDEXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire CL_IDEX_stall;//ï¿½ï¿½Í£ï¿½Åºï¿½
+wire [7:0] ID_IDEX_aluop;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [2:0] ID_IDEX_alusel;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [31:0] ID_IDEX_reg1;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+wire [31:0] ID_IDEX_reg2;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire ID_IDEX_wreg;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire [4:0] ID_IDEX_wreg_addr;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire [31:0] ID_IDEX_ins;//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½
+wire [31:0] ID_IDEX_ins_addr;//Ö¸ï¿½ï¿½ï¿½Ö·
+wire ID_IDEX_isindelaysolt;//ï¿½Ó³Ù²Û±ï¿½Ö¾
+wire ID_IDEX_next_isindelaysolt;//ï¿½Ó³Ù²Û±ï¿½Ö¾
 
-//EXÏà¹ØÒýÏß
-wire [7:0] IDEX_EX_aluop;//ÒëÂë²Ù×÷·û×ÓÀàÐÍ
-wire [2:0] IDEX_EX_alusel;//ÒëÂë²Ù×÷·ûÀàÐÍ
-wire [31:0] IDEX_EX_reg1_data;//Ô­²Ù×÷ÊýÒ»
-wire [31:0] IDEX_EX_reg2_data;//Ô­²Ù×÷Êý¶þ
-wire IDEX_EX_wreg;//Ö¸ÁîÖ´ÐÐÊÇ·ñÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-wire [4:0] IDEX_EX_wreg_addr;//Ð´ÈëÄ¿µÄ¼Ä´æÆ÷µØÖ·
-wire [31:0] IDEX_EX_ins;//Ö´ÐÐ½×¶ÎÖ¸Áî
-wire [31:0] IDEX_EX_ins_addr;//Ö´ÐÐ½×¶ÎÖ¸ÁîµØÖ·
-wire IDEX_EX_isindelayslot;//Ö´ÐÐ½×¶ÎÖ¸ÁîÔÚÑÓ³Ù²Û
+//EXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [7:0] IDEX_EX_aluop;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [2:0] IDEX_EX_alusel;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire [31:0] IDEX_EX_reg1_data;//Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+wire [31:0] IDEX_EX_reg2_data;//Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire IDEX_EX_wreg;//Ö¸ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire [4:0] IDEX_EX_wreg_addr;//Ð´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire [31:0] IDEX_EX_ins;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½
+wire [31:0] IDEX_EX_ins_addr;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+wire IDEX_EX_isindelayslot;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½
 wire [31:0] HILO_EX_hi;
 wire [31:0] HILO_EX_lo;
 wire [31:0] MEMWB_EX_hi;
 wire [31:0] MEMWB_EX_lo;
-wire MEMWB_EX_whilo;//´¦ÓÚ»ØÐ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HILO¼Ä´æÆ÷
+wire MEMWB_EX_whilo;//ï¿½ï¿½ï¿½Ú»ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
 wire [31:0] MEM_EX_hi;
 wire [31:0] MEM_EX_lo;
-wire MEM_EX_whilo;//´¦ÓÚ·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HILO¼Ä´æÆ÷
-//EXÓë³ý·¨Ïà¹ØÖ¸Áî
+wire MEM_EX_whilo;//ï¿½ï¿½ï¿½Ú·Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
+//EXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 wire EXMEM_EX_hilo_temp;
 wire EXMEM_EX_cnt;
 wire EXMEM_EX_;
-wire DIV_EX_div_res;//³ý·¨½á¹û
-wire DIV_EX_ready;//³ý·¨Íê³É
-//EXMEMÄ£¿éÒýÏß
-wire CL_EXMEM_stall;//ÔÝÍ£
-wire CL_EXMEM_flush;//Çå³ý
-wire EX_EXMEM_mem_addr;//Ö´ÐÐ½×¶Î¼ÓÔØ£¬´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
-wire EX_EXMEM_reg2;//Ö´ÐÐ½×¶Î´æ´¢Ö¸ÁîÒª´æ´¢µÄÊý¾Ý£¬»òlwlÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Ô­Ê¼Öµ
-wire EX_EXMEM_hi;//Ö´ÐÐ½×¶ÎÒªÐ´Èëhi¼Ä´æÆ÷µÄÖµ
+wire DIV_EX_div_res;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire DIV_EX_ready;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//EXMEMÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire CL_EXMEM_stall;//ï¿½ï¿½Í£
+wire CL_EXMEM_flush;//ï¿½ï¿½ï¿½
+wire EX_EXMEM_mem_addr;//Ö´ï¿½Ð½×¶Î¼ï¿½ï¿½Ø£ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+wire EX_EXMEM_reg2;//Ö´ï¿½Ð½×¶Î´æ´¢Ö¸ï¿½ï¿½Òªï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½lwlÖ¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½Ô­Ê¼Öµ
+wire EX_EXMEM_hi;//Ö´ï¿½Ð½×¶ï¿½ÒªÐ´ï¿½ï¿½hiï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 wire EX_EXMEM_lo;
-wire EX_EXMEM_whilo;//Ö´ÐÐ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´hilo¼Ä´æÆ÷
-wire EX_EXMEM_hilo;//±£´æ³Ë·¨µÄ½á¹û
-wire EX_EXMEM_cnt;//ÏÂÒ»½×¶ÎÊ±ÖÓÖÜÆÚ´¦ÓÚÖ´ÐÐ½×¶ÎµÚ¼¸ÖÜÆÚ
-wire EX_EXMEM_isindelaysolt;//·Ã´æ½×¶ÎÊÇ·ñÊÇÑÓ³Ù²ÛÖ¸Áî
-wire EX_EXMEM_ins_addr;//·Ã´æ½×¶ÎÖ¸ÁîµØÖ·
-wire EX_EXMEM_aluop;//Ö´ÐÐ½×¶ÎÖ¸ÁîÒª½øÐÐµÄÔËËã·û×ÓÀàÐÍ
-wire EX_EXMEM_wreg;//Ö´ÐÐ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-wire EX_EXMEM_wreg_addr;//Ö´ÐÐ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-wire EX_EXMEM_wreg_data;//Ö´ÐÐ½×¶ÎÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷Öµ
-//MEMÄ£¿éÒýÏß
-wire EXMEM_MEM_wreg;//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÓÐÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-wire EXMEM_MEM_wreg_addr;//·Ã´æ½×¶ÎÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µØÖ·
-wire EXMEM_MEM_wreg_data;//·Ã´æ½×¶ÎÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷Êý¾Ý
-wire EXMEM_MEM_whilo;//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´HILO¼Ä´æÆ÷
+wire EX_EXMEM_whilo;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´hiloï¿½Ä´ï¿½ï¿½ï¿½
+wire EX_EXMEM_hilo;//ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½Ä½ï¿½ï¿½
+wire EX_EXMEM_cnt;//ï¿½ï¿½Ò»ï¿½×¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶ÎµÚ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EX_EXMEM_isindelaysolt;//ï¿½Ã´ï¿½×¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½Ö¸ï¿½ï¿½
+wire EX_EXMEM_ins_addr;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+wire EX_EXMEM_aluop;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EX_EXMEM_wreg;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire EX_EXMEM_wreg_addr;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire EX_EXMEM_wreg_data;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½Öµ
+//MEMÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EXMEM_MEM_wreg;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire EXMEM_MEM_wreg_addr;//ï¿½Ã´ï¿½×¶ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire EXMEM_MEM_wreg_data;//ï¿½Ã´ï¿½×¶ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EXMEM_MEM_whilo;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
 wire EXMEM_MEM_hi;
 wire EXMEM_MEM_lo;
-wire EXMEM_MEM_aluop;//·Ã´æ½×¶ÎÖ¸ÁîÒª½øÐÐµÄÔËËã×ÓÀàÐÍ
-wire EXMEM_MEM_mem_addr;//·ÃÎÊÊý¾Ý´æ´¢Æ÷µØÖ·
-wire DM_MEM_mem_data;//´ÓÊý¾Ý´æ´¢Æ÷¶ÁÈ¡µÄÊý¾Ý
-wire EXMEM_MEM_reg2;//·Ã´æ½×¶Î´æ´¢Ö¸ÁîÒª´æ´¢µÄÊý¾Ý£¬»òlwlÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Ô­Ê¼Öµ
-wire EXMEM_MEM_isindelayslot;//·Ã´æ½×¶ÎÊÇ·ñÊ±ÑÓ³Ù²ÛÖ¸Áî
-wire EXMEM_MEM_ins_addr;//·Ã´æ½×¶ÎÖ¸ÁîµØÖ·
-//MEMWBÄ£¿éÒýÏß
+wire EXMEM_MEM_aluop;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EXMEM_MEM_mem_addr;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+wire DM_MEM_mem_data;//ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire EXMEM_MEM_reg2;//ï¿½Ã´ï¿½×¶Î´æ´¢Ö¸ï¿½ï¿½Òªï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½lwlÖ¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½Ô­Ê¼Öµ
+wire EXMEM_MEM_isindelayslot;//ï¿½Ã´ï¿½×¶ï¿½ï¿½Ç·ï¿½Ê±ï¿½Ó³Ù²ï¿½Ö¸ï¿½ï¿½
+wire EXMEM_MEM_ins_addr;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+//MEMWBÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wire CL_MEMWB_stall;
 wire CL_MEMWB_flush;
-wire MEM_MEMWB_mem_wreg;//ÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-wire MEM_MEMWB_mem_wreg_addr;//Ð´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-wire MEM_MEMWB_mem_wreg_data;//Ð´Ä¿µÄ¼Ä´æÆ÷Êý¾Ý
-wire MEM_MEMWB_mem_whilo;//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´HILO¼Ä´æÆ÷
-wire MEM_MEMWB_mem_hi;//·Ã´æ½×¶ÎÖ¸ÁîÐ´HI¼Ä´æÆ÷Öµ
-wire MEM_MEMWB_mem_lo;//·Ã´æ½×¶ÎÖ¸ÁîÐ´LO¼Ä´æÆ÷Öµ
-//HILOÄ£¿éÒýÏß
-wire MEMWB_HILO_we;//HILOÐ´Ê¹ÄÜÐÅºÅ
+wire MEM_MEMWB_mem_wreg;//ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+wire MEM_MEMWB_mem_wreg_addr;//Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire MEM_MEMWB_mem_wreg_data;//Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire MEM_MEMWB_mem_whilo;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
+wire MEM_MEMWB_mem_hi;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ð´HIï¿½Ä´ï¿½ï¿½ï¿½Öµ
+wire MEM_MEMWB_mem_lo;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ð´LOï¿½Ä´ï¿½ï¿½ï¿½Öµ
+//HILOÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+wire MEMWB_HILO_we;//HILOÐ´Ê¹ï¿½ï¿½ï¿½Åºï¿½
 wire MEMWB_HILO_hi;//HILOÐ´hi
 wire MEMWB_HILO_lo;//HILOÐ´lo
-//CLÄ£¿éÒýÏß
+//CLÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wire stallreq_from_EX;
 wire stallreq_from_ID;
-//ÒÔÉÏ¾ÍÊÇ¶¨ÒåµÄÈ«²¿Ä£¿éÊäÈëµÄÒýÏßÏÂÃæ½øÐÐÄ£¿é¶¨Òå
+//ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½é¶¨ï¿½ï¿½
 Program_Counter PC_cpu(
     .clk(clk),
     .rst(rst),
-    .I_FromCL_stall(CL_PC_stall),//ÓÃÓÚ³Ë³ý·¨¶àÖÜÆÚÁ÷Ë®ÑÓ³ÙµÄÐÅºÅÁ¿
-    .I_FromCL_newpc(CL_PC_newpc),//ÓÃÓÚÒì³£´¦ÀíºóµÄÐÂµØÖ·£¬ÏÖ½×¶Î²»ÓÃ¹Ü
-    .I_FromID_branchflag(ID_PC_branchflag),//Ìø×ªÖ¸Áî¶ÔÓ¦µÄÐÅºÅ£¬ÓëÏÂÊöÌø×ªµØÖ·°ó¶¨
-    .I_FromID_branch_taraddr(ID_PC_branch_taraddr),//Ìø×ªµØÖ·
-    .O_ToIM_IFID_pc(PC_OUT_1)//Êä³öµÄÖ¸ÁîµØÖ·
-    //output reg ce//pcÊ¹ÄÜÐÅºÅ
+    .I_FromCL_stall(CL_PC_stall),//ï¿½ï¿½ï¿½Ú³Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½Ó³Ùµï¿½ï¿½Åºï¿½ï¿½ï¿½
+    .I_FromCL_newpc(CL_PC_newpc),//ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ö·ï¿½ï¿½ï¿½Ö½×¶Î²ï¿½ï¿½Ã¹ï¿½
+    .I_FromID_branchflag(ID_PC_branchflag),//ï¿½ï¿½×ªÖ¸ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ÅºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ö·ï¿½ï¿½
+    .I_FromID_branch_taraddr(ID_PC_branch_taraddr),//ï¿½ï¿½×ªï¿½ï¿½Ö·
+    .O_ToIM_IFID_pc(PC_OUT_1)//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+    //output reg ce//pcÊ¹ï¿½ï¿½ï¿½Åºï¿½
 );
     assign PC_IM_addr=PC_OUT_1;
     assign PC_IFID_pc=PC_OUT_1;
@@ -171,115 +171,115 @@ IF_ID IFID_cpu(
 Instruction_Decoder ID_cpu(
     .clk(clk),
     .rst(rst),
-    .I_FromIFID_pc(IFID_ID_pc),//ÒëÂë½×¶ÎÖ¸Áî¶ÔÓ¦µÄµØÖ·
-    .I_FromIFID_ins(IFID_ID_ins),//ÒëÂë½×¶ÎµÄÖ¸Áî
-//Óë¼Ä´æÆ÷¶ÑÕ»Ïà¹Ø²Ù×÷
-    .I_FromRF_reg1_data(RF_ID_reg1_data),//´Ó¼Ä´æÆ÷¶ÑÕ»¶Áµ½µÄµÚÒ»¸ö¶Ë¿ÚÊäÈë
-    .I_FromRF_reg2_data(RF_ID_reg2_data),//´Ó¼Ä´æÆ÷¶ÑÕ»¶Áµ½µÄµÚ¶þ¸ö¶Ë¿ÚÊäÈë
-    .O_ToRF_reg1(ID_RF_reg1),//¼Ä´æÆ÷¶ÑÕ»µÚÒ»¸ö¶Á¶Ë¿ÚÊ¹ÄÜÐÅºÅ
-    .O_ToRF_reg2(ID_RF_reg2),//¼Ä´æÆ÷¶ÑÕ»µÚ¶þ¸ö¶Á¶Ë¿ÚÊ¹ÄÜÐÅºÅ
-    .O_ToRF_reg1_addr(ID_RF_reg1_addr),//¼Ä´æÆ÷¶ÑÕ»µÚÒ»¸ö¶Á¶Ë¿ÚµØÖ·
-    .O_ToRF_reg2_addr(ID_RF_reg2_addr),//¼Ä´æÆ÷¶ÑÕ»µÚ¶þ¸ö¶Á¶Ë¿ÚµØÖ·
-    .O_ToIDEX_wreg(ID_IDEX_wreg),//¼Ä´æÆ÷¶ÑÕ»Ð´¶Ë¿ÚÊ¹ÄÜÐÅºÅ
-    .O_ToRF_wreg_addr(ID_IDEX_wreg_addr),//¼Ä´æÆ÷¶ÑÕ»Ð´¶Ë¿ÚµØÖ·
-    .O_ToIDEX_aluop(ID_IDEX_aluop),//ÒëÂë½×¶ÎÒª½øÐÐµÄÔËËã×ÓÀàÐÍ
-    .O_ToIDEX_alusel(ID_IDEX_alusel),//ÒëÂë½×¶ÎÒª½øÐÐµÄÔËËãµÄÀàÐÍ
-    .O_ToIDEX_reg1(ID_IDEX_reg1),//ÒëÂë½×¶ÎÒª½øÐÐµÄÔËËãµÄÔ­²Ù×÷ÊýÒ»
-    .O_ToIDEX_reg2(ID_IDEX_reg2),//ÒëÂë½×¶ÎÒª½øÐÐµÄÔËËãµÄÔ­²Ù×÷Êý¶þ
-//ÒÔÏÂ½Ó¿ÚÖ÷ÒªÎª½â¾öÊý¾ÝÏà¹Ø½¨Á¢£¬ÏêÏ¸ÔÄ¶ÁP113Ïà¹ØÄÚÈÝ
-    .I_FromEX_wreg(EX_ID_wreg),//´¦ÓÚÖ´ÐÐ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-    .I_FromEX_wreg_addr(EX_ID_wreg_addr),//´¦ÓÚÖ´ÐÐ½×¶ÎµÄÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-    .I_FromEX_wreg_data(EX_ID_wreg_data),//´¦ÓÚÖ´ÐÐ½×¶ÎµÄÖ¸ÁîÐ´Ä¿µÄ¼Ä´æÆ÷Êý¾Ý
-    .I_FromMEM_wreg(MEM_ID_wreg),//´¦ÓÚ·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´Ä¿µÄ¼Ä´æÆ÷
-    .I_FromMEM_wreg_addr(MEM_ID_wreg_addr),//´¦ÓÚ·Ã´æ½×¶ÎµÄÖ¸ÁîÒªÐ´Ä¿µÄ¼Ä´æÆ÷µØÖ·
-    .I_FromMEM_wreg_data(MEM_ID_wreg_data),//´¦ÓÚ·Ã´æ½×¶ÎµÄÖ¸ÁîÐ´Ä¿µÄ¼Ä´æÆ÷Êý¾Ý
-//Ìø×ªÖ¸ÁîÑÓ³Ù²ÛÐÅºÅ
-    .I_FromIDEX_isindelayslot(IDEX_ID_isindelayslot),//µ±Ç°ÒëÂëÖ¸ÁîÊÇ·ñ´¦ÓÚÑÓ³Ù²Û
-    .O_ToIDEX_isindelayslot(ID_IDEX_next_isindelaysolt),//µ±Ç°ÒëÂëÖ¸ÁîÊÇ·ñ´¦ÓÚÑÓ³Ù²Û  ÐÞ¸ÄÎªregÀàÐÍ
-    .O_ToPC_branchflag(ID_PC_branchflag),//Ìø×ªÐÅºÅ
-    .O_ToPC_branch_taraddr(ID_PC_branch_taraddr),//Ìø×ªÄ¿µÄµØÖ·
-//¶àÖÜÆÚÖ¸ÁîÁ÷Ë®Í£Ö¹ÇëÇóÐÅºÅ
-    .stallreq(stallreq_from_ID), //ÐÞ¸ÄÎªwireÀàÐÍ
+    .I_FromIFID_pc(IFID_ID_pc),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Äµï¿½Ö·
+    .I_FromIFID_ins(IFID_ID_ins),//ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½
+//ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
+    .I_FromRF_reg1_data(RF_ID_reg1_data),//ï¿½Ó¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromRF_reg2_data(RF_ID_reg2_data),//ï¿½Ó¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÚ¶ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToRF_reg1(ID_RF_reg1),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
+    .O_ToRF_reg2(ID_RF_reg2),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
+    .O_ToRF_reg1_addr(ID_RF_reg1_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úµï¿½Ö·
+    .O_ToRF_reg2_addr(ID_RF_reg2_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úµï¿½Ö·
+    .O_ToIDEX_wreg(ID_IDEX_wreg),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»Ð´ï¿½Ë¿ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
+    .O_ToRF_wreg_addr(ID_IDEX_wreg_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»Ð´ï¿½Ë¿Úµï¿½Ö·
+    .O_ToIDEX_aluop(ID_IDEX_aluop),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToIDEX_alusel(ID_IDEX_alusel),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToIDEX_reg1(ID_IDEX_reg1),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+    .O_ToIDEX_reg2(ID_IDEX_reg2),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½Â½Ó¿ï¿½ï¿½ï¿½ÒªÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½Ä¶ï¿½P113ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromEX_wreg(EX_ID_wreg),//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .I_FromEX_wreg_addr(EX_ID_wreg_addr),//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+    .I_FromEX_wreg_data(EX_ID_wreg_data),//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½Ö¸ï¿½ï¿½Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromMEM_wreg(MEM_ID_wreg),//ï¿½ï¿½ï¿½Ú·Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .I_FromMEM_wreg_addr(MEM_ID_wreg_addr),//ï¿½ï¿½ï¿½Ú·Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+    .I_FromMEM_wreg_data(MEM_ID_wreg_data),//ï¿½ï¿½ï¿½Ú·Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½Ð´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½×ªÖ¸ï¿½ï¿½ï¿½Ó³Ù²ï¿½ï¿½Åºï¿½
+    .I_FromIDEX_isindelayslot(IDEX_ID_isindelayslot),//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½
+    .O_ToIDEX_isindelayslot(ID_IDEX_next_isindelaysolt),//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½  ï¿½Þ¸ï¿½Îªregï¿½ï¿½ï¿½ï¿½
+    .O_ToPC_branchflag(ID_PC_branchflag),//ï¿½ï¿½×ªï¿½Åºï¿½
+    .O_ToPC_branch_taraddr(ID_PC_branch_taraddr),//ï¿½ï¿½×ªÄ¿ï¿½Äµï¿½Ö·
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ë®Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+    .stallreq(stallreq_from_ID), //ï¿½Þ¸ï¿½Îªwireï¿½ï¿½ï¿½ï¿½
     .O_ToIDEX_ins_addr(ID_IDEX_ins_addr)
-//ÐÂÔö±äÁ¿Ä¿Ç°ÓÃ²»µ½
-//    .I_FromEX_aluop_i, //´¦ÓÚÖ´ÐÐ½×¶ÎÖ¸ÁîµÄÔËËã×ÓÀàÐÍ
-//    .O_ToIDEX_wd, //ÒëÂë½×¶ÎµÄÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
-//    .O_ToIDEX_link_addr, //×ªÒÆÖ¸ÁîÒª±£´æµÄ·µ»ØµØÖ·
-//    .O_ToIDEX_next_isindelayslot, //ÏÂÒ»Ìõ½øÈëÒëÂë½×¶ÎµÄÖ¸ÁîÊÇ·ñÎ»ÓÚÑÓ³Ù²Û
-//    .O_ToIDEX_inst, //µ±Ç°´¦ÓÚÒëÂë½×¶ÎµÄÖ¸Áî
-//    .O_ToIDEX_excepttype, //ÊÕ¼¯µÄÒì³£ÐÅÏ¢
-//    .O_ToIDEX_current_inst_address //ÒëÂë½×¶ÎÖ¸ÁîµÄµØÖ·
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ç°ï¿½Ã²ï¿½ï¿½ï¿½
+//    .I_FromEX_aluop_i, //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//    .O_ToIDEX_wd, //ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+//    .O_ToIDEX_link_addr, //×ªï¿½ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Øµï¿½Ö·
+//    .O_ToIDEX_next_isindelayslot, //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½Î»ï¿½ï¿½ï¿½Ó³Ù²ï¿½
+//    .O_ToIDEX_inst, //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½
+//    .O_ToIDEX_excepttype, //ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢
+//    .O_ToIDEX_current_inst_address //ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Äµï¿½Ö·
 );
 
 ID_EX IDEX_cpu(
     .clk(clk),
     .rst(rst),
-    .ID_alusel(ID_IDEX_alusel),//ÒëÂë½×¶ÎÒª½øÐÐÔËËãµÄÀàÐÍ
-    .ID_aluop(ID_IDEX_aluop),//ÒëÂë½×¶ÎÖ¸ÁîÒª½øÐÐÔËËãµÄ×ÓÀàÐÍ
-    .ID_reg1(ID_IDEX_reg1),//ÒëÂë½×¶ÎÖ¸ÁîÒª½øÐÐÔËËãµÄÔ´²Ù×÷ÊýÒ»
-    .ID_reg2(ID_IDEX_reg2),//ÒëÂë½×¶ÎÖ¸ÁîÒª½øÐÐÔËËãµÄÔ´²Ù×÷Êý¶þ
-    .ID_wreg(ID_IDEX_wreg),//ÒëÂë½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .ID_wreg_addr(ID_IDEX_wreg_addr),//ÒëÂë½×¶ÎÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
-    .ID_ins(ID_IDEX_ins),//À´×ÔIDµÄ¾ßÌåÖ¸ÁîÖµ
-    .ID_ins_addr(ID_IDEX_ins_addr),//À´×ÔIDµÄ¾ßÌåÖ¸ÁîµØÖ·
-    .ID_isindelayslot(ID_IDEX_isindelaysolt),//ÑÓ³Ù²Û
-    .EX_alusel(IDEX_EX_alusel),//Ö´ÐÐ½×¶ÎÒª½øÐÐÔËËãµÄÀàÐÍ
-    .EX_aluop(IDEX_EX_aluop),//Ö´ÐÐ½×¶ÎÒª½øÐÐÔËËãµÄ×ÓÀàÐÍ
-    .EX_reg1(IDEX_EX_reg1_data),//Ö´ÐÐ½×¶ÎÖ¸ÁîÒª½øÐÐÔËËãµÄÔ´²Ù×÷ÊýÒ»
-    .EX_reg2(IDEX_EX_reg2_data),//Ö´ÐÐ½×¶ÎÖ¸ÁîÒª½øÐÐÔËËãµÄÔ´²Ù×÷Êý¶þ
-    .EX_wreg_addr(IDEX_EX_wreg_addr),//Ö´ÐÐ½×¶ÎÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
-    .EX_wreg(IDEX_EX_wreg),//Ö´ÐÐ½×¶ÎÖ¸ÁîÊÇ·ñÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .EX_ins(IDEX_EX_wreg_ins),//¸øexµÄ¾ßÌåÖ¸ÁîÖµ
-    .EX_ins_addr(IDEX_EX_ins_addr),//¸øEXµÄ¾ßÌåÖ¸ÁîµØÖ·
+    .ID_alusel(ID_IDEX_alusel),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .ID_aluop(ID_IDEX_aluop),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .ID_reg1(ID_IDEX_reg1),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+    .ID_reg2(ID_IDEX_reg2),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .ID_wreg(ID_IDEX_wreg),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .ID_wreg_addr(ID_IDEX_wreg_addr),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+    .ID_ins(ID_IDEX_ins),//ï¿½ï¿½ï¿½ï¿½IDï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
+    .ID_ins_addr(ID_IDEX_ins_addr),//ï¿½ï¿½ï¿½ï¿½IDï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+    .ID_isindelayslot(ID_IDEX_isindelaysolt),//ï¿½Ó³Ù²ï¿½
+    .EX_alusel(IDEX_EX_alusel),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .EX_aluop(IDEX_EX_aluop),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .EX_reg1(IDEX_EX_reg1_data),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+    .EX_reg2(IDEX_EX_reg2_data),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .EX_wreg_addr(IDEX_EX_wreg_addr),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+    .EX_wreg(IDEX_EX_wreg),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .EX_ins(IDEX_EX_wreg_ins),//ï¿½ï¿½exï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
+    .EX_ins_addr(IDEX_EX_ins_addr),//ï¿½ï¿½EXï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
     .EX_isindelayslot(IDEX_EX_isindelayslot)
 );
 
 EX EX_cpu(
     .clk(clk),
     .rst(rst),
-    .I_FromIDEX_alusel(IDEX_EX_alusel),//Ö´ÐÐ½×¶ÎÒªÔËËãÖ¸ÁîµÄÀàÐÍ
-    .I_FromIDEX_aluop(IDEX_EX_alusel),//Ö´ÐÐ½×¶ÎÒªÔËËãÖ¸ÁîµÄ×ÓÀàÐÍ
-    .I_FromIDEX_reg1(IDEX_EX_reg1_data),//²ÎÓëÔËËãµÄÔ´²Ù×÷ÊýÒ»
-    .I_FromIDEX_reg2(IDEX_EX_reg2_data),//²ÎÓëÔËËãµÄÔ´²Ù×÷Êý¶þ
-    .I_FromIDEX_wreg(IDEX_EX_wreg),//Ö¸ÁîÖ´ÐÐÊÇ·ñ ÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .I_FromIDEX_wreg_addr(IDEX_EX_wreg_addr),//Ö¸ÁîÖ´ÐÐÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
+    .I_FromIDEX_alusel(IDEX_EX_alusel),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromIDEX_aluop(IDEX_EX_alusel),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromIDEX_reg1(IDEX_EX_reg1_data),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+    .I_FromIDEX_reg2(IDEX_EX_reg2_data),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromIDEX_wreg(IDEX_EX_wreg),//Ö¸ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ç·ï¿½ ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .I_FromIDEX_wreg_addr(IDEX_EX_wreg_addr),//Ö¸ï¿½ï¿½Ö´ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
     .I_FromIDEX_ins(IDEX_EX_ins),
-    .I_FromIDEX_ins_addr(IDEX_EX_ins_addr),//Ö´ÐÐ½×¶ÎÖ¸ÁîµØÖ·
-    .O_ToEXMEM_reg2(EX_EXMEM_reg2),//´æ´¢Ö¸ÁîÒª´æ´¢µÄÊý¾Ý£¬»òÕßlwrÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Ô­Ê¼Öµ
-//HILOÄ£¿éÁ¿
-    .I_FromHILO_hi(HILO_EX_hi),//hiloÖÐhiµÄÖµ
-    .I_FromHILO_lo(HILO_EX_lo),//hiloÖÐloµÄÖµ
-//mem½×¶ÎÓëhiloµÄ½»»¥±äÁ¿
-    .I_FromMEM_whilo(MEM_EX_whilo),//·Ã´æ½×¶ÎÖ¸ÁîÊÇ·ñÐèÒªÐ´HILO¼Ä´æÆ÷
-    .I_FromMEM_wb_hi(MEM_EX_hi),//·Ã´æ½×¶ÎÐ´»ØHILOµÄhiµÄÖµ
-    .I_FromMEM_wb_lo(MEM_EX_lo),//·Ã´æ½×¶ÎÐ´»ØHILOµÄloµÄÖµ
-//memwb½×¶ÎÓëhiloµÄ½»»¥±äÁ¿
-    .I_FromMEMWB_whilo(MEMWB_EX_whilo),//»ØÐ´½×¶ÎÖ¸ÁîÊÇ·ñÐèÒªÐ´HILO¼Ä´æÆ÷
-    .I_FromMEMWB_wb_hi(MEMWB_EX_hi),//»ØÐ´½×¶ÎÐ´»ØHILOµÄhiµÄÖµ
-    .I_FromMEMWB_wb_lo(MEMWB_EX_lo),//»ØÐ´½×¶ÎÐ´»ØHILOµÄloµÄÖµ
-//Éæ¼°³Ë·¨¼ÆËãµÄÁ¿
-    .I_FromEXMEM_hilo_temp(EXMEM_EX_hilo_temp),//µÚÒ»¸öÖ´ÐÐÖÜÆÚµÃµ½µÄ³Ë·¨½á¹û
-    .I_FromEXMEM_cnt(EXMEM_EX_cnt),//Dµ±Ç°´¦ÓÚÖ´ÐÐ½×¶ÎµÄµÚ¼¸¸öÖÜÆÚ
-    .O_ToEXMEM_hilo_temp(EX_EXMEM_hilo),//µÚÒ»¸öÖ´ÐÐÖÜÆÚµÃµ½µÄ³Ë·¨½á¹û
-    .O_ToEXMEM_cnt(EX_EXMEM_cnt),//ÏÂÒ»¸öÊ±ÖÓÖÜÆÚ´¦ÓÚÖ´ÐÐ½×¶ÎµÄµÚ¼¸¸öÊ¼ÖÕÖÜÆÚ
-//Éæ¼°³ý·¨¼ÆËãµÄÁ¿
-    .I_FromDIV_divready(DIV_EX_ready),//³ý·¨ÔËËãÊÇ·ñ½áÊø
-    .I_FromDIV_divres(),//³ý·¨ÔËËã½á¹û
-    .O_ToDIV_signediv(),//ÊÇ·ñÎªÓÐ·ûºÅ³ý·¨1-->ÓÐ·ûºÅ£¬0->ÎÞ·ûºÅ
-    .O_ToDIV_opdata1(),//±»³ýÊý
-    .O_ToDIV_opdata2(),//³ýÊý
-    .O_ToDIV_divstart(),//³ý·¨ÊÇ·ñ¿ªÊ¼
-//ÑÓ³Ù²ÛÏà¹Ø±äÁ¿
-    .I_FromIDEX_isindelayslot(IDEX_EX_isindelayslot),//ÑÓ³Ù²Û±ê¼Ç
-    .O_TOEXMEM_isindelayslot(EX_EXMEM_isindelaysolt),//ÑÓ³Ù²Û±ê¼Ç
-//Óë·Ã´æ£¬IDÏà¹ØµÄ½Ó¿Ú
-    .O_To_EXMEM_mem_addr(EX_EXMEM_mem_addr),//¼ÓÔØ´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
-    .O_To_ID_EXMEM_wreg(EX_OUT_1),//Ö´ÐÐ½×¶ÎÖ¸Áî×îÖÕÊÇ·ñÓÐÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .O_To_ID_EXMEM_aluop(EX_OUT_2),//Ö´ÐÐ½×¶ÎÖ¸Áî½øÐÐµÄÔËËã×ÓÀàÐÍ
-    .O_To_ID_EXMEM_wreg_addr(EX_OUT_3),//¼ÓÔØ´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
-    .O_To_ID_EXMEM_wreg_data(EX_OUT_4),//´æ´¢Ö¸ÁîÒª´æ´¢µÄÊý¾Ý£¬ÒÔ¼°¼ÓÔØµ½Ä¿µÄ¼Ä´æÆ÷µÄÔ­Ê¼Öµ
-//Á÷Ë®ÔÝÍ£ÇëÇó
-    .stallreq(stallreq_from_EX)//ÇëÇóÁ÷Ë®ÔÝÍ£
+    .I_FromIDEX_ins_addr(IDEX_EX_ins_addr),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
+    .O_ToEXMEM_reg2(EX_EXMEM_reg2),//ï¿½æ´¢Ö¸ï¿½ï¿½Òªï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½lwrÖ¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½Ô­Ê¼Öµ
+//HILOÄ£ï¿½ï¿½ï¿½ï¿½
+    .I_FromHILO_hi(HILO_EX_hi),//hiloï¿½ï¿½hiï¿½ï¿½Öµ
+    .I_FromHILO_lo(HILO_EX_lo),//hiloï¿½ï¿½loï¿½ï¿½Öµ
+//memï¿½×¶ï¿½ï¿½ï¿½hiloï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromMEM_whilo(MEM_EX_whilo),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
+    .I_FromMEM_wb_hi(MEM_EX_hi),//ï¿½Ã´ï¿½×¶ï¿½Ð´ï¿½ï¿½HILOï¿½ï¿½hiï¿½ï¿½Öµ
+    .I_FromMEM_wb_lo(MEM_EX_lo),//ï¿½Ã´ï¿½×¶ï¿½Ð´ï¿½ï¿½HILOï¿½ï¿½loï¿½ï¿½Öµ
+//memwbï¿½×¶ï¿½ï¿½ï¿½hiloï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromMEMWB_whilo(MEMWB_EX_whilo),//ï¿½ï¿½Ð´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÐ´HILOï¿½Ä´ï¿½ï¿½ï¿½
+    .I_FromMEMWB_wb_hi(MEMWB_EX_hi),//ï¿½ï¿½Ð´ï¿½×¶ï¿½Ð´ï¿½ï¿½HILOï¿½ï¿½hiï¿½ï¿½Öµ
+    .I_FromMEMWB_wb_lo(MEMWB_EX_lo),//ï¿½ï¿½Ð´ï¿½×¶ï¿½Ð´ï¿½ï¿½HILOï¿½ï¿½loï¿½ï¿½Öµ
+//ï¿½æ¼°ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromEXMEM_hilo_temp(EXMEM_EX_hilo_temp),//ï¿½ï¿½Ò»ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÃµï¿½ï¿½Ä³Ë·ï¿½ï¿½ï¿½ï¿½
+    .I_FromEXMEM_cnt(EXMEM_EX_cnt),//Dï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶ÎµÄµÚ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToEXMEM_hilo_temp(EX_EXMEM_hilo),//ï¿½ï¿½Ò»ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÃµï¿½ï¿½Ä³Ë·ï¿½ï¿½ï¿½ï¿½
+    .O_ToEXMEM_cnt(EX_EXMEM_cnt),//ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶ÎµÄµÚ¼ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½æ¼°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .I_FromDIV_divready(DIV_EX_ready),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+    .I_FromDIV_divres(),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToDIV_signediv(),//ï¿½Ç·ï¿½Îªï¿½Ð·ï¿½ï¿½Å³ï¿½ï¿½ï¿½1-->ï¿½Ð·ï¿½ï¿½Å£ï¿½0->ï¿½Þ·ï¿½ï¿½ï¿½
+    .O_ToDIV_opdata1(),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_ToDIV_opdata2(),//ï¿½ï¿½ï¿½ï¿½
+    .O_ToDIV_divstart(),//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ê¼
+//ï¿½Ó³Ù²ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½
+    .I_FromIDEX_isindelayslot(IDEX_EX_isindelayslot),//ï¿½Ó³Ù²Û±ï¿½ï¿½
+    .O_TOEXMEM_isindelayslot(EX_EXMEM_isindelaysolt),//ï¿½Ó³Ù²Û±ï¿½ï¿½
+//ï¿½ï¿½Ã´æ£¬IDï¿½ï¿½ØµÄ½Ó¿ï¿½
+    .O_To_EXMEM_mem_addr(EX_EXMEM_mem_addr),//ï¿½ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+    .O_To_ID_EXMEM_wreg(EX_OUT_1),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .O_To_ID_EXMEM_aluop(EX_OUT_2),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    .O_To_ID_EXMEM_wreg_addr(EX_OUT_3),//ï¿½ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+    .O_To_ID_EXMEM_wreg_data(EX_OUT_4),//ï¿½æ´¢Ö¸ï¿½ï¿½Òªï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Øµï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼Öµ
+//ï¿½ï¿½Ë®ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½
+    .stallreq(stallreq_from_EX)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½Í£
 );
     assign EX_EXMEM_aluop=EX_OUT_2;
     assign EX_EXMEM_wreg=EX_OUT_1 ;
@@ -295,7 +295,7 @@ EX_MEM EXMEM_cpu(
     .rst(rst),
     .CL_stall(CL_EXMEM_stall),
     .CL_flush(CL_EXMEM_flush),
-    .EX_mem_addr(EX_EXMEM_mem_addr),//Ö´ÐÐ½×¶ÎÒªÐ´µÄÄÚ´æµØÖ·
+    .EX_mem_addr(EX_EXMEM_mem_addr),//Ö´ï¿½Ð½×¶ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ö·
     .EX_reg2(EX_EXMEM_reg2),
     .EX_whilo(EX_EXMEM_whilo),
     .EX_hi(EX_EXMEM_hi),
@@ -305,17 +305,17 @@ EX_MEM EXMEM_cpu(
     .EX_isindelayslot(EX_EXMEM_isindelaysolt),
     .EX_ins_addr(EX_EXMEM_ins_addr),
     .Ex_aluop(EX_EXMEM_aluop),
-    .EX_wreg(EX_EXMEM_wreg),//Ö´ÐÐ½×¶ÎÖ¸ÁîÖ´ÐÐºóÊÇ·ñÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .EX_wreg_addr(EX_EXMEM_wreg_addr),//Ö´ÐÐ½×¶ÎÖ¸ÁîÖ´ÐÐºóÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄµØÖ·
-    .EX_wreg_data(EX_EXMEM_wreg_data),//Ö´ÐÐ½×¶ÎÖ¸ÁîÖ´ÐÐºóÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ
-    .MEM_wreg(EXMEM_MEM_wreg),//·Ã´æ½×¶ÎÖ¸ÁîÖ´ÐÐºóÊÇ·ñÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷
-    .MEM_wreg_addr(EXMEM_MEM_wreg_addr),//·Ã´æ½×¶ÎÖ¸ÁîÖ´ÐÐºóÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄµØÖ·
-    .MEM_wreg_data(EXMEM_MEM_wreg_adta),//·Ã´æ½×¶ÎÖ¸ÁîÖ´ÐÐºóÒªÐ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ
+    .EX_wreg(EX_EXMEM_wreg),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .EX_wreg_addr(EX_EXMEM_wreg_addr),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+    .EX_wreg_data(EX_EXMEM_wreg_data),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    .MEM_wreg(EXMEM_MEM_wreg),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
+    .MEM_wreg_addr(EXMEM_MEM_wreg_addr),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+    .MEM_wreg_data(EXMEM_MEM_wreg_adta),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
     .MEM_hi(EXMEM_MEM_hi),
     .MEM_lo(EXMEM_MEM_lo),
     .MEM_whilo(EXMEM_MEM_whilo),
     .MEM_aluop(EXMEM_MEM_aluop),
-    .MEM_mem_addr(EXMEM_MEM_mem_addr),//Ð´ÄÚ´æµØÖ·
+    .MEM_mem_addr(EXMEM_MEM_mem_addr),//Ð´ï¿½Ú´ï¿½ï¿½Ö·
     .MEM_reg2(EXMEM_MEM_reg2),
     .MEM_isindelayslot(EXMEM_MEM_isindelayslot),
     .MEM_ins_adddr(EXMEM_MEM_ins_addr),
@@ -331,7 +331,7 @@ MEM MEM_cpu(
     .I_FromEXMEM_wreg_data(EXMEM_MEM_wreg_data),
     .O_ToMEMWB_wreg(MEM_MEMWB_mem_wreg),
     .O_ToMEMWB_wreg_addr,
-    .O_ToMEMWB_wreg_data,?
+    .O_ToMEMWB_wreg_data,
     .I_FromEXMEM_whilo,
     .I_FromEXMEM_hi,
     .I_FromEXMEM_lo,
