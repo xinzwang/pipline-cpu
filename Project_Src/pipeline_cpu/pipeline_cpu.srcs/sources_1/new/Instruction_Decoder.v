@@ -91,21 +91,21 @@ module Instruction_Decoder(
   assign stallreq = ID_stallreq_for_reg1_loadrelate_local | ID_stallreq_for_reg2_loadrelate_local;
   //根据输入信号的值，判断上一条指令是不是加载指令，如果是，至ID_pre_inst_is_load_local为1
   assign ID_pre_inst_is_load_local = ((I_FromEX_aluop ==  8'b11100000) || (I_FromEX_aluop == 8'b11100100)||(I_FromEX_aluop == 8'b11100001) ||(I_FromEX_aluop == 8'b11100101)||(I_FromEX_aluop == 8'b11100011) ||(I_FromEX_aluop == 8'b11100110)||(I_FromEX_aluop == 8'b11100010)||(I_FromEX_aluop == 8'b11110000) ||(I_FromEX_aluop == 8'b11111000)) ? 1'b1 : 1'b0;
-  assign O_ToIDEX_inst = I_FromIFID_ins;
+  //assign O_ToIDEX_inst = I_FromIFID_ins;
 
   //exceptiontype的低8bit留给外部中断，第9bit表示是否是syscall指令
   //第10bit表示是否是无效指令，第11bit表示是否是trap指令
-  assign O_ToIDEX_excepttype = {19'b0,ID_excepttype_is_eret_local,2'b0,ID_instvalid_local, ID_excepttype_is_syscall_local,8'b0};
+  //assign O_ToIDEX_excepttype = {19'b0,ID_excepttype_is_eret_local,2'b0,ID_instvalid_local, ID_excepttype_is_syscall_local,8'b0};
   
   //输入信号pci就是当前处于译码阶段的指令的地址
-  assign O_ToIDEX_current_inst_address = I_FromIFID_pc;
+  //assign O_ToIDEX_current_inst_address = I_FromIFID_pc;
     
     //对指令进行译码
 	always @ (*) begin	
 		if (rst == 1'b1) begin
 			O_ToIDEX_aluop <= 8'b00000000;
 			O_ToIDEX_alusel <= 3'b000;
-			O_ToIDEX_wd <= 5'b00000;
+			//O_ToIDEX_wd <= 5'b00000;
 			O_ToIDEX_wreg <= 1'b0;
 			ID_instvalid_local <= 1'b0;
 			O_ToRF_reg1 <= 1'b0;
@@ -113,7 +113,7 @@ module Instruction_Decoder(
 			O_ToRF_reg1_addr <= 5'b00000;
 			O_ToRF_reg2_addr <= 5'b00000;
 			ID_imm_local <= 32'h0;	
-			O_ToIDEX_link_addr <= 32'h00000000;
+			//O_ToIDEX_link_addr <= 32'h00000000;
 			O_ToPC_branch_taraddr <= 32'h00000000;
 			O_ToPC_branchflag <= 1'b0;
 			O_ToIDEX_next_inst_in_delayslot <= 1'b0;
@@ -122,7 +122,7 @@ module Instruction_Decoder(
 	  end else begin
 			O_ToIDEX_aluop <= 8'b00000000;
 			O_ToIDEX_alusel <= 3'b000;
-			O_ToIDEX_wd <= I_FromIFID_ins[15:11];//默认目的寄存器
+			//O_ToIDEX_wd <= I_FromIFID_ins[15:11];//默认目的寄存器
 			O_ToIDEX_wreg <= 1'b0;
 			ID_instvalid_local <= 1'b1;	   
 			O_ToRF_reg1 <= 1'b0;
@@ -130,7 +130,7 @@ module Instruction_Decoder(
 			O_ToRF_reg1_addr <= I_FromIFID_ins[25:21];//regfile读端口1读取的寄存器地址
 			O_ToRF_reg2_addr <= I_FromIFID_ins[20:16];//regfile读端口2读取的寄存器地址
 			ID_imm_local <= 32'h00000000;
-			O_ToIDEX_link_addr <= 32'h00000000;
+			//O_ToIDEX_link_addr <= 32'h00000000;
 			O_ToPC_branch_taraddr <= 32'h00000000;
 			O_ToPC_branchflag <= 1'b0;	
 			O_ToIDEX_next_inst_in_delayslot <= 1'b0;
@@ -285,7 +285,7 @@ module Instruction_Decoder(
 		  						    O_ToIDEX_alusel <= 3'b110;   
 		  						    O_ToRF_reg1 <= 1'b1;	
 		  						    O_ToRF_reg2 <= 1'b0;
-		  						    O_ToIDEX_link_addr <= 32'h00000000;					
+		  						    //O_ToIDEX_link_addr <= 32'h00000000;					
 			            	        O_ToPC_branch_taraddr <= O_ToIDEX_reg1;
 			            	        O_ToPC_branchflag <= 1'b1;
 			                        O_ToIDEX_next_inst_in_delayslot <= 1'b1;
@@ -310,7 +310,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];
 				ID_instvalid_local <= 1'b0;	
 		  	end
 		  	6'b001100:			begin//andi
@@ -320,7 +320,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end	 	
 		  	6'b001110:			begin//xori
@@ -330,7 +330,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end	 		
 		  	6'b001111:			begin//lui
@@ -340,7 +340,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {I_FromIFID_ins[15:0], 16'h0};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end			
 				6'b001010:			begin//slti
@@ -350,7 +350,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b001011:			begin//sltiu
@@ -358,7 +358,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_aluop <= 8'b00101011;
 		  		O_ToIDEX_alusel <= 3'b100; O_ToRF_reg1 <= 1'b1;	O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end			
 				6'b001000:			begin//addi
@@ -368,7 +368,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b001001:			begin//addiu
@@ -378,7 +378,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b000010:			begin//j
@@ -387,7 +387,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b110; 
 		  		O_ToRF_reg1 <= 1'b0;	
 		  		O_ToRF_reg2 <= 1'b0;
-		  		O_ToIDEX_link_addr <= 32'h00000000;
+		  		//O_ToIDEX_link_addr <= 32'h00000000;
 			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
 			    O_ToPC_branchflag <= 1'b1;
 			    O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
@@ -397,8 +397,8 @@ module Instruction_Decoder(
 		  		O_ToIDEX_wreg <= 1'b1;		
 		  		O_ToIDEX_aluop <= 8'b01010000;
 		  		O_ToIDEX_alusel <= 3'b110; O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b0;
-		  		O_ToIDEX_wd <= 5'b11111;	
-		  		O_ToIDEX_link_addr <= ID_pc_plus_8_local ;
+		  		//O_ToIDEX_wd <= 5'b11111;	
+		  		//O_ToIDEX_link_addr <= ID_pc_plus_8_local ;
 			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
 			    O_ToPC_branchflag <= 1'b1;
 			    O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
@@ -461,7 +461,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b111; 
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
-				O_ToIDEX_wd <= I_FromIFID_ins[20:16]; ID_instvalid_local <= 1'b0;	
+				//O_ToIDEX_wd <= I_FromIFID_ins[20:16]; ID_instvalid_local <= 1'b0;	
 				end
 				6'b101011:			begin//sw
 		  		O_ToIDEX_wreg <= 1'b0;		
@@ -528,7 +528,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end else if ( ID_op3_local == 6'b000010 ) begin//srl
 		  		O_ToIDEX_wreg <= 1'b1;		
@@ -536,7 +536,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end else if ( ID_op3_local == 6'b000011 ) begin//sra
 		  		O_ToIDEX_wreg <= 1'b1;		
@@ -544,7 +544,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end
 			end		  
