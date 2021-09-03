@@ -28,7 +28,7 @@ module EX(
     input wire [31:0] I_FromIDEX_reg1,//参与运算的源操作数一
     input wire [31:0] I_FromIDEX_reg2,//参与运算的源操作数二
     input wire I_FromIDEX_wreg,//指令执行是否 要写入目的寄存器
-    input wire I_FromIDEX_wreg_addr,//指令执行要写入的目的寄存器地址
+    input wire [31:0]I_FromIDEX_wreg_addr,//指令执行要写入的目的寄存器地址
     output reg [31:0] O_ToEXMEM_reg2,//存储指令要存储的数据，或者lwr指令要写入的目的寄存器原始值
 //    output reg O_ToEXMEM_wreg,//执行阶段指令是否最终要写入目的寄存器
 //    output reg [31:0] O_ToEXMEM_wreg_addr,//执行阶段指令最终要写入目的寄存器地址
@@ -70,49 +70,26 @@ module EX(
     output reg stallreq//请求流水暂停
     );
 
-
-	/*** 临时代码块 ***/
-		// 8'b01111100: begin  //sllv
-		// end
-		// 8'b00000010: begin  //srlv
-		// end
-		// 8'b00001011: begin  //movn
-		// exe logic
-
-				// 8'b10101001: begin //mul
-				// end
-				// 8'b00011000: begin //mult
-				// 	if((I_FromIDEX_reg1[31] ^I_FromIDEX_reg2[31]) == 1'b1) begin
-				// 		arithmetic_out <= ~hilo_temp +1;
-				// 	end
-				// end
-				// 8'b00011001: begin //multu
-				// end
-				// 8'b00011010: begin //div
-				// end
-				// 8'b00011011: begin //divu
-				// end
-
 	/** 计算层 **/
 
-	// logic
+	// logic  TODO: ori andi xori
 	reg[31:0] logic_out
 	always @(*) begin
 		if(rst == 1'b1) begin
 			logic_out <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
-				8'b0010010: begin 	//or
+				8'b00100101: begin 	//or
 					logic_out <= I_FromIDEX_reg1 | I_FromIDEX_reg2;
 				end
 				8'b00100100: begin  //and
 					logic_out <= I_FromIDEX_reg1 & I_FromIDEX_reg2;
 				end
-				8'b00100111: begin  //nor
-					logic_out <= ~(I_FromIDEX_reg1 | I_FromIDEX_reg2);
-				end
 				8'b00100110: begin  //xor
 					logic_out <= I_FromIDEX_reg1 ^ I_FromIDEX_reg2;
+				end
+				8'b00100111: begin  //nor
+					logic_out <= ~(I_FromIDEX_reg1 | I_FromIDEX_reg2);
 				end
 				default: begin
 					logic_out <= 32'h00000000;
@@ -145,7 +122,6 @@ module EX(
 
 	// exe arithmetic 
 	reg[31:0] arithmetic_out;
-	// add, sub
 	wire switch_complement_reg2;	//根据符号取补码
 	wire mux_sum;
 	wire mux_lt;
@@ -181,7 +157,7 @@ module EX(
 				// 8'b00100011: begin //subu
 				// 	arithmetic_out <= mux_sum;
 				// end
-				8'b00101010,8'b00101011: begin //slt,sltu
+				8'b00101010,8'b00101011,8'b00101010,8'b00101011: begin //slt,sltu,slti,sltiu
 					arithmetic_out <= mux_slt;
 				end
 				// 8'b00101011: begin //sltu
@@ -192,7 +168,8 @@ module EX(
 				end
 			endcase
 		end
-
+	end
+	
 	// mul
 	reg[31:0] mul_out;
 	wire switch_mult_reg1;	//处理负数
@@ -233,21 +210,63 @@ module EX(
 	// 		div_out <= 32'h00000000;
 	// 	end else begin
 	// 		case(I_FromIDEX_aluop)
-	// 			8'b00011010: begin //div
-					
+	// 			8'b00011010: begin //div		
 	// 			end
 	// 			8'b00011011: begin //divu
-					
 	// 			end
 	// 	end
 	// end
 
-	//TODO:movn
+	//movn
+	reg moveres;
+	always @ (*) begin
+		if(rst == 1`b1) begin
+			moveres <= 32'h00000000;
+		end else begin
+			case (I_FromIDEX_aluop)
+			8'b00001011: begin
+				movers <= I_FromIDEX_reg1;
+			end
+			default : begin
+				moveres <= 32'h00000000;
+			end
+			endcase
+		end
+	end
+
+	//j jal jr
 
 	/** 输出层 **/
-	//TODO: 处理输出
+	assign O_ToEXMEM_reg2 = I_FromIDEX_reg2;	//lw、sw存取的数据
+	assign O_ToEXMEM_hilo_temp = mux_mul;		//第一个执行周期的乘法结果
+	assign O_ToEXMEM_cnt = 2'b00;				//下一个时钟周期处于执行阶段的第几个始终周期
+	assign O_TOEXMEM_isindelayslot = I_TOEXMEM_isindelayslot;	//延迟槽标记
 	always @ (*) begin
-		
+		O_To_EXMEM_mem_addr <= 1'b0;	//加载存储指令对应的存储器地址
+		O_To_ID_EXMEM_wreg <= 1'b0;		//执行阶段指令最终是否有要写入目的寄存器
+		O_To_ID_EXMEM_aluop <= I_FromIDEX_aluop;		//执行的指令类型
+		O_To_ID_EXMEM_wreg_addr <= I_FromIDEX_wreg_addr;//目的寄存器地址
+
+		case (I_FromIDEX_alusel)
+			3'b001: begin //logic
+				O_To_ID_EXMEM_wreg_data <= logic_out;
+			end
+			3'b010: begin //shift
+				O_To_ID_EXMEM_wreg_data <= shift_out;
+			end
+			3'b100: begin //arithmetic
+				O_To_ID_EXMEM_wreg_data <= arithmetic_out;
+			end
+			3'b101: begin //mul
+				O_To_ID_EXMEM_wreg_data <= mul_out;
+			end
+			3'b011: begin //movn
+				O_To_ID_EXMEM_wreg_data <= movers;
+			end
+			3'b110: begin //j jal jr
+				O_To_ID_EXMEM_wreg_data <= 
+			end
+		endcase
 	end
 
 endmodule
