@@ -23,6 +23,8 @@
 module ID_EX(
     input clk,
     input rst,
+    input wire [5:0] CL_stall,//
+    input wire CL_flush,//
     input wire [2:0] ID_alusel,//译码阶段要进行运算的类型
     input wire [7:0] ID_aluop,//译码阶段指令要进行运算的子类型
     input wire [31:0] ID_reg1,//译码阶段指令要进行运算的源操作数一

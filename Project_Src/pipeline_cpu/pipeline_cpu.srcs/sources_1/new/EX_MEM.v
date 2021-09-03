@@ -23,7 +23,7 @@
 module EX_MEM(
     input clk,
     input rst,
-    input wire CL_stall,
+    input wire [5:0] CL_stall,
     input wire CL_flush,
     input wire [31:0] EX_mem_addr,//执行阶段要写的内存地址
     input wire [31:0] EX_reg2,

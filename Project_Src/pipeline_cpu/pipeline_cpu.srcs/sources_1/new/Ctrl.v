@@ -24,7 +24,9 @@ module Ctrl(
     input rst,
     input wire I_FromID_stallreq,//处于译码阶段指令是否请求流水线暂停
     input wire I_FromEX_stallreq,//处于执行阶段指令是否请求流水线暂停
-    output reg [5:0] stall//控制流水线暂停信号
+    output reg [5:0] stall,//控制流水线暂停信号
+    output reg [1:0] flush,//控制流水线暂停信号
+    output reg [31:0] O_ToPC_new_pc
 );
 always @(*) begin
     if(rst==1'b0) begin

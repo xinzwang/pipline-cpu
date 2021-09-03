@@ -40,11 +40,12 @@ module Instruction_Decoder(
     output reg [2:0] O_ToIDEX_reg2,//译码阶段要进行的运算的原操作数二
 //以下接口主要为解决数据相关建立，详细阅读P113相关内容
     input wire I_FromEX_wreg,//处于执行阶段的指令是否要写目的寄存器
-    input wire I_FromEX_wreg_addr,//处于执行阶段的指令要写目的寄存器地址
-    input wire I_FromEX_wreg_data,//处于执行阶段的指令写目的寄存器数据
+    input wire [31:0] I_FromEX_wreg_addr,//处于执行阶段的指令要写目的寄存器地址
+    input wire [31:0] I_FromEX_wreg_data,//处于执行阶段的指令写目的寄存器数据
+    input wire [7:0] I_FromEX_aluop, //处于执行阶段指令的运算子类型
     input wire I_FromMEM_wreg,//处于访存阶段的指令是否要写目的寄存器
-    input wire I_FromMEM_wreg_addr,//处于访存阶段的指令要写目的寄存器地址
-    input wire I_FromMEM_wreg_data,//处于访存阶段的指令写目的寄存器数据
+    input wire [31:0] I_FromMEM_wreg_addr,//处于访存阶段的指令要写目的寄存器地址
+    input wire [31:0] I_FromMEM_wreg_data,//处于访存阶段的指令写目的寄存器数据
 //跳转指令延迟槽信号
     input wire I_FromIDEX_isindelayslot,//当前译码指令是否处于延迟槽
     output reg O_ToIDEX_isindelayslot,//当前译码指令是否处于延迟槽  修改为reg类型
@@ -54,7 +55,6 @@ module Instruction_Decoder(
     output wire stallreq, //修改为wire类型
     output wire [31:0] O_ToIDEX_ins_addr//指令地址
 //新增变量
-//    input wire [7:0] I_FromEX_aluop_i, //处于执行阶段指令的运算子类型
 //    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
 //    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
 //    output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
@@ -90,7 +90,7 @@ module Instruction_Decoder(
   assign ID_imm_sll2_signedext_local = {{14{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0], 2'b00 };  
   assign stallreq = ID_stallreq_for_reg1_loadrelate_local | ID_stallreq_for_reg2_loadrelate_local;
   //根据输入信号的值，判断上一条指令是不是加载指令，如果是，至ID_pre_inst_is_load_local为1
-  assign ID_pre_inst_is_load_local = ((I_FromEX_aluop_i ==  8'b11100000) || (I_FromEX_aluop_i == 8'b11100100)||(I_FromEX_aluop_i == 8'b11100001) ||(I_FromEX_aluop_i == 8'b11100101)||(I_FromEX_aluop_i == 8'b11100011) ||(I_FromEX_aluop_i == 8'b11100110)||(I_FromEX_aluop_i == 8'b11100010)||(I_FromEX_aluop_i == 8'b11110000) ||(I_FromEX_aluop_i == 8'b11111000)) ? 1'b1 : 1'b0;
+  assign ID_pre_inst_is_load_local = ((I_FromEX_aluop ==  8'b11100000) || (I_FromEX_aluop == 8'b11100100)||(I_FromEX_aluop == 8'b11100001) ||(I_FromEX_aluop == 8'b11100101)||(I_FromEX_aluop == 8'b11100011) ||(I_FromEX_aluop == 8'b11100110)||(I_FromEX_aluop == 8'b11100010)||(I_FromEX_aluop == 8'b11110000) ||(I_FromEX_aluop == 8'b11111000)) ? 1'b1 : 1'b0;
   assign O_ToIDEX_inst = I_FromIFID_ins;
 
   //exceptiontype的低8bit留给外部中断，第9bit表示是否是syscall指令

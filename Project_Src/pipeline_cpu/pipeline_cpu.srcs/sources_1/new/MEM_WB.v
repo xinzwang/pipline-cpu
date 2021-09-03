@@ -35,7 +35,10 @@ module MEM_WB(
     input wire [31:0] MEM_lo_data,//写hi的值
     output reg WB_whilo,//是否要写hilo
     output reg [31:0] WB_hi_data,//写hi的值
-    output reg [31:0] WB_lo_data//写hi的值
+    output reg [31:0] WB_lo_data,//写hi的值
+    //控制
+    input wire [5:0] CL_stall,
+    input wire CL_flush
     );
 //时序控制部分，每个时钟上升沿信号传送到锁存器另一端
 always @(posedge clk) begin
