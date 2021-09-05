@@ -106,24 +106,25 @@ module EX(
 		if(rst == 1'b1) begin
 			shift_out <= 32'h00000000;
 		end else begin
-		case (I_FromIDEX_aluop)
-			8'b01111100: begin  //sll
-				shift_out <= I_FromIDEX_reg1 << I_FromIDEX_reg2[4:0];
-			end
-			8'b00000010: begin //srl
-				shift_out <= I_FromIDEX_reg1 >> I_FromIDEX_reg2[4:0];
-			end
-		 	8'b00000011: begin //sra
-				shift_out <= ({32{I_FromIDEX_reg2[31]}} << (6'd32-{1'b0,I_FromIDEX_reg1[4:0]}))| I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
-			end
-			default: begin
-				shift_out <= 32'h000000;
-			end
-		endcase
+			case (I_FromIDEX_aluop)
+				8'b01111100: begin  //sll
+					shift_out <= I_FromIDEX_reg1 << I_FromIDEX_reg2[4:0];
+				end
+				8'b00000010: begin //srl
+					shift_out <= I_FromIDEX_reg1 >> I_FromIDEX_reg2[4:0];
+				end
+				8'b00000011: begin //sra
+					shift_out <= ({32{I_FromIDEX_reg2[31]}} << (6'd32-{1'b0,I_FromIDEX_reg1[4:0]}))| I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
+				end
+				default: begin
+					shift_out <= 32'h00000000;
+				end
+			endcase
+		end
 	end
 
 	// exe arithmetic 
-	reg[31:0] arithmetic_out;
+	reg [31:0]arithmetic_out;
 	wire switch_complement_reg2;	//¸ù¾Ý·ûºÅÈ¡²¹Âë
 	wire mux_sum;
 	wire mux_lt;
@@ -220,17 +221,17 @@ module EX(
 	// end
 
 	//movn
-	reg moveres;
+	reg[31:0] movers;
 	always @ (*) begin
-		if(rst == 1`b1) begin
-			moveres <= 32'h00000000;
+		if(rst == 1'b1) begin
+			movers <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
 			8'b00001011: begin
 				movers <= I_FromIDEX_reg1;
 			end
 			default : begin
-				moveres <= 32'h00000000;
+				movers <= 32'h00000000;
 			end
 			endcase
 		end
@@ -266,7 +267,7 @@ module EX(
 				O_To_ID_EXMEM_wreg_data <= movers;
 			end
 			3'b110: begin //j jal jr
-				O_To_ID_EXMEM_wreg_data <= 
+				O_To_ID_EXMEM_wreg_data <= 32'h00000000;
 			end
 		endcase
 	end
