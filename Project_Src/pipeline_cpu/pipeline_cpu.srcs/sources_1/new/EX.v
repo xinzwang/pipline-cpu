@@ -75,7 +75,7 @@ module EX(
 	/** º∆À„≤„ **/
 
 	// logic  TODO: ori andi xori
-	reg[31:0] logic_out
+	reg[31:0] logic_out;
 	always @(*) begin
 		if(rst == 1'b1) begin
 			logic_out <= 32'h00000000;
@@ -135,7 +135,7 @@ module EX(
 					((I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31]) ||
 					(!I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31] && mux_sum[31]) ||
 					(I_FromIDEX_reg1[31] && I_FromIDEX_reg2[31] && mux_sum[31]))
-					: (I_FromIDEX_reg1 < I_FromIDEX_reg2)
+					: (I_FromIDEX_reg1 < I_FromIDEX_reg2);
 	always @ (*) begin
 		if(rst == 1'b1) begin
 			arithmetic_out <= 32'h00000000;
