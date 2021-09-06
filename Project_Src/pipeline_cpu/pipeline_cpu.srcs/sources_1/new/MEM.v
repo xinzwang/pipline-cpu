@@ -45,22 +45,22 @@ module MEM(
 	input wire                    I_FROMEX_MEM_whilo,	//访存阶段的指令是否要写HI、LO寄存?
 
     input wire[7:0]        I_FROMEX_MEM_aloup,//访存阶段的指令要进行的运算的子类?
-	input wire[31:0]          I_FROMEX_MEM_mem_addr,//访存阶段的加载?存储指令对应的存储器地?
-	input wire[31:0]          I_FROMEX_MEM_reg2,//访存阶段的存储指令要存储的数据，或?lwl、lwr指令要写入的目的寄存器的原始?
+	input wire[31:0]          I_FROMEX_MEM_mem_addr,//访存阶段的加�??存储指令对应的存储器�??
+	input wire[31:0]          I_FROMEX_MEM_reg2,//访存阶段的存储指令要存储的数据，�??lwl、lwr指令要写入的目的寄存器的原始?
 	
 	//来自外部数据存储器RAM的信?
 	input wire[31:0]          I_FROMDATA_RAM_mem_data,//从数据存储器读取的数?
 
 	//I_FROMLLbit_Llbit是LLbit寄存器的?
 	//input wire                  I_FROMLLbit_Llbit,//Llbit模块给出的Llbit寄存器的?
-	//但不?定是?新?，回写阶段可能要写LLbit，所以还要进?步判?
+	//但不?定是?�??，回写阶段可能要写LLbit，所以还要进?步判?
 	//input wire                  I_FROMMEM_WB_wb_LLbit_we,//回写阶段的指令是否要写Llbit寄存?
 	//input wire                  I_FROMMEM_WB_wb_LLbit_value,//回写阶段的要写入Llbit寄存器的?
 
 
 	input wire                   I_FROMEX_MEM_isindelayslot,
 
-	output wire                  O_TOMEM_WB_EX_isindelayslot,
+	output wire                  O_TOMEM_WB_isindelayslot,
 	//送到回写阶段的信?
 	output reg[4:0]      O_TOMEM_WB_ID_wd,//访存阶段的指令最终要写入的目的寄存器地址
 	output reg           O_TOMEM_WB_ID_wreg,//访存阶段的指令最终是否有要写入的目的寄存?
@@ -90,7 +90,7 @@ module MEM(
     
     assign O_TOMEM_WB_EX_isindelayslot = I_FROMEX_MEM_isindelayslot;
 
-  //获取?新的LLbit的??
+  //获取?新的LLbit�???
 	/*always @ (*) begin
 		if(rst == 1'b1) begin
 			LLbit <= 1'b0;
@@ -134,9 +134,9 @@ module MEM(
 			case (I_FROMEX_MEM_aloup)
 				8'b11100000:		begin//lb指令
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;//给出要访问的数据存储器地?，其值就是执行阶段计算出来的地址
-					mem_we <= 1'b0;//因为是加载操作，?以设置O_TODATA_RAM_mem_addr的?为1'b0
+					mem_we <= 1'b0;//因为是加载操作，?以设置O_TODATA_RAM_mem_addr�??�?1'b0
 					O_TODATA_RAM_mem_ce <= 1'b1;//因为要访问数据存储器，所以设置O_TODATA_RAM_mem_ce <= 1'b1
-					case (I_FROMEX_MEM_mem_addr[1:0])//根据mem_arrd?后两位，可以确定mem_sel的?，并据此从数据存储器的输入数据I_FROMEX_MEM_mem_data中获得要读取的字节，进行符号扩展
+					case (I_FROMEX_MEM_mem_addr[1:0])//根据mem_arrd?后两位，可以确定mem_sel�??，并据此从数据存储器的输入数据I_FROMEX_MEM_mem_data中获得要读取的字节，进行符号扩展
 						2'b00:	begin
 							O_TOMEM_WB_ID_wdata <= {{24{I_FROMDATA_RAM_mem_data[31]}},I_FROMDATA_RAM_mem_data[31:24]};
 							O_TODATA_RAM_mem_sel <= 4'b1000;
@@ -244,7 +244,7 @@ module MEM(
 						end
 						2'b11:	begin
 							O_TOMEM_WB_ID_wdata <= {I_FROMDATA_RAM_mem_data[7:0],I_FROMEX_MEM_reg2[23:0]};	
-						end//依据?后两位的值，将从数据存储器读取的数据与目的寄存器的原始?进行组合，得到?终要写入目的寄存器的值??
+						end//依据?后两位的值，将从数据存储器读取的数据与目的寄存器的原�??进行组合，得�??终要写入目的寄存器的�???
 						default:	begin
 							O_TOMEM_WB_ID_wdata <= 32'h00000000;
 						end
@@ -302,7 +302,7 @@ module MEM(
 						end
 						default:	begin
 							O_TODATA_RAM_mem_sel <= 4'b0000;
-						end//sb指令要写入的数据是寄存器的最低字节，将该字节复制到mem_data的其余部分，然后依据地址写出?后两位，从?确定mem_sel的??
+						end//sb指令要写入的数据是寄存器的最低字节，将该字节复制到mem_data的其余部分，然后依据地址写出?后两位，�??确定mem_sel�???
 					endcase				
 				end
 				8'b11101001:		begin//sh指令类似

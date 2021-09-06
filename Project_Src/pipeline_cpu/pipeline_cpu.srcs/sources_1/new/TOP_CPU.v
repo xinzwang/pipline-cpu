@@ -388,7 +388,7 @@ Data_Memory DM_cpu(
     .clk(clk),
     .a(MEM_DM_mem_addr),
     .d(MEM_DM_mem_data),
-    .w(MEM_DM_mem_we),
+    .we(MEM_DM_mem_we),
     .spo(DM_data)
 );
 
