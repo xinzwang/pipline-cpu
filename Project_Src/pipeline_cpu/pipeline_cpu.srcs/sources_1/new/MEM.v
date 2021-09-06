@@ -18,50 +18,50 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-//å ì‹œë‹¸ê¼¬å ì™ì˜™
+//Õ¼???Õ¼??
 
 module MEM(
 
-	input wire										rst,//å¤ä½ä¿¡å·
+	input wire										rst,//¸´Î»ĞÅºÅ
 	
-	//æ¥è‡ªæ‰§è¡Œé˜¶æ®µçš„ä¿¡æ¯	
-	input wire[4:0]       I_FROMEX_MEM_wreg,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æ˜¯å¦æœ‰è¦å†™å…¥ç›®çš„å¯„å­˜å™¨
-	input wire                    I_FROMEX_MEM_wd,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦å†™å…¥çš„ç›®çš„å¯„å­˜å™¨åœ°å€
-	input wire[31:0]					  I_FROMEX_MEM_wdata,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦å†™å…¥ç›®çš„å¯„å­˜å™¨çš„å€¼
-	input wire[31:0]           I_FROMEX_MEM_hi,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦å†™å…¥HIå¯„å­˜å™¨çš„å€¼
-	input wire[31:0]           I_FROMEX_MEM_lo,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦å†™å…¥LOå¯„å­˜å™¨çš„å€¼
-	input wire                    I_FROMEX_MEM_whilo,	//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æ˜¯å¦è¦å†™HIã€LOå¯„å­˜å™¨
+	//À´×ÔÖ´ĞĞ½×¶ÎµÄĞÅÏ¢	
+	input wire[4:0]       I_FROMEX_MEM_wreg,//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÓĞÒªĞ´ÈëÄ¿µÄ¼Ä´æÆ÷
+	input wire                    I_FROMEX_MEM_wd,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒªĞ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
+	input wire[31:0]					  I_FROMEX_MEM_wdata,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒªĞ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ
+	input wire[31:0]           I_FROMEX_MEM_hi,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒªĞ´ÈëHI¼Ä´æÆ÷µÄÖµ
+	input wire[31:0]           I_FROMEX_MEM_lo,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒªĞ´ÈëLO¼Ä´æÆ÷µÄÖµ
+	input wire                    I_FROMEX_MEM_whilo,	//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªĞ´HI¡¢LO¼Ä´æÆ÷
 
-  input wire[7:0]        I_FROMEX_MEM_aloup,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦è¿›è¡Œçš„è¿ç®—çš„å­ç±»å‹
-	input wire[31:0]          I_FROMEX_MEM_mem_addr,//è®¿å­˜é˜¶æ®µçš„åŠ è½½ã€å­˜å‚¨æŒ‡ä»¤å¯¹åº”çš„å­˜å‚¨å™¨åœ°å€
-	input wire[31:0]          I_FROMEX_MEM_reg2,//è®¿å­˜é˜¶æ®µçš„å­˜å‚¨æŒ‡ä»¤è¦å­˜å‚¨çš„æ•°æ®ï¼Œæˆ–è€…lwlã€lwræŒ‡ä»¤è¦å†™å…¥çš„ç›®çš„å¯„å­˜å™¨çš„åŸå§‹å€¼
+  input wire[7:0]        I_FROMEX_MEM_aloup,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒª½øĞĞµÄÔËËãµÄ×ÓÀàĞÍ
+	input wire[31:0]          I_FROMEX_MEM_mem_addr,//·Ã´æ½×¶ÎµÄ¼ÓÔØ¡¢´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
+	input wire[31:0]          I_FROMEX_MEM_reg2,//·Ã´æ½×¶ÎµÄ´æ´¢Ö¸ÁîÒª´æ´¢µÄÊı¾İ£¬»òÕßlwl¡¢lwrÖ¸ÁîÒªĞ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µÄÔ­Ê¼Öµ
 	
-	//æ¥è‡ªå¤–éƒ¨æ•°æ®å­˜å‚¨å™¨RAMçš„ä¿¡æ¯
-	input wire[31:0]          I_FROMDATA_RAM_mem_data,//ä»æ•°æ®å­˜å‚¨å™¨è¯»å–çš„æ•°æ®
+	//À´×ÔÍâ²¿Êı¾İ´æ´¢Æ÷RAMµÄĞÅÏ¢
+	input wire[31:0]          I_FROMDATA_RAM_mem_data,//´ÓÊı¾İ´æ´¢Æ÷¶ÁÈ¡µÄÊı¾İ
 
-	//I_FROMLLbit_Llbitæ˜¯LLbitå¯„å­˜å™¨çš„å€¼
-	input wire                  I_FROMLLbit_Llbit,//Llbitæ¨¡å—ç»™å‡ºçš„Llbitå¯„å­˜å™¨çš„å€¼
-	//ä½†ä¸ä¸€å®šæ˜¯æœ€æ–°å€¼ï¼Œå›å†™é˜¶æ®µå¯èƒ½è¦å†™LLbitï¼Œæ‰€ä»¥è¿˜è¦è¿›ä¸€æ­¥åˆ¤æ–­
-	input wire                  I_FROMMEM_WB_wb_LLbit_we,//å›å†™é˜¶æ®µçš„æŒ‡ä»¤æ˜¯å¦è¦å†™Llbitå¯„å­˜å™¨
-	input wire                  I_FROMMEM_WB_wb_LLbit_value,//å›å†™é˜¶æ®µçš„è¦å†™å…¥Llbitå¯„å­˜å™¨çš„å€¼
+	//I_FROMLLbit_LlbitÊÇLLbit¼Ä´æÆ÷µÄÖµ
+	input wire                  I_FROMLLbit_Llbit,//LlbitÄ£¿é¸ø³öµÄLlbit¼Ä´æÆ÷µÄÖµ
+	//µ«²»Ò»¶¨ÊÇ×îĞÂÖµ£¬»ØĞ´½×¶Î¿ÉÄÜÒªĞ´LLbit£¬ËùÒÔ»¹Òª½øÒ»²½ÅĞ¶Ï
+	input wire                  I_FROMMEM_WB_wb_LLbit_we,//»ØĞ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªĞ´Llbit¼Ä´æÆ÷
+	input wire                  I_FROMMEM_WB_wb_LLbit_value,//»ØĞ´½×¶ÎµÄÒªĞ´ÈëLlbit¼Ä´æÆ÷µÄÖµ
 	
-	//é€åˆ°å›å†™é˜¶æ®µçš„ä¿¡æ¯
-	output reg[4:0]      O_TOMEM_WB_wd,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆè¦å†™å…¥çš„ç›®çš„å¯„å­˜å™¨åœ°å€
-	output reg                   O_TOMEM_WB_wreg,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆæ˜¯å¦æœ‰è¦å†™å…¥çš„ç›®çš„å¯„å­˜å™¨
-	output reg[31:0]					 O_TOMEM_WB_wdata,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆè¦å†™å…¥ç›®çš„å¯„å­˜å™¨çš„å€¼
-	output reg[31:0]          O_TOMEM_WB_hi,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆè¦å†™å…¥HIå¯„å­˜å™¨çš„å€¼
-	output reg[31:0]          O_TOMEM_WB_lo,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆè¦å†™å…¥LOå¯„å­˜å™¨çš„å€¼
-	output reg                   O_TOMEM_WB_whilo,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æœ€ç»ˆæ˜¯å¦è¦å†™HIã€LOå¯„å­˜å™¨çš„å€¼
+	//ËÍµ½»ØĞ´½×¶ÎµÄĞÅÏ¢
+	output reg[4:0]      O_TOMEM_WB_wd,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÒªĞ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
+	output reg                   O_TOMEM_WB_wreg,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÊÇ·ñÓĞÒªĞ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷
+	output reg[31:0]					 O_TOMEM_WB_wdata,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÒªĞ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ
+	output reg[31:0]          O_TOMEM_WB_hi,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÒªĞ´ÈëHI¼Ä´æÆ÷µÄÖµ
+	output reg[31:0]          O_TOMEM_WB_lo,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÒªĞ´ÈëLO¼Ä´æÆ÷µÄÖµ
+	output reg                   O_TOMEM_WB_whilo,//·Ã´æ½×¶ÎµÄÖ¸Áî×îÖÕÊÇ·ñÒªĞ´HI¡¢LO¼Ä´æÆ÷µÄÖµ
 
-	output reg                   O_TOMEM_WB_Llbit_we,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤æ˜¯å¦è¦å†™Llbitå¯„å­˜å™¨
-	output reg                   O_TOMEM_WB_Llbit_value,//è®¿å­˜é˜¶æ®µçš„æŒ‡ä»¤è¦å†™å…¥Llbitå¯„å­˜å™¨çš„å€¼
+	output reg                   O_TOMEM_WB_Llbit_we,//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªĞ´Llbit¼Ä´æÆ÷
+	output reg                   O_TOMEM_WB_Llbit_value,//·Ã´æ½×¶ÎµÄÖ¸ÁîÒªĞ´ÈëLlbit¼Ä´æÆ÷µÄÖµ
 	
-	//é€åˆ°å›å¤–éƒ¨æ•°æ®å­˜å‚¨å™¨RAMçš„ä¿¡æ¯
-	output reg[31:0]          O_TODATA_RAM_mem_addr,//è¦è®¿é—®çš„æ•°æ®å­˜å‚¨å™¨çš„åœ°å€
-	output wire					O_TODATA_RAM_mem_we,//æ˜¯å¦æ˜¯å†™æ“ä½œï¼Œä¸º1è¡¨ç¤ºæ˜¯å†™æ“ä½œ
-	output reg[3:0]              O_TODATA_RAM_mem_sel,//å­—èŠ‚é€‰æ‹©ä¿¡å·
-	output reg[31:0]          O_TODATA_RAM_mem_data,//è¦å†™å…¥æ•°æ®å­˜å‚¨å™¨çš„æ•°æ®
-	output reg                   O_TODATA_RAM_mem_ce	//æ•°æ®å­˜å‚¨å™¨ä½¿èƒ½ä¿¡å·
+	//ËÍµ½»ØÍâ²¿Êı¾İ´æ´¢Æ÷RAMµÄĞÅÏ¢
+	output reg[31:0]          O_TODATA_RAM_mem_addr,//Òª·ÃÎÊµÄÊı¾İ´æ´¢Æ÷µÄµØÖ·
+	output wire					O_TODATA_RAM_mem_we,//ÊÇ·ñÊÇĞ´²Ù×÷£¬Îª1±íÊ¾ÊÇĞ´²Ù×÷
+	output reg[3:0]              O_TODATA_RAM_mem_sel,//×Ö½ÚÑ¡ÔñĞÅºÅ
+	output reg[31:0]          O_TODATA_RAM_mem_data,//ÒªĞ´ÈëÊı¾İ´æ´¢Æ÷µÄÊı¾İ
+	output reg                   O_TODATA_RAM_mem_ce	//Êı¾İ´æ´¢Æ÷Ê¹ÄÜĞÅºÅ
 	
 );
 
@@ -69,10 +69,10 @@ module MEM(
 	wire[31:0] zero32;
 	reg                   mem_we;
 
-	assign O_TODATA_RAM_mem_we = mem_we ;//å¤–éƒ¨æ•°æ®å­˜å‚¨å™¨RAMçš„è¯»ã€å†™ä¿¡å·
+	assign O_TODATA_RAM_mem_we = mem_we ;//Íâ²¿Êı¾İ´æ´¢Æ÷RAMµÄ¶Á¡¢Ğ´ĞÅºÅ
 	assign zero32 = 32'h00000000;
 
-  //è·å–æœ€æ–°çš„LLbitçš„å€¼
+  //»ñÈ¡×îĞÂµÄLLbitµÄÖµ
 	always @ (*) begin
 		if(rst == 1'b1) begin
 			LLbit <= 1'b0;
@@ -114,11 +114,11 @@ module MEM(
 		  O_TOMEM_WB_Llbit_we <= 1'b0;
 		  O_TOMEM_WB_Llbit_value <= 1'b0;			
 			case (I_FROMEX_MEM_aloup)
-				8'b11100000:		begin//lbæŒ‡ä»¤
-					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;//ç»™å‡ºè¦è®¿é—®çš„æ•°æ®å­˜å‚¨å™¨åœ°å€ï¼Œå…¶å€¼å°±æ˜¯æ‰§è¡Œé˜¶æ®µè®¡ç®—å‡ºæ¥çš„åœ°å€
-					mem_we <= 1'b0;//å› ä¸ºæ˜¯åŠ è½½æ“ä½œï¼Œæ‰€ä»¥è®¾ç½®O_TODATA_RAM_mem_addrçš„å€¼ä¸º1'b0
-					O_TODATA_RAM_mem_ce <= 1'b1;//å› ä¸ºè¦è®¿é—®æ•°æ®å­˜å‚¨å™¨ï¼Œæ‰€ä»¥è®¾ç½®O_TODATA_RAM_mem_ce <= 1'b1
-					case (I_FROMEX_MEM_mem_addr[1:0])//æ ¹æ®mem_arrdæœ€åä¸¤ä½ï¼Œå¯ä»¥ç¡®å®šmem_selçš„å€¼ï¼Œå¹¶æ®æ­¤ä»æ•°æ®å­˜å‚¨å™¨çš„è¾“å…¥æ•°æ®I_FROMEX_MEM_mem_dataä¸­è·å¾—è¦è¯»å–çš„å­—èŠ‚ï¼Œè¿›è¡Œç¬¦å·æ‰©å±•
+				8'b11100000:		begin//lbÖ¸Áî
+					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;//¸ø³öÒª·ÃÎÊµÄÊı¾İ´æ´¢Æ÷µØÖ·£¬ÆäÖµ¾ÍÊÇÖ´ĞĞ½×¶Î¼ÆËã³öÀ´µÄµØÖ·
+					mem_we <= 1'b0;//ÒòÎªÊÇ¼ÓÔØ²Ù×÷£¬ËùÒÔÉèÖÃO_TODATA_RAM_mem_addrµÄÖµÎª1'b0
+					O_TODATA_RAM_mem_ce <= 1'b1;//ÒòÎªÒª·ÃÎÊÊı¾İ´æ´¢Æ÷£¬ËùÒÔÉèÖÃO_TODATA_RAM_mem_ce <= 1'b1
+					case (I_FROMEX_MEM_mem_addr[1:0])//¸ù¾İmem_arrd×îºóÁ½Î»£¬¿ÉÒÔÈ·¶¨mem_selµÄÖµ£¬²¢¾İ´Ë´ÓÊı¾İ´æ´¢Æ÷µÄÊäÈëÊı¾İI_FROMEX_MEM_mem_dataÖĞ»ñµÃÒª¶ÁÈ¡µÄ×Ö½Ú£¬½øĞĞ·ûºÅÀ©Õ¹
 						2'b00:	begin
 							O_TOMEM_WB_wdata <= {{24{I_FROMDATA_RAM_mem_data[31]}},I_FROMDATA_RAM_mem_data[31:24]};
 							O_TODATA_RAM_mem_sel <= 4'b1000;
@@ -140,7 +140,7 @@ module MEM(
 						end
 					endcase
 				end
-				8'b11100100:		begin//lbuæŒ‡ä»¤
+				8'b11100100:		begin//lbuÖ¸Áî
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b0;
 					O_TODATA_RAM_mem_ce <= 1'b1;
@@ -166,7 +166,7 @@ module MEM(
 						end
 					endcase				
 				end
-				8'b11100001:		begin//lhæŒ‡ä»¤
+				8'b11100001:		begin//lhÖ¸Áî
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b0;
 					O_TODATA_RAM_mem_ce <= 1'b1;
@@ -184,7 +184,7 @@ module MEM(
 						end
 					endcase					
 				end
-				8'b11100101:		begin//lhuæŒ‡ä»¤
+				8'b11100101:		begin//lhuÖ¸Áî
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b0;
 					O_TODATA_RAM_mem_ce <= 1'b1;
@@ -202,18 +202,18 @@ module MEM(
 						end
 					endcase				
 				end
-				8'b11100011:		begin//lwæŒ‡ä»¤
+				8'b11100011:		begin//lwÖ¸Áî
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b0;
 					O_TOMEM_WB_wdata <= I_FROMDATA_RAM_mem_data;
 					O_TODATA_RAM_mem_sel <= 4'b1111;		
 					O_TODATA_RAM_mem_ce <= 1'b1;
 				end
-				8'b11100010:		begin//lwlæŒ‡ä»¤
-					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};//ç»™å‡ºè¦è®¿é—®çš„æ•°æ®å­˜å‚¨å™¨åœ°å€ï¼Œå…¶å€¼å°±æ˜¯è®¡ç®—å‡ºæ¥çš„åœ°å€ï¼Œä½†æ˜¯æœ€åä¸¤ä½è¦è®¾ç½®ä¸º0ï¼Œå› ä¸ºlwlæŒ‡ä»¤è¦ä»RAMä¸­è¯»å‡ºä¸€ä¸ªå­—ï¼Œæ‰€ä»¥éœ€è¦å°†åœ°å€å¯¹é½
-					mem_we <= 1'b0;//å› ä¸ºæ˜¯åŠ è½½æ“ä½œï¼Œæ‰€ä»¥è®¾ç½®
+				8'b11100010:		begin//lwlÖ¸Áî
+					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};//¸ø³öÒª·ÃÎÊµÄÊı¾İ´æ´¢Æ÷µØÖ·£¬ÆäÖµ¾ÍÊÇ¼ÆËã³öÀ´µÄµØÖ·£¬µ«ÊÇ×îºóÁ½Î»ÒªÉèÖÃÎª0£¬ÒòÎªlwlÖ¸ÁîÒª´ÓRAMÖĞ¶Á³öÒ»¸ö×Ö£¬ËùÒÔĞèÒª½«µØÖ·¶ÔÆë
+					mem_we <= 1'b0;//ÒòÎªÊÇ¼ÓÔØ²Ù×÷£¬ËùÒÔÉèÖÃ
 					O_TODATA_RAM_mem_sel <= 4'b1111;
-					O_TODATA_RAM_mem_ce <= 1'b1;//å› ä¸ºè¦è®¿é—®æ•°æ®å­˜å‚¨å™¨ï¼Œæ‰€ä»¥è®¾ç½®
+					O_TODATA_RAM_mem_ce <= 1'b1;//ÒòÎªÒª·ÃÎÊÊı¾İ´æ´¢Æ÷£¬ËùÒÔÉèÖÃ
 					case (I_FROMEX_MEM_mem_addr[1:0])
 						2'b00:	begin
 							O_TOMEM_WB_wdata <= I_FROMDATA_RAM_mem_data[31:0];
@@ -226,13 +226,13 @@ module MEM(
 						end
 						2'b11:	begin
 							O_TOMEM_WB_wdata <= {I_FROMDATA_RAM_mem_data[7:0],I_FROMEX_MEM_reg2[23:0]};	
-						end//ä¾æ®æœ€åä¸¤ä½çš„å€¼ï¼Œå°†ä»æ•°æ®å­˜å‚¨å™¨è¯»å–çš„æ•°æ®ä¸ç›®çš„å¯„å­˜å™¨çš„åŸå§‹å€¼è¿›è¡Œç»„åˆï¼Œå¾—åˆ°æœ€ç»ˆè¦å†™å…¥ç›®çš„å¯„å­˜å™¨çš„å€¼ã€‚
+						end//ÒÀ¾İ×îºóÁ½Î»µÄÖµ£¬½«´ÓÊı¾İ´æ´¢Æ÷¶ÁÈ¡µÄÊı¾İÓëÄ¿µÄ¼Ä´æÆ÷µÄÔ­Ê¼Öµ½øĞĞ×éºÏ£¬µÃµ½×îÖÕÒªĞ´ÈëÄ¿µÄ¼Ä´æÆ÷µÄÖµ¡£
 						default:	begin
 							O_TOMEM_WB_wdata <= 32'h00000000;
 						end
 					endcase				
 				end
-				8'b11100110:		begin//lwræŒ‡ä»¤å’ŒlwlæŒ‡ä»¤ç±»ä¼¼
+				8'b11100110:		begin//lwrÖ¸ÁîºÍlwlÖ¸ÁîÀàËÆ
 					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};
 					mem_we <= 1'b0;
 					O_TODATA_RAM_mem_sel <= 4'b1111;
@@ -264,11 +264,11 @@ module MEM(
 		  		O_TODATA_RAM_mem_sel <= 4'b1111;			
 		  		O_TODATA_RAM_mem_ce <= 1'b1;					
 				end				
-				8'b11101000:		begin//sbæŒ‡ä»¤
-					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;//è®¿é—®çš„æ•°æ®å­˜å‚¨å™¨åœ°å€å°±æ˜¯æ‰§è¡Œé˜¶æ®µè®¡ç®—å‡ºæ¥çš„åœ°å€	
-					mem_we <= 1'b1;//å› ä¸ºæ˜¯å­˜å‚¨æ“ä½œæ‰€ä»¥è®¾ç½®å¦‚æ­¤
+				8'b11101000:		begin//sbÖ¸Áî
+					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;//·ÃÎÊµÄÊı¾İ´æ´¢Æ÷µØÖ·¾ÍÊÇÖ´ĞĞ½×¶Î¼ÆËã³öÀ´µÄµØÖ·	
+					mem_we <= 1'b1;//ÒòÎªÊÇ´æ´¢²Ù×÷ËùÒÔÉèÖÃÈç´Ë
 					O_TODATA_RAM_mem_data <= {I_FROMEX_MEM_reg2[7:0],I_FROMEX_MEM_reg2[7:0],I_FROMEX_MEM_reg2[7:0],I_FROMEX_MEM_reg2[7:0]};
-					O_TODATA_RAM_mem_ce <= 1'b1;//å› ä¸ºè¦è®¿é—®æ•°æ®å­˜å‚¨å™¨æ‰€ä»¥è®¾ç½®å¦‚æ­¤	
+					O_TODATA_RAM_mem_ce <= 1'b1;//ÒòÎªÒª·ÃÎÊÊı¾İ´æ´¢Æ÷ËùÒÔÉèÖÃÈç´Ë	
 					case (I_FROMEX_MEM_mem_addr[1:0])
 						2'b00:	begin
 							O_TODATA_RAM_mem_sel <= 4'b1000;
@@ -284,10 +284,10 @@ module MEM(
 						end
 						default:	begin
 							O_TODATA_RAM_mem_sel <= 4'b0000;
-						end//sbæŒ‡ä»¤è¦å†™å…¥çš„æ•°æ®æ˜¯å¯„å­˜å™¨çš„æœ€ä½å­—èŠ‚ï¼Œå°†è¯¥å­—èŠ‚å¤åˆ¶åˆ°mem_dataçš„å…¶ä½™éƒ¨åˆ†ï¼Œç„¶åä¾æ®åœ°å€å†™å‡ºæœ€åä¸¤ä½ï¼Œä»è€Œç¡®å®šmem_selçš„å€¼
+						end//sbÖ¸ÁîÒªĞ´ÈëµÄÊı¾İÊÇ¼Ä´æÆ÷µÄ×îµÍ×Ö½Ú£¬½«¸Ã×Ö½Ú¸´ÖÆµ½mem_dataµÄÆäÓà²¿·Ö£¬È»ºóÒÀ¾İµØÖ·Ğ´³ö×îºóÁ½Î»£¬´Ó¶øÈ·¶¨mem_selµÄÖµ
 					endcase				
 				end
-				8'b11101001:		begin//shæŒ‡ä»¤ç±»ä¼¼
+				8'b11101001:		begin//shÖ¸ÁîÀàËÆ
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b1;
 					O_TODATA_RAM_mem_data <= {I_FROMEX_MEM_reg2[15:0],I_FROMEX_MEM_reg2[15:0]};
@@ -304,17 +304,17 @@ module MEM(
 						end
 					endcase						
 				end
-				8'b11101011:		begin//swæŒ‡ä»¤ä¸sbç±»ä¼¼
+				8'b11101011:		begin//swÖ¸ÁîÓësbÀàËÆ
 					O_TODATA_RAM_mem_addr <= I_FROMEX_MEM_mem_addr;
 					mem_we <= 1'b1;
 					O_TODATA_RAM_mem_data <= I_FROMEX_MEM_reg2;
 					O_TODATA_RAM_mem_sel <= 4'b1111;			
 					O_TODATA_RAM_mem_ce <= 1'b1;
 				end
-				8'b11101010:		begin//swlæŒ‡ä»¤
-					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};//ç»™å‡ºè¦è®¿é—®çš„æ•°æ®å­˜å‚¨å™¨åœ°å€ï¼Œå…¶å€¼å°±æ˜¯æ‰§è¡Œé˜¶æ®µè®¡ç®—å‡ºæ¥çš„åœ°å€ã€‚ä½†æœ€åä¸¤ä½è¦è®¾ç½®0ï¼Œå› ä¸ºswlæŒ‡ä»¤æœ€å¤šå¯èƒ½éœ€è¦å‘æ•°æ®å­˜å‚¨å™¨å†™å…¥ä¸€ä¸ªå­—
-					mem_we <= 1'b1;//å› ä¸ºæ˜¯å­˜å‚¨æ“ä½œï¼Œæ‰€ä»¥è®¾ç½®
-					O_TODATA_RAM_mem_ce <= 1'b1;//å› ä¸ºè®¿å­˜æ‰€ä»¥è®¾ç½®
+				8'b11101010:		begin//swlÖ¸Áî
+					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};//¸ø³öÒª·ÃÎÊµÄÊı¾İ´æ´¢Æ÷µØÖ·£¬ÆäÖµ¾ÍÊÇÖ´ĞĞ½×¶Î¼ÆËã³öÀ´µÄµØÖ·¡£µ«×îºóÁ½Î»ÒªÉèÖÃ0£¬ÒòÎªswlÖ¸Áî×î¶à¿ÉÄÜĞèÒªÏòÊı¾İ´æ´¢Æ÷Ğ´ÈëÒ»¸ö×Ö
+					mem_we <= 1'b1;//ÒòÎªÊÇ´æ´¢²Ù×÷£¬ËùÒÔÉèÖÃ
+					O_TODATA_RAM_mem_ce <= 1'b1;//ÒòÎª·Ã´æËùÒÔÉèÖÃ
 					case (I_FROMEX_MEM_mem_addr[1:0])
 						2'b00:	begin						  
 							O_TODATA_RAM_mem_sel <= 4'b1111;
@@ -337,7 +337,7 @@ module MEM(
 						end
 					endcase							
 				end
-				8'b11101110:		begin//swræŒ‡ä»¤
+				8'b11101110:		begin//swrÖ¸Áî
 					O_TODATA_RAM_mem_addr <= {I_FROMEX_MEM_mem_addr[31:2], 2'b00};
 					mem_we <= 1'b1;
 					O_TODATA_RAM_mem_ce <= 1'b1;
@@ -378,7 +378,7 @@ module MEM(
 					end
 				end				
 				default:		begin
-          //ä»€ä¹ˆä¹Ÿä¸åš
+          //Ê²Ã´Ò²²»×ö
 				end
 			endcase							
 		end    //if
