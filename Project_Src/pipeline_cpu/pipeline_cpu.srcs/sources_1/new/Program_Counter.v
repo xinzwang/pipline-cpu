@@ -32,4 +32,20 @@ module Program_Counter(
     //output reg ce//pc使能信号
 );
 //code here,notice comment
+
+always @(posedge clk) begin
+    if(I_FromCL_flush == 1'b1) begin
+        O_ToIM_IFID_pc <= I_FromCL_newpc;
+    end else if(I_FromCL_stall[0] == 1'b0) begin
+        if (I_FromID_branch_taraddr == 1'b1) begin
+            pc <= I_FromID_branch_taraddr;
+        end else begin
+            pc <= pc  + 4;
+        end
+    end else begin
+        // 流水线暂停  PC维持不变
+        // pc <= pc + 4;
+    end
+end
+
 endmodule
