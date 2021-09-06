@@ -464,22 +464,4 @@ Register_File RF_cpu(
     .O_ToID_rdata2(RF_ID_reg2_data)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 endmodule
