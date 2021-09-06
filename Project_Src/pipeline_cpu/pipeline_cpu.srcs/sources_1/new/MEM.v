@@ -383,4 +383,4 @@ module MEM(
 			endcase							
 		end    //if
 	end      //always
-			
+endmodule
