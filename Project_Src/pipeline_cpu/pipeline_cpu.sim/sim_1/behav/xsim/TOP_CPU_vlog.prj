@@ -9,6 +9,7 @@ verilog xil_defaultlib  \
 "../../../../pipeline_cpu.srcs/sources_1/new/ID_EX.v" \
 "../../../../pipeline_cpu.srcs/sources_1/new/IF_ID.v" \
 "../../../../pipeline_cpu.srcs/sources_1/new/Instruction_Decoder.v" \
+"../../../../pipeline_cpu.srcs/sources_1/new/MEM.v" \
 "../../../../pipeline_cpu.srcs/sources_1/new/MEM_WB.v" \
 "../../../../pipeline_cpu.srcs/sources_1/new/Program_Counter.v" \
 "../../../../pipeline_cpu.srcs/sources_1/new/Register_File.v" \

@@ -62,7 +62,7 @@ module EX(
     input wire I_FromIDEX_isindelayslot,//延迟槽标记
     output wire O_TOEXMEM_isindelayslot,//延迟槽标记
 //与访存，ID相关的接口
-    output reg O_To_EXMEM_mem_addr,//加载存储指令对应的存储器地址
+    output reg [31:0]O_To_EXMEM_mem_addr,//加载存储指令对应的存储器地址
     output reg O_To_ID_EXMEM_wreg,//执行阶段指令最终是否有要写入目的寄存器
     output reg [7:0] O_To_ID_EXMEM_aluop,//执行阶段指令进行的运算子类型
     output reg [31:0] O_To_ID_EXMEM_wreg_addr,//加载存储指令对应的存储器地址
@@ -132,7 +132,7 @@ module EX(
 								 (I_FromIDEX_aluop == 8'b00100011) ?
 								  ~(I_FromIDEX_reg2)+1 :I_FromIDEX_reg2;
 	assign mux_sum = I_FromIDEX_reg1 + switch_complement_reg2;
-	assign mux_lt = ((I_FromEX_aluop_i == 8'b00101010)) ?
+	assign mux_lt = ((I_FromIDEX_aluop == 8'b00101010)) ?
 					((I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31]) ||
 					(!I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31] && mux_sum[31]) ||
 					(I_FromIDEX_reg1[31] && I_FromIDEX_reg2[31] && mux_sum[31]))
@@ -161,7 +161,7 @@ module EX(
 				// 	arithmetic_out <= mux_sum;
 				// end
 				8'b00101010,8'b00101011,8'b00101010,8'b00101011: begin //slt,sltu,slti,sltiu
-					arithmetic_out <= mux_slt;
+					arithmetic_out <= mux_lt;
 				end
 				// 8'b00101011: begin //sltu
 				// 	arithmetic_out <= mux_slt;
@@ -181,17 +181,17 @@ module EX(
 	assign switch_mult_reg1 = (((I_FromIDEX_aluop == 8'b00011000) || 
 							  (I_FromIDEX_aluop == 8'b00011000) || 
 							  (I_FromIDEX_aluop == 8'b00011001)) &&
-							  ( I_FROMIDEX_reg1[31] == 1'b1)) ? 
+							  ( I_FromIDEX_reg1[31] == 1'b1)) ? 
 							  (~I_FromIDEX_reg1+1) : I_FromIDEX_reg1;
 	assign switch_mult_reg2 = (((I_FromIDEX_aluop == 8'b00011000) || 
 							  (I_FromIDEX_aluop == 8'b00011000) || 
 							  (I_FromIDEX_aluop == 8'b00011001)) &&
-							  ( I_FROMIDEX_reg2[31] == 1'b1)) ? 
+							  ( I_FromIDEX_reg2[31] == 1'b1)) ? 
 							  (~I_FromIDEX_reg2+1) : I_FromIDEX_reg2;
 	assign mux_mul = I_FromIDEX_reg1 * I_FromIDEX_reg2;
 	always @ (*) begin
 		if(rst==1'b1) begin
-			mul_res <= 32'h00000000;
+			mul_out <= 32'h00000000;
 		end else if (I_FromIDEX_aluop == 8'b00011000 || 		//mult
 			I_FromIDEX_aluop == 8'b10101001) begin		//mul
 				if((I_FromIDEX_reg1[31] ^I_FromIDEX_reg2[31]) == 1'b1) begin
@@ -240,11 +240,11 @@ module EX(
 	//j jal jr
 
 	/** 输出层 **/
-	assign O_ToEXMEM_reg2 = I_FromIDEX_reg2;	//lw、sw存取的数据
 	assign O_ToEXMEM_hilo_temp = mux_mul;		//第一个执行周期的乘法结果
 	assign O_ToEXMEM_cnt = 2'b00;				//下一个时钟周期处于执行阶段的第几个始终周期
-	assign O_TOEXMEM_isindelayslot = I_TOEXMEM_isindelayslot;	//延迟槽标记
+	assign O_TOEXMEM_isindelayslot = I_FromIDEX_isindelayslot;	//延迟槽标记
 	always @ (*) begin
+		O_ToEXMEM_reg2 <= I_FromIDEX_reg2;	//lw、sw存取的数据
 		O_To_EXMEM_mem_addr <= 1'b0;	//加载存储指令对应的存储器地址
 		O_To_ID_EXMEM_wreg <= 1'b0;		//执行阶段指令最终是否有要写入目的寄存器
 		O_To_ID_EXMEM_aluop <= I_FromIDEX_aluop;		//执行的指令类型
