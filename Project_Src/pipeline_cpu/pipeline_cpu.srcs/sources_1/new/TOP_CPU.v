@@ -359,14 +359,14 @@ MEM MEM_cpu(
     .O_TOMEM_WB_EX_whilo(MEM_OUT_4),
     .O_TOMEM_WB_EX_hi(MEM_OUT_5),
     .O_TOMEM_WB_EX_lo(MEM_OUT_6),
-    .I_FROMEX_MEM_aluop(EXMEM_MEM_aluop),
+    .I_FROMEX_MEM_aloup(EXMEM_MEM_aluop),
     .I_FROMEX_MEM_mem_addr(EXMEM_MEM_mem_addr),
-    .I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
-    .I_FROMDM_data(DM_data),
-    .O_ToDM_data(),
-    .O_TODM_we(),
-    .O_TODM_we_data(),
-    .O_TODM_sel(),
+//    .I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
+    . I_FROMDATA_RAM_mem_data(DM_data),
+	.O_TODATA_RAM_mem_addr(),//要访问的数据存储器的地址
+	.O_TODATA_RAM_mem_we(),//是否是写操作，为1表示是写操作
+	.O_TODATA_RAM_mem_sel(),//字节选择信号
+	.O_TODATA_RAM_mem_data(),//要写入数据存储器的数�?
     .I_FROMEX_MEM_isindelayslot(EXMEM_MEM_isindelayslot),
     .O_TOMEM_WB_isindelayslot()
 );
