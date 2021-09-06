@@ -373,7 +373,15 @@ module mem(
 						default:	begin
 							O_TODATA_RAM_mem_sel <= 4'b0000;
 						end
-					endcase															
+					endcase											
+				end 
+				
+				default:		begin
+          //什么也不做
+				end
+			endcase							
+		end    //if
 	end      //always
-	
+			
+
 endmodule
