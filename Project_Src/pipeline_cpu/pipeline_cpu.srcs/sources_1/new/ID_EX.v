@@ -65,7 +65,7 @@ always @(posedge clk) begin
         EX_wreg_addr<=ID_wreg_addr;
         EX_wreg<=ID_wreg;
         EX_ins<=ID_ins;
-        EX_ins_addr<=ID_ins;
+        EX_ins_addr<=ID_ins_addr;
         EX_isindelayslot<=ID_isindelayslot;
     end
 end

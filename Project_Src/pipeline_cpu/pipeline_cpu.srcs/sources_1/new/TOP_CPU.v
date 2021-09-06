@@ -111,7 +111,7 @@ wire EX_EXMEM_isindelaysolt;//ï¿½Ã´ï¿½×¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ó³Ù²ï¿½Ö¸ï¿½ï¿?
 wire [31:0] EX_EXMEM_ins_addr;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ö·
 wire [7:0] EX_EXMEM_aluop;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 wire EX_EXMEM_wreg;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
-wire [31:0] EX_EXMEM_wreg_addr;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+wire [4:0] EX_EXMEM_wreg_addr;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 wire [31:0] EX_EXMEM_wreg_data;//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½Öµ
 //MEMÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wire EXMEM_MEM_wreg;//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿?
@@ -200,7 +200,7 @@ Instruction_Decoder ID_cpu(
     .O_ToRF_reg1_addr(ID_RF_reg1_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úµï¿½Ö·
     .O_ToRF_reg2_addr(ID_RF_reg2_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úµï¿½Ö·
     .O_ToIDEX_wreg(ID_IDEX_wreg),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»Ð´ï¿½Ë¿ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
-    .O_ToRF_wreg_addr(ID_IDEX_wreg_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»Ð´ï¿½Ë¿Úµï¿½Ö·
+    .O_ToIDEX_wreg_addr(ID_IDEX_wreg_addr),//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Õ»Ð´ï¿½Ë¿Úµï¿½Ö·
     .O_ToIDEX_aluop(ID_IDEX_aluop),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
     .O_ToIDEX_alusel(ID_IDEX_alusel),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     .O_ToIDEX_reg1(ID_IDEX_reg1),//ï¿½ï¿½ï¿½ï¿½×¶ï¿½Òªï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
@@ -220,7 +220,8 @@ Instruction_Decoder ID_cpu(
     .O_ToPC_branch_taraddr(ID_PC_branch_taraddr),//ï¿½ï¿½×ªÄ¿ï¿½Äµï¿½Ö·
 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ë®Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
     .stallreq(stallreq_from_ID), //ï¿½Þ¸ï¿½Îªwireï¿½ï¿½ï¿½ï¿½
-    .O_ToIDEX_ins_addr(ID_IDEX_ins_addr)
+    .O_ToIDEX_ins_addr(ID_IDEX_ins_addr),
+    .O_ToIDEX_ins(ID_IDEX_ins)
 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ç°ï¿½Ã²ï¿½ï¿½ï¿½
 //    .I_FromEX_aluop_i, //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 //    .O_ToIDEX_wd, //ï¿½ï¿½ï¿½ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
@@ -251,16 +252,22 @@ ID_EX IDEX_cpu(
     .EX_reg2(IDEX_EX_reg2_data),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
     .EX_wreg_addr(IDEX_EX_wreg_addr),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö?
     .EX_wreg(IDEX_EX_wreg),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
-    .EX_ins(IDEX_EX_wreg_ins),//ï¿½ï¿½exï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
+    .EX_ins(IDEX_EX_ins),//ï¿½ï¿½exï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
     .EX_ins_addr(IDEX_EX_ins_addr),//ï¿½ï¿½EXï¿½Ä¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö?
     .EX_isindelayslot(IDEX_EX_isindelayslot)
 );
+
+
+wire EX_OUT_1;
+wire [7:0] EX_OUT_2;
+wire [4:0] EX_OUT_3;
+wire [31:0] EX_OUT_4;
 
 EX EX_cpu(
     .clk(clk),
     .rst(rst),
     .I_FromIDEX_alusel(IDEX_EX_alusel),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
-    .I_FromIDEX_aluop(IDEX_EX_alusel),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+    .I_FromIDEX_aluop(IDEX_EX_aluop),//Ö´ï¿½Ð½×¶ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
     .I_FromIDEX_reg1(IDEX_EX_reg1_data),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò?
     .I_FromIDEX_reg2(IDEX_EX_reg2_data),//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
     .I_FromIDEX_wreg(IDEX_EX_wreg),//Ö¸ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ç·ï¿½ ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½
@@ -332,7 +339,7 @@ EX_MEM EXMEM_cpu(
     .EX_wreg_data(EX_EXMEM_wreg_data),//Ö´ï¿½Ð½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
     .MEM_wreg(EXMEM_MEM_wreg),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ï¿½Ç·ï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿?
     .MEM_wreg_addr(EXMEM_MEM_wreg_addr),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö?
-    .MEM_wreg_data(EXMEM_MEM_wreg_adta),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö?
+    .MEM_wreg_data(EXMEM_MEM_wreg_data),//ï¿½Ã´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ö´ï¿½Ðºï¿½ÒªÐ´ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö?
     .MEM_hi(EXMEM_MEM_hi),
     .MEM_lo(EXMEM_MEM_lo),
     .MEM_whilo(EXMEM_MEM_whilo),
@@ -344,6 +351,13 @@ EX_MEM EXMEM_cpu(
     .MEM_hilo(EXMEM_EX_hilo_temp),
     .MEM_cnt(EXMEM_EX_cnt) 
 );
+
+wire MEM_OUT_1;
+wire [4:0] MEM_OUT_2;
+wire [31:0] MEM_OUT_3;
+wire MEM_OUT_4;
+wire [31:0] MEM_OUT_5;
+wire [31:0] MEM_OUT_6;
 
 MEM MEM_cpu(
     .rst(rst),
@@ -392,15 +406,17 @@ Data_Memory DM_cpu(
     .spo(DM_data)
 );
 
+
+
 MEM_WB MEMWB_cpu(
     .clk(clk),
     .rst(rst),
     .MEM_wreg(MEM_MEMWB_mem_wreg),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÊÇ·ñÓÐÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷
     .MEM_wreg_addr(MEM_MEMWB_mem_wreg_addr),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
     .MEM_wreg_data(MEM_MEMWB_mem_wreg_data),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Êý¾Ý
-    .WB_wreg(),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÊÇ·ñÓÐÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷
-    .WB_wreg_addr(),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
-    .WB_wreg_data(),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Êý¾Ý
+    .WB_wreg(MEMWB_RF_wreg),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÊÇ·ñÓÐÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷
+    .WB_wreg_addr(MEMWB_RF_wreg_addr),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷µØÖ·
+    .WB_wreg_data(MEMWB_RF_wreg_data),//·Ã´æ½×¶ÎÖ¸Áî×îÖÕÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷Êý¾Ý
     //Î»ÒÆÖ¸ÁîµÄhiloÏà¹Ø½Ó¿Ú
     .MEM_whilo(MEM_MEMWB_mem_whilo),//ÊÇ·ñÒªÐ´hilo
     .MEM_hi_data(MEM_MEMWB_mem_hi),//Ð´hiµÄÖµ

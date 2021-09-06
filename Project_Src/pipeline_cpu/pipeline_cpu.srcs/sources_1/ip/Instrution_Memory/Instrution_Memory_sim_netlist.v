@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Mon Aug 30 15:12:18 2021
+// Date        : Mon Sep  6 11:44:28 2021
 // Host        : DESKTOP-VQQ5FPJ running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/91867/Desktop/TCPU/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_sim_netlist.v
+//               C:/Users/91867/Desktop/CPU/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_sim_netlist.v
 // Design      : Instrution_Memory
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -52,9 +52,9 @@ module Instrution_Memory
   (* c_has_qspo_rst = "0" *) 
   (* c_has_qspo_srst = "0" *) 
   (* c_has_spo = "1" *) 
-  (* c_mem_init_file = "no_coe_file_loaded" *) 
+  (* c_mem_init_file = "Instrution_Memory.mif" *) 
   (* c_parser_type = "1" *) 
-  (* c_read_mif = "0" *) 
+  (* c_read_mif = "1" *) 
   (* c_reg_a_d_inputs = "0" *) 
   (* c_sync_enable = "1" *) 
   (* c_width = "32" *) 
@@ -85,9 +85,9 @@ endmodule
 (* C_HAS_QDPO_CLK = "0" *) (* C_HAS_QDPO_RST = "0" *) (* C_HAS_QDPO_SRST = "0" *) 
 (* C_HAS_QSPO = "0" *) (* C_HAS_QSPO_CE = "0" *) (* C_HAS_QSPO_RST = "0" *) 
 (* C_HAS_QSPO_SRST = "0" *) (* C_HAS_SPO = "1" *) (* C_HAS_WE = "0" *) 
-(* C_MEM_INIT_FILE = "no_coe_file_loaded" *) (* C_MEM_TYPE = "0" *) (* C_PARSER_TYPE = "1" *) 
+(* C_MEM_INIT_FILE = "Instrution_Memory.mif" *) (* C_MEM_TYPE = "0" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
-(* C_READ_MIF = "0" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
+(* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
 (* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_13" *) 
 module Instrution_Memory_dist_mem_gen_v8_0_13
    (a,
@@ -126,6 +126,8 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   output [31:0]qdpo;
 
   wire \<const0> ;
+  wire [9:0]a;
+  wire [2:0]\^spo ;
 
   assign dpo[31] = \<const0> ;
   assign dpo[30] = \<const0> ;
@@ -225,20 +227,20 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   assign qspo[0] = \<const0> ;
   assign spo[31] = \<const0> ;
   assign spo[30] = \<const0> ;
-  assign spo[29] = \<const0> ;
-  assign spo[28] = \<const0> ;
-  assign spo[27] = \<const0> ;
-  assign spo[26] = \<const0> ;
+  assign spo[29] = \^spo [2];
+  assign spo[28] = \^spo [2];
+  assign spo[27] = \^spo [2];
+  assign spo[26] = \^spo [2];
   assign spo[25] = \<const0> ;
   assign spo[24] = \<const0> ;
   assign spo[23] = \<const0> ;
   assign spo[22] = \<const0> ;
   assign spo[21] = \<const0> ;
   assign spo[20] = \<const0> ;
-  assign spo[19] = \<const0> ;
+  assign spo[19] = \^spo [2];
   assign spo[18] = \<const0> ;
   assign spo[17] = \<const0> ;
-  assign spo[16] = \<const0> ;
+  assign spo[16] = \^spo [2];
   assign spo[15] = \<const0> ;
   assign spo[14] = \<const0> ;
   assign spo[13] = \<const0> ;
@@ -252,11 +254,71 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   assign spo[5] = \<const0> ;
   assign spo[4] = \<const0> ;
   assign spo[3] = \<const0> ;
-  assign spo[2] = \<const0> ;
+  assign spo[2] = \^spo [2];
   assign spo[1] = \<const0> ;
-  assign spo[0] = \<const0> ;
+  assign spo[0] = \^spo [0];
   GND GND
        (.G(\<const0> ));
+  Instrution_Memory_dist_mem_gen_v8_0_13_synth \synth_options.dist_mem_inst 
+       (.a(a),
+        .spo({\^spo [2],\^spo [0]}));
+endmodule
+
+(* ORIG_REF_NAME = "dist_mem_gen_v8_0_13_synth" *) 
+module Instrution_Memory_dist_mem_gen_v8_0_13_synth
+   (spo,
+    a);
+  output [1:0]spo;
+  input [9:0]a;
+
+  wire [9:0]a;
+  wire [1:0]spo;
+
+  Instrution_Memory_rom \gen_rom.rom_inst 
+       (.a(a),
+        .spo(spo));
+endmodule
+
+(* ORIG_REF_NAME = "rom" *) 
+module Instrution_Memory_rom
+   (spo,
+    a);
+  output [1:0]spo;
+  input [9:0]a;
+
+  wire [9:0]a;
+  wire [1:0]spo;
+  wire \spo[2]_INST_0_i_1_n_0 ;
+
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT5 #(
+    .INIT(32'h00000020)) 
+    \spo[0]_INST_0 
+       (.I0(a[0]),
+        .I1(a[7]),
+        .I2(\spo[2]_INST_0_i_1_n_0 ),
+        .I3(a[8]),
+        .I4(a[9]),
+        .O(spo[0]));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
+    \spo[2]_INST_0 
+       (.I0(a[8]),
+        .I1(\spo[2]_INST_0_i_1_n_0 ),
+        .I2(a[7]),
+        .I3(a[9]),
+        .O(spo[1]));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \spo[2]_INST_0_i_1 
+       (.I0(a[5]),
+        .I1(a[3]),
+        .I2(a[1]),
+        .I3(a[2]),
+        .I4(a[4]),
+        .I5(a[6]),
+        .O(\spo[2]_INST_0_i_1_n_0 ));
 endmodule
 `ifndef GLBL
 `define GLBL

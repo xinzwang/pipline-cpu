@@ -37,8 +37,8 @@ module MEM(
 	input wire										rst,//复位信号
 	
 	//来自执行阶段的信?	
-	input wire[4:0]       I_FROMEX_MEM_wreg,//访存阶段的指令是否有要写入目的寄存器
-	input wire            I_FROMEX_MEM_wd,//访存阶段的指令要写入的目的寄存器地址
+	input wire       I_FROMEX_MEM_wreg,//访存阶段的指令是否有要写入目的寄存器
+	input wire[4:0]         I_FROMEX_MEM_wd,//访存阶段的指令要写入的目的寄存器地址
 	input wire[31:0]	  I_FROMEX_MEM_wdata,//访存阶段的指令要写入目的寄存器的?
 	input wire[31:0]           I_FROMEX_MEM_hi,//访存阶段的指令要写入HI寄存器的?
 	input wire[31:0]           I_FROMEX_MEM_lo,//访存阶段的指令要写入LO寄存器的?
@@ -104,7 +104,7 @@ module MEM(
 	end*/
 	
 	always @ (*) begin
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			O_TOMEM_WB_ID_wd <= 5'b00000;
 			O_TOMEM_WB_ID_wreg <= 1'b0;
 		  O_TOMEM_WB_ID_wdata <= 32'h00000000;
@@ -119,7 +119,7 @@ module MEM(
 		  //O_TOMEM_WB_Llbit_we <= 1'b0;
 		  //O_TOMEM_WB_Llbit_value <= 1'b0;		      
 		end else begin
-		  O_TOMEM_WB_ID_wd <= I_FROMEX_MEM_wreg;
+		    O_TOMEM_WB_ID_wd <= I_FROMEX_MEM_wd;
 			O_TOMEM_WB_ID_wreg <= I_FROMEX_MEM_wreg;
 			O_TOMEM_WB_ID_wdata <= I_FROMEX_MEM_wdata;
 			O_TOMEM_WB_EX_hi <= I_FROMEX_MEM_hi;

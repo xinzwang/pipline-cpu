@@ -33,11 +33,11 @@ module Instruction_Decoder(
     output reg [4:0] O_ToRF_reg1_addr,//寄存器堆栈第一个读端口地址
     output reg [4:0] O_ToRF_reg2_addr,//寄存器堆栈第二个读端口地址
     output reg O_ToIDEX_wreg,//寄存器堆栈写端口使能信号
-    output reg [4:0] O_ToRF_wreg_addr,//寄存器堆栈写端口地址
+    output reg [4:0] O_ToIDEX_wreg_addr,//寄存器堆栈写端口地址
     output reg [7:0] O_ToIDEX_aluop,//译码阶段要进行的运算子类型
     output reg [2:0] O_ToIDEX_alusel,//译码阶段要进行的运算的类型
-    output reg [2:0] O_ToIDEX_reg1,//译码阶段要进行的运算的原操作数一
-    output reg [2:0] O_ToIDEX_reg2,//译码阶段要进行的运算的原操作数二
+    output reg [31:0] O_ToIDEX_reg1,//译码阶段要进行的运算的原操作数一
+    output reg [31:0] O_ToIDEX_reg2,//译码阶段要进行的运算的原操作数二
 //以下接口主要为解决数据相关建立，详细阅读P113相关内容
     input wire I_FromEX_wreg,//处于执行阶段的指令是否要写目的寄存器
     input wire [31:0] I_FromEX_wreg_addr,//处于执行阶段的指令要写目的寄存器地址
@@ -54,12 +54,12 @@ module Instruction_Decoder(
 //多周期指令流水停止请求信号
     output wire stallreq, //修改为wire类型
     output wire [31:0] O_ToIDEX_ins_addr,//指令地址
-    output reg O_ToIDEX_next_inst_in_delayslot
+    output reg O_ToIDEX_next_inst_in_delayslot,
 //新增变量
 //    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
 //    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
 //    output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
-//    output wire[31:0] O_ToIDEX_inst, //当前处于译码阶段的指令
+output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
 //    output wire[31:0] O_ToIDEX_excepttype, //收集的异常信息
 //    output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
 );
@@ -92,7 +92,7 @@ module Instruction_Decoder(
   assign stallreq = ID_stallreq_for_reg1_loadrelate_local | ID_stallreq_for_reg2_loadrelate_local;
   //根据输入信号的值，判断上一条指令是不是加载指令，如果是，至ID_pre_inst_is_load_local为1
   assign ID_pre_inst_is_load_local = ((I_FromEX_aluop ==  8'b11100000) || (I_FromEX_aluop == 8'b11100100)||(I_FromEX_aluop == 8'b11100001) ||(I_FromEX_aluop == 8'b11100101)||(I_FromEX_aluop == 8'b11100011) ||(I_FromEX_aluop == 8'b11100110)||(I_FromEX_aluop == 8'b11100010)||(I_FromEX_aluop == 8'b11110000) ||(I_FromEX_aluop == 8'b11111000)) ? 1'b1 : 1'b0;
-  //assign O_ToIDEX_inst = I_FromIFID_ins;
+  assign O_ToIDEX_ins = I_FromIFID_ins;
 
   //exceptiontype的低8bit留给外部中断，第9bit表示是否是syscall指令
   //第10bit表示是否是无效指令，第11bit表示是否是trap指令
@@ -103,10 +103,10 @@ module Instruction_Decoder(
     
     //对指令进行译码
 	always @ (*) begin	
-		if (rst == 1'b1) begin
+		if (rst == 1'b0) begin
 			O_ToIDEX_aluop <= 8'b00000000;
 			O_ToIDEX_alusel <= 3'b000;
-			//O_ToIDEX_wd <= 5'b00000;
+			O_ToIDEX_wreg_addr<= 5'b00000;
 			O_ToIDEX_wreg <= 1'b0;
 			ID_instvalid_local <= 1'b0;
 			O_ToRF_reg1 <= 1'b0;
@@ -123,7 +123,7 @@ module Instruction_Decoder(
 	  end else begin
 			O_ToIDEX_aluop <= 8'b00000000;
 			O_ToIDEX_alusel <= 3'b000;
-			//O_ToIDEX_wd <= I_FromIFID_ins[15:11];//默认目的寄存器
+			O_ToIDEX_wreg_addr<= I_FromIFID_ins[15:11];//默认目的寄存器
 			O_ToIDEX_wreg <= 1'b0;
 			ID_instvalid_local <= 1'b1;	   
 			O_ToRF_reg1 <= 1'b0;
@@ -311,7 +311,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];
 				ID_instvalid_local <= 1'b0;	
 		  	end
 		  	6'b001100:			begin//andi
@@ -321,7 +321,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end	 	
 		  	6'b001110:			begin//xori
@@ -331,7 +331,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {16'h0, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end	 		
 		  	6'b001111:			begin//lui
@@ -341,7 +341,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {I_FromIFID_ins[15:0], 16'h0};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end			
 				6'b001010:			begin//slti
@@ -351,7 +351,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b001011:			begin//sltiu
@@ -359,7 +359,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_aluop <= 8'b00101011;
 		  		O_ToIDEX_alusel <= 3'b100; O_ToRF_reg1 <= 1'b1;	O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end			
 				6'b001000:			begin//addi
@@ -369,7 +369,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr<= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b001001:			begin//addiu
@@ -379,7 +379,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
 				ID_imm_local <= {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};		
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16];		  	
+				O_ToIDEX_wreg_addr <= I_FromIFID_ins[20:16];		  	
 				ID_instvalid_local <= 1'b0;	
 				end
 				6'b000010:			begin//j
@@ -398,7 +398,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_wreg <= 1'b1;		
 		  		O_ToIDEX_aluop <= 8'b01010000;
 		  		O_ToIDEX_alusel <= 3'b110; O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b0;
-		  		//O_ToIDEX_wd <= 5'b11111;	
+		  		O_ToIDEX_wreg_addr<= 5'b11111;	
 		  		//O_ToIDEX_link_addr <= ID_pc_plus_8_local ;
 			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
 			    O_ToPC_branchflag <= 1'b1;
@@ -462,7 +462,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b111; 
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
-				//O_ToIDEX_wd <= I_FromIFID_ins[20:16]; ID_instvalid_local <= 1'b0;	
+				O_ToIDEX_wreg_addr <= I_FromIFID_ins[20:16]; ID_instvalid_local <= 1'b0;	
 				end
 				6'b101011:			begin//sw
 		  		O_ToIDEX_wreg <= 1'b0;		
@@ -529,7 +529,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					O_ToIDEX_wreg_addr<= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end else if ( ID_op3_local == 6'b000010 ) begin//srl
 		  		O_ToIDEX_wreg <= 1'b1;		
@@ -537,7 +537,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					O_ToIDEX_wreg_addr<= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end else if ( ID_op3_local == 6'b000011 ) begin//sra
 		  		O_ToIDEX_wreg <= 1'b1;		
@@ -545,7 +545,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b010; 
 		  		O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b1;	  	
 					ID_imm_local[4:0] <= I_FromIFID_ins[10:6];		
-					//O_ToIDEX_wd <= I_FromIFID_ins[15:11];
+					O_ToIDEX_wreg_addr <= I_FromIFID_ins[15:11];
 					ID_instvalid_local <= 1'b0;	
 				end
 			end		  
@@ -557,7 +557,7 @@ module Instruction_Decoder(
 //确定进行运算的源操作数1
 	always @ (*) begin
 			ID_stallreq_for_reg1_loadrelate_local <= 1'b0;	
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			O_ToIDEX_reg1 <= 32'h00000000;	
 		end else if(ID_pre_inst_is_load_local == 1'b1 && I_FromEX_wreg_addr== O_ToRF_reg1_addr && O_ToRF_reg1 == 1'b1 ) begin
 		  ID_stallreq_for_reg1_loadrelate_local <= 1'b1;							
@@ -578,7 +578,7 @@ module Instruction_Decoder(
 //确定进行运算的源操作数2(同上操作)
 	always @ (*) begin
 			ID_stallreq_for_reg2_loadrelate_local <= 1'b0;
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			O_ToIDEX_reg2 <= 32'h00000000;
 		end else if(ID_pre_inst_is_load_local == 1'b1 && I_FromEX_wreg_addr== O_ToRF_reg2_addr && O_ToRF_reg2 == 1'b1 ) begin
 		  ID_stallreq_for_reg2_loadrelate_local <= 1'b1;			
@@ -590,6 +590,7 @@ module Instruction_Decoder(
 	  	O_ToIDEX_reg2 <= I_FromRF_reg2_data;
 	  end else if(O_ToRF_reg2 == 1'b0) begin
 	  	O_ToIDEX_reg2 <= ID_imm_local;
+
 	  end else begin
 	    O_ToIDEX_reg2 <= 32'h00000000;
 	  end
@@ -597,7 +598,7 @@ module Instruction_Decoder(
 
     //是否延迟槽指令
 	always @ (*) begin
-		if(rst == 1'b1) begin     O_ToIDEX_isindelayslot <= 1'b0;
+		if(rst == 1'b0) begin     O_ToIDEX_isindelayslot <= 1'b0;
 		end else begin            O_ToIDEX_isindelayslot <= I_FromIDEX_isindelayslot;		
 	  end
 	end

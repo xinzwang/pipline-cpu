@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2021/08/24 14:58:03
+// Create Date: 2021/09/06 11:59:03
 // Design Name: 
 // Module Name: testbench
 // Project Name: 
@@ -32,10 +32,8 @@ reg sys_rst_n;
     end
 always #10 sys_clk<=~sys_clk;
 
-
 TOP_CPU pipeline_cpu(
-.clk(sys_clk),
-.rst(sys_rst_n)
+    .clk(sys_clk),
+    .rst(sys_rst_n)
 );
-
 endmodule

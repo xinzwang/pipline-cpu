@@ -246,7 +246,7 @@ module EX(
 	always @ (*) begin
 		O_ToEXMEM_reg2 <= I_FromIDEX_reg2;	//lw、sw存取的数据
 		O_To_EXMEM_mem_addr <= 1'b0;	//加载存储指令对应的存储器地址
-		O_To_ID_EXMEM_wreg <= 1'b0;		//执行阶段指令最终是否有要写入目的寄存器
+		O_To_ID_EXMEM_wreg <= I_FromIDEX_wreg;		//执行阶段指令最终是否有要写入目的寄存器
 		O_To_ID_EXMEM_aluop <= I_FromIDEX_aluop;		//执行的指令类型
 		O_To_ID_EXMEM_wreg_addr <= I_FromIDEX_wreg_addr;//目的寄存器地址
 
