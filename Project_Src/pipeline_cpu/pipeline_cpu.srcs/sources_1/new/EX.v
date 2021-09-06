@@ -126,8 +126,8 @@ module EX(
 	// exe arithmetic 
 	reg [31:0]arithmetic_out;
 	wire switch_complement_reg2;	//¸ù¾Ý·ûºÅÈ¡²¹Âë
-	wire mux_sum;
-	wire mux_lt;
+	wire [31:0]mux_sum;
+	wire [31:0]mux_lt;
 	assign switch_complement_reg2 = (I_FromIDEX_aluop == 8'b00100010) || 
 								 (I_FromIDEX_aluop == 8'b00100011) ?
 								  ~(I_FromIDEX_reg2)+1 :I_FromIDEX_reg2;
