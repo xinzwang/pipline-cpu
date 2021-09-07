@@ -1,8 +1,8 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-| Date         : Mon Sep  6 11:44:28 2021
-| Host         : DESKTOP-VQQ5FPJ running 64-bit major release  (build 9200)
+| Date         : Tue Sep  7 09:38:30 2021
+| Host         : XINZHEWANG-NB1 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file Instrution_Memory_utilization_synth.rpt -pb Instrution_Memory_utilization_synth.pb
 | Design       : Instrution_Memory
 | Device       : 7a35tcsg324-1
@@ -30,8 +30,8 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             |    2 |     0 |     20800 | <0.01 |
-|   LUT as Logic          |    2 |     0 |     20800 | <0.01 |
+| Slice LUTs*             |   21 |     0 |     20800 |  0.10 |
+|   LUT as Logic          |   21 |     0 |     20800 |  0.10 |
 |   LUT as Memory         |    0 |     0 |      9600 |  0.00 |
 | Slice Registers         |    0 |     0 |     41600 |  0.00 |
 |   Register as Flip Flop |    0 |     0 |     41600 |  0.00 |
@@ -146,9 +146,8 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     |    1 |                 LUT |
-| LUT5     |    1 |                 LUT |
-| LUT4     |    1 |                 LUT |
+| LUT6     |   19 |                 LUT |
+| LUT5     |    2 |                 LUT |
 +----------+------+---------------------+
 
 

@@ -5,5 +5,5 @@
 !.vscode/extensions.json
 
 # Project_Src/pipeline_cpu/pipeline_cpu.cache/*
-Project_Src/pipeline_cpu/pipeline_cpu.sim/*
+# Project_Src/pipeline_cpu/pipeline_cpu.sim/*
 # Project_Src/pipeline_cpu/pipeline_cpu.runs/*
