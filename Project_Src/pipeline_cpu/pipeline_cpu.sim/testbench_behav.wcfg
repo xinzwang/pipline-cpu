@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="127833fs"></ZoomStartTime>
-      <ZoomEndTime time="214434fs"></ZoomEndTime>
-      <Cursor1Time time="200000fs"></Cursor1Time>
+      <ZoomStartTime time="21235fs"></ZoomStartTime>
+      <ZoomEndTime time="149361fs"></ZoomEndTime>
+      <Cursor1Time time="160000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="248"></NameColumnWidth>
-      <ValueColumnWidth column_width="140"></ValueColumnWidth>
+      <NameColumnWidth column_width="270"></NameColumnWidth>
+      <ValueColumnWidth column_width="135"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="12" />
    <wvobject fp_name="/testbench/sys_clk" type="logic">
       <obj_property name="ElementShortName">sys_clk</obj_property>
       <obj_property name="ObjectShortName">sys_clk</obj_property>
@@ -43,6 +43,19 @@
    <wvobject fp_name="/testbench/pipeline_cpu/EXMEM_MEM_aluop" type="array">
       <obj_property name="ElementShortName">EXMEM_MEM_aluop[7:0]</obj_property>
       <obj_property name="ObjectShortName">EXMEM_MEM_aluop[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/MEMWB_RF_wreg_addr" type="array">
+      <obj_property name="ElementShortName">MEMWB_RF_wreg_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEMWB_RF_wreg_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/MEMWB_RF_wreg_data" type="array">
+      <obj_property name="ElementShortName">MEMWB_RF_wreg_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEMWB_RF_wreg_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/MEM_MEMWB_mem_wreg_addr" type="array">
+      <obj_property name="ElementShortName">MEM_MEMWB_mem_wreg_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_MEMWB_mem_wreg_addr[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/I_FromMEM_WB_we" type="logic">
       <obj_property name="ElementShortName">I_FromMEM_WB_we</obj_property>

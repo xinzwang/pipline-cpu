@@ -17,11 +17,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:23 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:41 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -37,11 +37,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:24 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:42 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -52,7 +52,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -68,11 +68,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:24 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:42 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -88,11 +88,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:24 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:42 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fc3cff09</spirit:value>
+            <spirit:value>9:19a83aee</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -108,11 +108,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:24 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:42 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fc3cff09</spirit:value>
+            <spirit:value>9:19a83aee</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -126,11 +126,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Sep 07 04:55:24 UTC 2021</spirit:value>
+            <spirit:value>Tue Sep 07 06:26:42 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -144,7 +144,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a9ff276c</spirit:value>
+            <spirit:value>9:359e4d89</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -920,7 +920,7 @@
     <spirit:parameter>
       <spirit:name>default_data_radix</spirit:name>
       <spirit:displayName>Radix :</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.default_data_radix" spirit:choiceRef="choice_list_7275e8e7" spirit:order="19">16</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.default_data_radix" spirit:choiceRef="choice_list_7275e8e7" spirit:order="19">2</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>default_data</spirit:name>
@@ -969,6 +969,7 @@
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.coefficient_file" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.data_width" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.default_data_radix" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.depth" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.memory_type" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
