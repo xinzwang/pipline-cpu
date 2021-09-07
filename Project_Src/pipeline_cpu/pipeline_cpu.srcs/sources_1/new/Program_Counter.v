@@ -45,7 +45,7 @@ always @(posedge clk or negedge rst) begin
         if (I_FromID_branch_taraddr == 1'b1) begin
             O_ToIM_IFID_pc <= I_FromID_branch_taraddr;
         end else begin
-            O_ToIM_IFID_pc <= O_ToIM_IFID_pc  + 4;
+            O_ToIM_IFID_pc <= O_ToIM_IFID_pc  + 1;
         end
     end else begin
         // 流水线暂停  PC维持不变

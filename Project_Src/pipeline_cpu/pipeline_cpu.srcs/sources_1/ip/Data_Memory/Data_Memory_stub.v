@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Tue Sep  7 10:06:25 2021
+// Date        : Tue Sep  7 10:31:48 2021
 // Host        : XINZHEWANG-NB1 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Data_Memory/Data_Memory_stub.v
@@ -15,8 +15,8 @@
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* x_core_info = "dist_mem_gen_v8_0_13,Vivado 2019.2" *)
 module Data_Memory(a, d, clk, we, spo)
-/* synthesis syn_black_box black_box_pad_pin="a[9:0],d[31:0],clk,we,spo[31:0]" */;
-  input [9:0]a;
+/* synthesis syn_black_box black_box_pad_pin="a[15:0],d[31:0],clk,we,spo[31:0]" */;
+  input [15:0]a;
   input [31:0]d;
   input clk;
   input we;
