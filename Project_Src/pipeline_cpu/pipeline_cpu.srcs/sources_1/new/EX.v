@@ -77,7 +77,7 @@ module EX(
 	// logic  TODO: ori andi xori
 	reg[31:0] logic_out;
 	always @(*) begin
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			logic_out <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
@@ -103,7 +103,7 @@ module EX(
 	// exe shift
 	reg[31:0] shift_out;
 	always @ (*) begin
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			shift_out <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
@@ -138,7 +138,7 @@ module EX(
 					(I_FromIDEX_reg1[31] && I_FromIDEX_reg2[31] && mux_sum[31]))
 					: (I_FromIDEX_reg1 < I_FromIDEX_reg2);
 	always @ (*) begin
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			arithmetic_out <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
@@ -209,7 +209,7 @@ module EX(
 	// reg [31:0]div_out;
 	// always @ (*) begin
 	// 	// TODO: Á÷Ë®ÏßÔÝÍ£
-	// 	if(rst == 1'b1) begin
+	// 	if(rst == 1'b0) begin
 	// 		div_out <= 32'h00000000;
 	// 	end else begin
 	// 		case(I_FromIDEX_aluop)
@@ -223,7 +223,7 @@ module EX(
 	//movn
 	reg[31:0] movers;
 	always @ (*) begin
-		if(rst == 1'b1) begin
+		if(rst == 1'b0) begin
 			movers <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
