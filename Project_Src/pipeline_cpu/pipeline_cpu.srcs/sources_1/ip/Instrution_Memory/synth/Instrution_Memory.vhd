@@ -58,7 +58,7 @@ USE dist_mem_gen_v8_0_13.dist_mem_gen_v8_0_13;
 
 ENTITY Instrution_Memory IS
   PORT (
-    a : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    a : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
     spo : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END Instrution_Memory;
@@ -102,9 +102,9 @@ ARCHITECTURE Instrution_Memory_arch OF Instrution_Memory IS
       C_PARSER_TYPE : INTEGER
     );
     PORT (
-      a : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+      a : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
       d : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      dpra : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+      dpra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
       clk : IN STD_LOGIC;
       we : IN STD_LOGIC;
       i_ce : IN STD_LOGIC;
@@ -126,15 +126,15 @@ ARCHITECTURE Instrution_Memory_arch OF Instrution_Memory IS
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF Instrution_Memory_arch : ARCHITECTURE IS "Instrution_Memory,dist_mem_gen_v8_0_13,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF Instrution_Memory_arch: ARCHITECTURE IS "Instrution_Memory,dist_mem_gen_v8_0_13,{x_ipProduct=Vivado 2019.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=dist_mem_gen,x_ipVersion=8.0,x_ipCoreRevision=13,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=artix7,C_ADDR_WIDTH=16,C_DEFAULT_DATA=0,C_DEPTH=65536,C_HAS_CLK=0,C_HAS_D=0,C_HAS_DPO=0,C_HAS_DPRA=0,C_HAS_I_CE=0,C_HAS_QDPO=0,C_HAS_QDPO_CE=0,C_HAS_QDPO_CLK=0,C_HAS_QDPO_RST=0,C_HAS_QDPO_SRST=0,C_HAS_QSPO=0,C_HAS_QSPO_CE=0,C_HAS_QSPO_RST=0,C_HAS_QSPO_SRST=0,C_HAS_SPO=1,C_HAS_WE=0,C_MEM" & 
-"_INIT_FILE=Instrution_Memory.mif,C_ELABORATION_DIR=./,C_MEM_TYPE=0,C_PIPELINE_STAGES=0,C_QCE_JOINED=0,C_QUALIFY_WE=0,C_READ_MIF=1,C_REG_A_D_INPUTS=0,C_REG_DPRA_INPUT=0,C_SYNC_ENABLE=1,C_WIDTH=32,C_PARSER_TYPE=1}";
+  ATTRIBUTE CORE_GENERATION_INFO OF Instrution_Memory_arch: ARCHITECTURE IS "Instrution_Memory,dist_mem_gen_v8_0_13,{x_ipProduct=Vivado 2019.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=dist_mem_gen,x_ipVersion=8.0,x_ipCoreRevision=13,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=artix7,C_ADDR_WIDTH=10,C_DEFAULT_DATA=0,C_DEPTH=1024,C_HAS_CLK=0,C_HAS_D=0,C_HAS_DPO=0,C_HAS_DPRA=0,C_HAS_I_CE=0,C_HAS_QDPO=0,C_HAS_QDPO_CE=0,C_HAS_QDPO_CLK=0,C_HAS_QDPO_RST=0,C_HAS_QDPO_SRST=0,C_HAS_QSPO=0,C_HAS_QSPO_CE=0,C_HAS_QSPO_RST=0,C_HAS_QSPO_SRST=0,C_HAS_SPO=1,C_HAS_WE=0,C_MEM_" & 
+"INIT_FILE=Instrution_Memory.mif,C_ELABORATION_DIR=./,C_MEM_TYPE=0,C_PIPELINE_STAGES=0,C_QCE_JOINED=0,C_QUALIFY_WE=0,C_READ_MIF=1,C_REG_A_D_INPUTS=0,C_REG_DPRA_INPUT=0,C_SYNC_ENABLE=1,C_WIDTH=32,C_PARSER_TYPE=1}";
 BEGIN
   U0 : dist_mem_gen_v8_0_13
     GENERIC MAP (
       C_FAMILY => "artix7",
-      C_ADDR_WIDTH => 16,
+      C_ADDR_WIDTH => 10,
       C_DEFAULT_DATA => "0",
-      C_DEPTH => 65536,
+      C_DEPTH => 1024,
       C_HAS_CLK => 0,
       C_HAS_D => 0,
       C_HAS_DPO => 0,
@@ -167,7 +167,7 @@ BEGIN
     PORT MAP (
       a => a,
       d => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 32)),
-      dpra => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 16)),
+      dpra => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 10)),
       clk => '0',
       we => '0',
       i_ce => '1',

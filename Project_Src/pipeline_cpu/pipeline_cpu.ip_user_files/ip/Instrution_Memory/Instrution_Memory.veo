@@ -55,7 +55,7 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 Instrution_Memory your_instance_name (
-  .a(a),      // input wire [15 : 0] a
+  .a(a),      // input wire [9 : 0] a
   .spo(spo)  // output wire [31 : 0] spo
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
