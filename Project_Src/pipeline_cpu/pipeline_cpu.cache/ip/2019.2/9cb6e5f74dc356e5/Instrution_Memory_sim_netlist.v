@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Tue Sep  7 09:38:30 2021
+// Date        : Tue Sep  7 10:06:05 2021
 // Host        : XINZHEWANG-NB1 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
+//               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ Instrution_Memory_sim_netlist.v
 // Design      : Instrution_Memory
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,7 +14,7 @@
 
 (* CHECK_LICENSE_TYPE = "Instrution_Memory,dist_mem_gen_v8_0_13,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "dist_mem_gen_v8_0_13,Vivado 2019.2" *) 
 (* NotValidForBitStream *)
-module Instrution_Memory
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix
    (a,
     spo);
   input [9:0]a;
@@ -58,7 +58,7 @@ module Instrution_Memory
   (* c_reg_a_d_inputs = "0" *) 
   (* c_sync_enable = "1" *) 
   (* c_width = "32" *) 
-  Instrution_Memory_dist_mem_gen_v8_0_13 U0
+  decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_dist_mem_gen_v8_0_13 U0
        (.a(a),
         .clk(1'b0),
         .d({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
@@ -88,8 +88,8 @@ endmodule
 (* C_MEM_INIT_FILE = "Instrution_Memory.mif" *) (* C_MEM_TYPE = "0" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_13" *) 
-module Instrution_Memory_dist_mem_gen_v8_0_13
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) 
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_dist_mem_gen_v8_0_13
    (a,
     d,
     dpra,
@@ -245,13 +245,12 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   assign spo[8:0] = \^spo [8:0];
   GND GND
        (.G(\<const0> ));
-  Instrution_Memory_dist_mem_gen_v8_0_13_synth \synth_options.dist_mem_inst 
+  decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_dist_mem_gen_v8_0_13_synth \synth_options.dist_mem_inst 
        (.a(a),
         .spo({\^spo [31],\^spo [29:26],\^spo [22:21],\^spo [19],\^spo [17:16],\^spo [7],\^spo [11],\^spo [8],\^spo [6:0]}));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_13_synth" *) 
-module Instrution_Memory_dist_mem_gen_v8_0_13_synth
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_dist_mem_gen_v8_0_13_synth
    (spo,
     a);
   output [19:0]spo;
@@ -260,13 +259,12 @@ module Instrution_Memory_dist_mem_gen_v8_0_13_synth
   wire [9:0]a;
   wire [19:0]spo;
 
-  Instrution_Memory_rom \gen_rom.rom_inst 
+  decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_rom \gen_rom.rom_inst 
        (.a(a),
         .spo(spo));
 endmodule
 
-(* ORIG_REF_NAME = "rom" *) 
-module Instrution_Memory_rom
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_rom
    (spo,
     a);
   output [19:0]spo;
