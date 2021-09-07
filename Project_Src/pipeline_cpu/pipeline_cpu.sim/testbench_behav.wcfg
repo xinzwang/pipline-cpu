@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="5fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomStartTime time="127833fs"></ZoomStartTime>
+      <ZoomEndTime time="214434fs"></ZoomEndTime>
+      <Cursor1Time time="200000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="248"></NameColumnWidth>
-      <ValueColumnWidth column_width="145"></ValueColumnWidth>
+      <ValueColumnWidth column_width="140"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="5" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/testbench/sys_clk" type="logic">
       <obj_property name="ElementShortName">sys_clk</obj_property>
       <obj_property name="ObjectShortName">sys_clk</obj_property>
@@ -27,6 +27,22 @@
    <wvobject fp_name="/testbench/sys_rst_n" type="logic">
       <obj_property name="ElementShortName">sys_rst_n</obj_property>
       <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/PC_OUT_1" type="array">
+      <obj_property name="ElementShortName">PC_OUT_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_OUT_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/IFID_ID_ins" type="array">
+      <obj_property name="ElementShortName">IFID_ID_ins[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IFID_ID_ins[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/IDEX_EX_ins" type="array">
+      <obj_property name="ElementShortName">IDEX_EX_ins[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_EX_ins[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/EXMEM_MEM_aluop" type="array">
+      <obj_property name="ElementShortName">EXMEM_MEM_aluop[7:0]</obj_property>
+      <obj_property name="ObjectShortName">EXMEM_MEM_aluop[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/I_FromMEM_WB_we" type="logic">
       <obj_property name="ElementShortName">I_FromMEM_WB_we</obj_property>

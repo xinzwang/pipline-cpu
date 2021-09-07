@@ -42,9 +42,9 @@ wire [31:0] IM_IFID_ins;//im�е�ָ��
 //ID�������?
 wire [31:0] IFID_ID_pc;//����id��pcֵ
 wire [31:0] IFID_ID_ins;//����pc��insֵ
-wire [7:0] EX_ID_aluop;//����׶�Ҫ���е�����������?
+wire [7:0] EX_ID_aluop;//����׶��?���е�����������??
 wire EX_ID_wreg;//ִ�н׶�ָ���Ƿ�����ҪдĿ�ļĴ���
-wire [31:0] EX_ID_wreg_addr;//���ش洢ָ���Ӧ�Ĵ洢�����?
+wire [31:0] EX_ID_wreg_addr;//���ش洢ָ���Ӧ�Ĵ�?����??
 wire [31:0] EX_ID_wreg_data;//ִ�н׶�ָ������Ҫд��Ŀ�ļĴ�����ֵ
 wire MEM_ID_wreg;//ִ�н׶�ָ���Ƿ�ҪдĿ�ļĴ���
 wire [31:0] MEM_ID_wreg_addr;//ִ�н׶�ָ��ҪдĿ�ļĴ�����ַ
@@ -65,8 +65,8 @@ wire [5:0] CL_IDEX_stall;//��ͣ�ź�
 wire CL_IDEX_flush;//��ͣ�ź�
 wire [7:0] ID_IDEX_aluop;//���������������?
 wire [2:0] ID_IDEX_alusel;//�������������?
-wire [31:0] ID_IDEX_reg1;//����׶�Ҫ���������ԭ������һ
-wire [31:0] ID_IDEX_reg2;//����׶�Ҫ���������ԭ��������
+wire [31:0] ID_IDEX_reg1;//����׶��?����������?������һ
+wire [31:0] ID_IDEX_reg2;//����׶��?����������?��������
 wire ID_IDEX_wreg;//����׶�ָ���Ƿ�дĿ�ļĴ������?
 wire [4:0] ID_IDEX_wreg_addr;//����׶�ָ��дĿ�ļĴ������?
 wire [31:0] ID_IDEX_ins;//����׶�ָ��?
@@ -91,7 +91,7 @@ wire [31:0] MEMWB_EX_lo;
 wire MEMWB_EX_whilo;//���ڻ�д�׶ε�ָ���Ƿ�ҪдHILO�Ĵ���
 wire [31:0] MEM_EX_hi;
 wire [31:0] MEM_EX_lo;
-wire MEM_EX_whilo;//���ڷô�׶ε�ָ���Ƿ�ҪдHILO�Ĵ���
+wire MEM_EX_whilo;//���ڷô�׶ε�ָ���Ƿ��?дHILO�Ĵ���
 //EX��������ָ��
 wire [63:0] EXMEM_EX_hilo_temp;
 wire [1:0] EXMEM_EX_cnt;
@@ -100,8 +100,8 @@ wire DIV_EX_ready;//�������?
 //EXMEMģ������
 wire [5:0] CL_EXMEM_stall;//��ͣ
 wire CL_EXMEM_flush;//���?
-wire [31:0] EX_EXMEM_mem_addr;//ִ�н׶μ��أ��洢ָ���Ӧ�Ĵ洢�����?
-wire [31:0] EX_EXMEM_reg2;//ִ�н׶δ洢ָ��Ҫ�洢�����ݣ���lwlָ��Ҫд���Ŀ�ļĴ���ԭʼ�?
+wire [31:0] EX_EXMEM_mem_addr;//ִ�н׶μ��أ��洢ָ���Ӧ�Ĵ�?����??
+wire [31:0] EX_EXMEM_reg2;//ִ�н׶δ洢ָ��Ҫ�洢�����ݣ���lwlָ��Ҫд���Ŀ�ļĴ����?ʼ??
 wire [31:0] EX_EXMEM_hi;//ִ�н׶�Ҫд��hi�Ĵ�����ֵ
 wire [31:0] EX_EXMEM_lo;
 wire EX_EXMEM_whilo;//ִ�н׶�ָ���Ƿ�Ҫдhilo�Ĵ���
@@ -114,16 +114,16 @@ wire EX_EXMEM_wreg;//ִ�н׶�ָ���Ƿ�ҪдĿ�ļĴ���
 wire [4:0] EX_EXMEM_wreg_addr;//ִ�н׶�ָ��ҪдĿ�ļĴ�����ַ
 wire [31:0] EX_EXMEM_wreg_data;//ִ�н׶�ָ��ҪдĿ�ļĴ���ֵ
 //MEMģ������
-wire EXMEM_MEM_wreg;//�ô�׶�ָ���Ƿ���Ҫд��Ŀ�ļĴ���?
-wire [31:0] EXMEM_MEM_wreg_addr;//�ô�׶�Ҫд��Ŀ�ļĴ������?
-wire [31:0] EXMEM_MEM_wreg_data;//�ô�׶�Ҫд��Ŀ�ļĴ�������?
-wire [63:0] EXMEM_MEM_whilo;//�ô�׶�ָ���Ƿ�ҪдHILO�Ĵ���
+wire EXMEM_MEM_wreg;//�ô�׶�ָ���Ƿ����?д��Ŀ�ļĴ���??
+wire [31:0] EXMEM_MEM_wreg_addr;//�ô�׶��?д��Ŀ�ļĴ�����??
+wire [31:0] EXMEM_MEM_wreg_data;//�ô�׶��?д��Ŀ�ļĴ�������??
+wire [63:0] EXMEM_MEM_whilo;//�ô�׶�ָ���Ƿ��?дHILO�Ĵ���
 wire [31:0] EXMEM_MEM_hi;
 wire [31:0] EXMEM_MEM_lo;
-wire [7:0] EXMEM_MEM_aluop;//�ô�׶�ָ��Ҫ���е�����������?
+wire [7:0] EXMEM_MEM_aluop;//�ô�׶�ָ���?���е�����������??
 wire [31:0] EXMEM_MEM_mem_addr;//�������ݴ洢����ַ
 wire [31:0] DM_MEM_mem_data;//�����ݴ洢����ȡ������
-wire [31:0] EXMEM_MEM_reg2;//�ô�׶δ洢ָ��Ҫ�洢�����ݣ���lwlָ��Ҫд���Ŀ�ļĴ���ԭʼ�?
+wire [31:0] EXMEM_MEM_reg2;//�ô�׶δ洢ָ���?�洢�����ݣ���lwlָ��Ҫд���Ŀ�ļĴ����?ʼ??
 wire EXMEM_MEM_isindelayslot;//�ô�׶��Ƿ�ʱ�ӳٲ�ָ��?
 wire [31:0] EXMEM_MEM_ins_addr;//�ô�׶�ָ���ַ
 wire [31:0] DM_data;//���������ڴ�
@@ -138,7 +138,7 @@ wire CL_MEMWB_flush;
 wire MEM_MEMWB_mem_wreg;//�Ƿ�ҪдĿ�ļĴ���
 wire [31:0] MEM_MEMWB_mem_wreg_addr;//дĿ�ļĴ�����ַ
 wire [31:0] MEM_MEMWB_mem_wreg_data;//дĿ�ļĴ�������
-wire [63:0] MEM_MEMWB_mem_whilo;//�ô�׶�ָ���Ƿ�ҪдHILO�Ĵ���
+wire [63:0] MEM_MEMWB_mem_whilo;//�ô�׶�ָ���Ƿ��?дHILO�Ĵ���
 wire [31:0] MEM_MEMWB_mem_hi;//�ô�׶�ָ��дHI�Ĵ���ֵ
 wire [31:0] MEM_MEMWB_mem_lo;//�ô�׶�ָ��дLO�Ĵ���ֵ
 //HILOģ������
@@ -156,14 +156,14 @@ wire [31:0] ID_RF_re2_addr;
 wire MEMWB_RF_wreg;//ʹ��
 wire [31:0] MEMWB_RF_wreg_addr;//��ַ
 wire [31:0] MEMWB_RF_wreg_data;//����
-//���Ͼ��Ƕ����ȫ��ģ������������������ģ�鶨��?
+//���Ͼ��Ƕ�����?��ģ������������������ģ�鶨��??
 Program_Counter PC_cpu(
     .clk(clk),
     .rst(rst),
     .I_FromCL_stall(CL_PC_stall),//���ڳ˳�����������ˮ�ӳٵ��ź���
     .I_FromCL_flush(CL_PC_flush),//���ڳ˳�����������ˮ�ӳٵ��ź���
     .I_FromCL_newpc(CL_PC_newpc),//�����쳣��������µ�ַ���ֽ׶β��ù�?
-    .I_FromID_branchflag(ID_PC_branchflag),//��תָ���Ӧ���źţ���������ת��ַ��?
+    .I_FromID_branchflag(ID_PC_branchflag),//��תָ���Ӧ���źţ����������?��ַ��??
     .I_FromID_branch_taraddr(ID_PC_branch_taraddr),//��ת��ַ
     .O_ToIM_IFID_pc(PC_OUT_1)//�����ָ���ַ
     //output reg ce//pcʹ���ź�
@@ -201,17 +201,17 @@ Instruction_Decoder ID_cpu(
     .O_ToRF_reg2_addr(ID_RF_reg2_addr),//�Ĵ�����ջ�ڶ������˿ڵ�ַ
     .O_ToIDEX_wreg(ID_IDEX_wreg),//�Ĵ�����ջд�˿�ʹ���ź�
     .O_ToIDEX_wreg_addr(ID_IDEX_wreg_addr),//�Ĵ�����ջд�˿ڵ�ַ
-    .O_ToIDEX_aluop(ID_IDEX_aluop),//����׶�Ҫ���е�����������?
-    .O_ToIDEX_alusel(ID_IDEX_alusel),//����׶�Ҫ���е����������
-    .O_ToIDEX_reg1(ID_IDEX_reg1),//����׶�Ҫ���е������ԭ������һ
-    .O_ToIDEX_reg2(ID_IDEX_reg2),//����׶�Ҫ���е������ԭ��������
+    .O_ToIDEX_aluop(ID_IDEX_aluop),//����׶��?���е�����������??
+    .O_ToIDEX_alusel(ID_IDEX_alusel),//����׶��?���е����������?
+    .O_ToIDEX_reg1(ID_IDEX_reg1),//����׶��?���е�������?������һ
+    .O_ToIDEX_reg2(ID_IDEX_reg2),//����׶��?���е�������?��������
 //���½ӿ���ҪΪ���������ؽ�������ϸ�Ķ�P113�������?
     .I_FromEX_wreg(EX_ID_wreg),//����ִ�н׶ε�ָ���Ƿ�ҪдĿ�ļĴ���
     .I_FromEX_wreg_addr(EX_ID_wreg_addr),//����ִ�н׶ε�ָ��ҪдĿ�ļĴ�����ַ
     .I_FromEX_wreg_data(EX_ID_wreg_data),//����ִ�н׶ε�ָ��дĿ�ļĴ�������
     .I_FromEX_aluop(EX_ID_aluop),//����ִ�н׶ε�ָ��дĿ�ļĴ�������
-    .I_FromMEM_wreg(MEM_ID_wreg),//���ڷô�׶ε�ָ���Ƿ�ҪдĿ�ļĴ���?
-    .I_FromMEM_wreg_addr(MEM_ID_wreg_addr),//���ڷô�׶ε�ָ��ҪдĿ�ļĴ������?
+    .I_FromMEM_wreg(MEM_ID_wreg),//���ڷô�׶ε�ָ���Ƿ��?дĿ�ļĴ���??
+    .I_FromMEM_wreg_addr(MEM_ID_wreg_addr),//���ڷô�׶ε�ָ���?дĿ�ļĴ�����??
     .I_FromMEM_wreg_data(MEM_ID_wreg_data),//���ڷô�׶ε�ָ��дĿ�ļĴ�������?
 //��תָ���ӳٲ��ź�
     .I_FromIDEX_isindelayslot(IDEX_ID_isindelayslot),//��ǰ����ָ���Ƿ����ӳٲ�
@@ -224,7 +224,7 @@ Instruction_Decoder ID_cpu(
     .O_ToIDEX_ins(ID_IDEX_ins)
 //��������Ŀǰ�ò���
 //    .I_FromEX_aluop_i, //����ִ�н׶�ָ�������������?
-//    .O_ToIDEX_wd, //����׶ε�ָ��Ҫд���Ŀ�ļĴ�����ַ
+//    .O_ToIDEX_wd, //����׶ε�ָ���?д���Ŀ�ļĴ������?
 //    .O_ToIDEX_link_addr, //ת��ָ��Ҫ����ķ��ص��?
 //    .O_ToIDEX_next_isindelayslot, //��һ����������׶ε�ָ���Ƿ�λ���ӳٲ�?
 //    .O_ToIDEX_inst, //��ǰ��������׶ε�ָ��?
@@ -237,12 +237,12 @@ ID_EX IDEX_cpu(
     .rst(rst),
     .CL_stall(CL_IDEX_stall),
     .CL_flush(CL_IDEX_flush),
-    .ID_alusel(ID_IDEX_alusel),//����׶�Ҫ�������������
-    .ID_aluop(ID_IDEX_aluop),//����׶�ָ��Ҫ���������������
-    .ID_reg1(ID_IDEX_reg1),//����׶�ָ��Ҫ���������Դ������һ
-    .ID_reg2(ID_IDEX_reg2),//����׶�ָ��Ҫ���������Դ��������
-    .ID_wreg(ID_IDEX_wreg),//����׶�ָ���Ƿ�Ҫд��Ŀ�ļĴ���?
-    .ID_wreg_addr(ID_IDEX_wreg_addr),//����׶�ָ��Ҫд���Ŀ�ļĴ�����ַ
+    .ID_alusel(ID_IDEX_alusel),//����׶��?�������������?
+    .ID_aluop(ID_IDEX_aluop),//����׶�ָ���?���������������?
+    .ID_reg1(ID_IDEX_reg1),//����׶�ָ���?���������Դ�������?
+    .ID_reg2(ID_IDEX_reg2),//����׶�ָ���?���������Դ��������?
+    .ID_wreg(ID_IDEX_wreg),//����׶�ָ���Ƿ��?д��Ŀ�ļĴ���??
+    .ID_wreg_addr(ID_IDEX_wreg_addr),//����׶�ָ���?д���Ŀ�ļĴ������?
     .ID_ins(ID_IDEX_ins),//����ID�ľ���ָ��ֵ
     .ID_ins_addr(ID_IDEX_ins_addr),//����ID�ľ���ָ����?
     .ID_isindelayslot(ID_IDEX_isindelaysolt),//�ӳٲ�
@@ -274,12 +274,12 @@ EX EX_cpu(
     .I_FromIDEX_wreg_addr(IDEX_EX_wreg_addr),//ָ��ִ��Ҫд���Ŀ�ļĴ������?
     .I_FromIDEX_ins(IDEX_EX_ins),
     .I_FromIDEX_ins_addr(IDEX_EX_ins_addr),//ִ�н׶�ָ����?
-    .O_ToEXMEM_reg2(EX_EXMEM_reg2),//�洢ָ��Ҫ�洢�����ݣ�����lwrָ��Ҫд���Ŀ�ļĴ���ԭʼ�?
+    .O_ToEXMEM_reg2(EX_EXMEM_reg2),//�洢ָ��Ҫ�洢�����ݣ�����lwrָ��Ҫд���Ŀ�ļĴ����?ʼ??
 //HILOģ����
     .I_FromHILO_hi(HILO_EX_hi),//hilo��hi��ֵ
     .I_FromHILO_lo(HILO_EX_lo),//hilo��lo��ֵ
 //mem�׶���hilo�Ľ�������
-    .I_FromMEM_whilo(MEM_EX_whilo),//�ô�׶�ָ���Ƿ���ҪдHILO�Ĵ���
+    .I_FromMEM_whilo(MEM_EX_whilo),//�ô�׶�ָ���Ƿ����?дHILO�Ĵ���
     .I_FromMEM_wb_hi(MEM_EX_hi),//�ô�׶�д��HILO��hi��ֵ
     .I_FromMEM_wb_lo(MEM_EX_lo),//�ô�׶�д��HILO��lo��ֵ
 //memwb�׶���hilo�Ľ�������
@@ -302,10 +302,10 @@ EX EX_cpu(
     .I_FromIDEX_isindelayslot(IDEX_EX_isindelayslot),//�ӳٲ۱��?
     .O_TOEXMEM_isindelayslot(EX_EXMEM_isindelaysolt),//�ӳٲ۱��?
 //��ô棬ID��صĽӿ�?
-    .O_To_EXMEM_mem_addr(EX_EXMEM_mem_addr),//���ش洢ָ���Ӧ�Ĵ洢�����?
+    .O_To_EXMEM_mem_addr(EX_EXMEM_mem_addr),//���ش洢ָ���Ӧ�Ĵ�?����??
     .O_To_ID_EXMEM_wreg(EX_OUT_1),//ִ�н׶�ָ�������Ƿ���Ҫд��Ŀ�ļĴ���
     .O_To_ID_EXMEM_aluop(EX_OUT_2),//ִ�н׶�ָ����е�����������?
-    .O_To_ID_EXMEM_wreg_addr(EX_OUT_3),//���ش洢ָ���Ӧ�Ĵ洢�����?
+    .O_To_ID_EXMEM_wreg_addr(EX_OUT_3),//���ش洢ָ���Ӧ�Ĵ�?����??
     .O_To_ID_EXMEM_wreg_data(EX_OUT_4),//�洢ָ��Ҫ�洢�����ݣ��Լ����ص�Ŀ�ļĴ�����ԭʼֵ
 //��ˮ��ͣ����
     .stallreq(stallreq_from_EX)//������ˮ��ͣ
@@ -333,13 +333,13 @@ EX_MEM EXMEM_cpu(
     .EX_cnt(EX_EXMEM_cnt),
     .EX_isindelayslot(EX_EXMEM_isindelaysolt),
     .EX_ins_addr(EX_EXMEM_ins_addr),
-    .Ex_aluop(EX_EXMEM_aluop),
+    .EX_aluop(EX_EXMEM_aluop),
     .EX_wreg(EX_EXMEM_wreg),//ִ�н׶�ָ��ִ�к��Ƿ�Ҫд��Ŀ�ļĴ���
     .EX_wreg_addr(EX_EXMEM_wreg_addr),//ִ�н׶�ָ��ִ�к�Ҫд��Ŀ�ļĴ����ĵ�ַ
     .EX_wreg_data(EX_EXMEM_wreg_data),//ִ�н׶�ָ��ִ�к�Ҫд��Ŀ�ļĴ�����ֵ
-    .MEM_wreg(EXMEM_MEM_wreg),//�ô�׶�ָ��ִ�к��Ƿ�Ҫд��Ŀ�ļĴ���?
-    .MEM_wreg_addr(EXMEM_MEM_wreg_addr),//�ô�׶�ָ��ִ�к�Ҫд��Ŀ�ļĴ����ĵ��?
-    .MEM_wreg_data(EXMEM_MEM_wreg_data),//�ô�׶�ָ��ִ�к�Ҫд��Ŀ�ļĴ������?
+    .MEM_wreg(EXMEM_MEM_wreg),//�ô�׶�ָ��ִ�к��Ƿ��?д��Ŀ�ļĴ���??
+    .MEM_wreg_addr(EXMEM_MEM_wreg_addr),//�ô�׶�ָ��ִ�к��?д��Ŀ�ļĴ����ĵ�??
+    .MEM_wreg_data(EXMEM_MEM_wreg_data),//�ô�׶�ָ��ִ�к��?д��Ŀ�ļĴ�����??
     .MEM_hi(EXMEM_MEM_hi),
     .MEM_lo(EXMEM_MEM_lo),
     .MEM_whilo(EXMEM_MEM_whilo),
@@ -347,7 +347,7 @@ EX_MEM EXMEM_cpu(
     .MEM_mem_addr(EXMEM_MEM_mem_addr),//д�ڴ���?
     .MEM_reg2(EXMEM_MEM_reg2),
     .MEM_isindelayslot(EXMEM_MEM_isindelayslot),
-    .MEM_ins_adddr(EXMEM_MEM_ins_addr),
+    .MEM_ins_addr(EXMEM_MEM_ins_addr),
     .MEM_hilo(EXMEM_EX_hilo_temp),
     .MEM_cnt(EXMEM_EX_cnt) 
 );
@@ -377,10 +377,10 @@ MEM MEM_cpu(
     .I_FROMEX_MEM_mem_addr(EXMEM_MEM_mem_addr),
 //    .I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
     . I_FROMDATA_RAM_mem_data(DM_data),
-	.O_TODATA_RAM_mem_addr(),//要访问的数据存储器的地址
-	.O_TODATA_RAM_mem_we(),//是否是写操作，为1表示是写操作
+	.O_TODATA_RAM_mem_addr(),//要�?�问的数�?存储器的地址
+	.O_TODATA_RAM_mem_we(),//�?否是写操作，�?1表示�?写操�?
 	.O_TODATA_RAM_mem_sel(),//字节选择信号
-	.O_TODATA_RAM_mem_data(),//要写入数据存储器的数�?
+	.O_TODATA_RAM_mem_data(),//要写入数�?存储器的数�??
     .I_FROMEX_MEM_isindelayslot(EXMEM_MEM_isindelayslot),
     .O_TOMEM_WB_isindelayslot()
 );

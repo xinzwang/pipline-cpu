@@ -34,7 +34,7 @@ module EX_MEM(
     input wire [1:0] EX_cnt,
     input wire EX_isindelayslot,
     input wire [31:0] EX_ins_addr,
-    input wire [7:0] Ex_aluop,
+    input wire [7:0] EX_aluop,
     input wire EX_wreg,//执行阶段指令执行后是否要写入目的寄存器
     input wire [4:0] EX_wreg_addr,//执行阶段指令执行后要写入目的寄存器的地址
     input wire [31:0] EX_wreg_data,//执行阶段指令执行后要写入目的寄存器的值
@@ -48,7 +48,7 @@ module EX_MEM(
     output reg [31:0] MEM_mem_addr,//写内存地址
     output reg [31:0] MEM_reg2 ,
     output reg MEM_isindelayslot,
-    output reg [31:0] MEM_ins_adddr ,
+    output reg [31:0] MEM_ins_addr ,
     output reg [63:0] MEM_hilo ,
     output reg [1:0] MEM_cnt 
     );
@@ -60,8 +60,18 @@ always @(posedge clk) begin
         MEM_wreg_data<=32'b0;
     end else begin
         MEM_wreg<=EX_wreg;
-        MEM_wreg_addr<=EX_wreg_addr;
-        MEM_wreg_data<=EX_wreg_data;
+        MEM_wreg_addr <= EX_wreg_addr;
+        MEM_wreg_data <= EX_wreg_data;
+		MEM_hi <= EX_hi;
+		MEM_lo <= EX_lo;
+		MEM_whilo <= EX_whilo;
+		MEM_aluop <= EX_aluop;
+		MEM_mem_addr <= EX_mem_addr;
+		MEM_reg2 <= EX_reg2;
+		MEM_isindelayslot <= EX_isindelayslot;
+		MEM_ins_addr <= EX_ins_addr;
+		MEM_hilo <= EX_hilo;
+		MEM_cnt <= EX_cnt;
     end
 end
 endmodule
