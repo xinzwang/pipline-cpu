@@ -54,7 +54,7 @@
 ------------- Begin Cut here for COMPONENT Declaration ------ COMP_TAG
 COMPONENT Instrution_Memory
   PORT (
-    a : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    a : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     spo : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END COMPONENT;
