@@ -86,8 +86,8 @@ output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
   reg ID_excepttype_is_syscall_local;
   reg ID_excepttype_is_eret_local;
   
-  assign ID_pc_plus_8_local = I_FromIFID_pc + 8;//保存当前译码阶段指令后面第二条指令的地址
-  assign ID_pc_plus_4_local = I_FromIFID_pc +4;//保存当前译码阶段指令后面紧接着指令的地址
+  assign ID_pc_plus_8_local = I_FromIFID_pc + 2;//保存当前译码阶段指令后面第二条指令的地址
+  assign ID_pc_plus_4_local = I_FromIFID_pc +1;//保存当前译码阶段指令后面紧接着指令的地址
   assign ID_imm_sll2_signedext_local = {{14{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0], 2'b00 };  
   assign stallreq = ID_stallreq_for_reg1_loadrelate_local | ID_stallreq_for_reg2_loadrelate_local;
   //根据输入信号的值，判断上一条指令是不是加载指令，如果是，至ID_pre_inst_is_load_local为1
@@ -462,7 +462,8 @@ output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
 		  		O_ToIDEX_alusel <= 3'b111; 
 		  		O_ToRF_reg1 <= 1'b1;	
 		  		O_ToRF_reg2 <= 1'b0;	  	
-				O_ToIDEX_wreg_addr <= I_FromIFID_ins[20:16]; ID_instvalid_local <= 1'b0;	
+				O_ToIDEX_wreg_addr <= I_FromIFID_ins[20:16]; 
+				ID_instvalid_local <= 1'b0;	
 				end
 				6'b101011:			begin//sw
 		  		O_ToIDEX_wreg <= 1'b0;		

@@ -310,6 +310,7 @@ EX EX_cpu(
 //��ˮ��ͣ����
     .stallreq(stallreq_from_EX)//������ˮ��ͣ
 );
+
     assign EX_EXMEM_aluop=EX_OUT_2;
     assign EX_EXMEM_wreg=EX_OUT_1 ;
     assign EX_EXMEM_wreg_addr=EX_OUT_3 ;
@@ -377,13 +378,14 @@ MEM MEM_cpu(
     .I_FROMEX_MEM_mem_addr(EXMEM_MEM_mem_addr),
 //    .I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
     . I_FROMDATA_RAM_mem_data(DM_data),
-	.O_TODATA_RAM_mem_addr(),//要�?�问的数�?存储器的地址
-	.O_TODATA_RAM_mem_we(),//�?否是写操作，�?1表示�?写操�?
+	.O_TODATA_RAM_mem_addr(MEM_DM_mem_addr),//要�?�问的数�?存储器的地址
+	.O_TODATA_RAM_mem_we(MEM_DM_mem_we),//�?否是写操作，�?1表示�?写操�?
 	.O_TODATA_RAM_mem_sel(),//字节选择信号
-	.O_TODATA_RAM_mem_data(),//要写入数�?存储器的数�??
+	.O_TODATA_RAM_mem_data(MEM_DM_mem_data),//要写入数�?存储器的数�??
     .I_FROMEX_MEM_isindelayslot(EXMEM_MEM_isindelayslot),
     .O_TOMEM_WB_isindelayslot()
 );
+
     assign MEM_MEMWB_mem_wreg=MEM_OUT_1;
     assign MEM_ID_wreg=MEM_OUT_1;
     assign MEM_MEMWB_mem_wreg_addr=MEM_OUT_2;
@@ -400,7 +402,7 @@ MEM MEM_cpu(
 
 Data_Memory DM_cpu(
     .clk(clk),
-    .a(MEM_DM_mem_addr),
+    .a(MEM_DM_mem_addr[15:0]),
     .d(MEM_DM_mem_data),
     .we(MEM_DM_mem_we),
     .spo(DM_data)

@@ -21,6 +21,12 @@ module Register_File(
 );
 
 	reg[31:0]  RF_regs_local[0:31];
+	
+	always @(negedge rst) begin
+	   if(!rst)
+	       for(integer i=0;i<32;i=i+1)
+	           RF_regs_local[i]<=32'b0;
+	end
 
 	always @ (posedge clk) begin
 		if (rst == 1'b1) begin
