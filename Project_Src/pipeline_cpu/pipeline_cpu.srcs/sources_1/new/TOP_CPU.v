@@ -53,10 +53,10 @@ wire IDEX_ID_isindelayslot;//�����ӳٲ���
 wire [31:0] RF_ID_reg1_data;//�Ĵ�������ֵһ
 wire [31:0] RF_ID_reg2_data;//�Ĵ�������ֵ��
 ////�Ĵ�����ջ�������?
-//wire [4:0] ID_RF_reg1_addr;//����ַ
-//wire [4:0] ID_RF_reg2_addr;//����ַ
-//wire ID_RF_reg1;//��ʹ��
-//wire ID_RF_reg2;//��ʹ��
+wire [4:0] ID_RF_reg1_addr;//����ַ
+wire [4:0] ID_RF_reg2_addr;//����ַ
+wire ID_RF_reg1;//��ʹ��
+wire ID_RF_reg2;//��ʹ��
 //wire MEMWB_RF_wreg;//дʹ��
 //wire [4:0] MEMWB_RF_wreg_addr;//д��ַ
 //wire [31:0] MEMWB_RF_wreg_data;//д����
@@ -471,11 +471,11 @@ Register_File RF_cpu(
     .I_FromMEM_WB_we(MEMWB_RF_wreg),
     .I_FromMEM_WB_waddr(MEMWB_RF_wreg_addr),
     .I_FromMEM_WB_wdata(MEMWB_RF_wreg_data),
-	.I_FromID_re1(ID_RF_re1),
-	.I_FromID_raddr1(ID_RF_re1_addr),
+	.I_FromID_re1(ID_RF_reg1),
+	.I_FromID_raddr1(ID_RF_reg1_addr),
 	.O_ToID_rdata1(RF_ID_reg1_data),
-    .I_FromID_re2(ID_RF_re2),
-    .I_FromID_raddr2(ID_RF_re2_addr),
+    .I_FromID_re2(ID_RF_reg2),
+    .I_FromID_raddr2(ID_RF_reg2_addr),
     .O_ToID_rdata2(RF_ID_reg2_data)
 );
 

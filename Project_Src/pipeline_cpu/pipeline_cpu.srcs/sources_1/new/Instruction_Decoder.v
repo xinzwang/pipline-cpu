@@ -565,13 +565,13 @@ output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
 			O_ToIDEX_reg1 <= I_FromEX_wreg_data; 
 		end else if((O_ToRF_reg1 == 1'b1) && (I_FromMEM_wreg == 1'b1) && (I_FromMEM_wreg_addr == O_ToRF_reg1_addr)) begin
 			O_ToIDEX_reg1 <= I_FromMEM_wreg_data; 		
-	  end else if(O_ToRF_reg1 == 1'b1) begin
-	  	O_ToIDEX_reg1 <= I_FromRF_reg1_data; //regfile读端口1的值
-	  end else if(O_ToRF_reg1 == 1'b0) begin
-	  	O_ToIDEX_reg1 <= ID_imm_local;//立即数
-	  end else begin
-	    O_ToIDEX_reg1 <= 32'h00000000;
-	  end
+		end else if(O_ToRF_reg1 == 1'b1) begin
+			O_ToIDEX_reg1 <= I_FromRF_reg1_data; //regfile读端口1的值
+		end else if(O_ToRF_reg1 == 1'b0) begin
+			O_ToIDEX_reg1 <= ID_imm_local;//立即数
+		end else begin
+			O_ToIDEX_reg1 <= 32'h00000000;
+		end
 	end
 	
 	
