@@ -1,4 +1,6 @@
 lui $t1,4
+lui $t2,5
+lui $t3,6
 or $t1,$t2,100
 and $t1,$t2,100
 xor $t1,$t2,100
