@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Mon Sep  6 11:44:28 2021
+-- Date        : Tue Sep  7 11:20:56 2021
 -- Host        : DESKTOP-VQQ5FPJ running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               C:/Users/91867/Desktop/CPU/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_stub.vhdl

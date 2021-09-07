@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Mon Sep  6 11:44:28 2021
+-- Date        : Tue Sep  7 11:20:56 2021
 -- Host        : DESKTOP-VQQ5FPJ running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               C:/Users/91867/Desktop/CPU/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_sim_netlist.vhdl
@@ -16,7 +16,7 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity Instrution_Memory_rom is
   port (
-    spo : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    spo : out STD_LOGIC_VECTOR ( 0 to 0 );
     a : in STD_LOGIC_VECTOR ( 9 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
@@ -25,44 +25,30 @@ end Instrution_Memory_rom;
 
 architecture STRUCTURE of Instrution_Memory_rom is
   signal \spo[2]_INST_0_i_1_n_0\ : STD_LOGIC;
-  attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \spo[0]_INST_0\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \spo[2]_INST_0\ : label is "soft_lutpair0";
 begin
-\spo[0]_INST_0\: unisim.vcomponents.LUT5
+\spo[2]_INST_0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"00000020"
-    )
-        port map (
-      I0 => a(0),
-      I1 => a(7),
-      I2 => \spo[2]_INST_0_i_1_n_0\,
-      I3 => a(8),
-      I4 => a(9),
-      O => spo(0)
-    );
-\spo[2]_INST_0\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0004"
+      INIT => X"00000010"
     )
         port map (
       I0 => a(8),
-      I1 => \spo[2]_INST_0_i_1_n_0\,
-      I2 => a(7),
-      I3 => a(9),
-      O => spo(1)
+      I1 => a(6),
+      I2 => \spo[2]_INST_0_i_1_n_0\,
+      I3 => a(7),
+      I4 => a(9),
+      O => spo(0)
     );
 \spo[2]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"0000000000000001"
     )
         port map (
-      I0 => a(5),
-      I1 => a(3),
-      I2 => a(1),
-      I3 => a(2),
-      I4 => a(4),
-      I5 => a(6),
+      I0 => a(4),
+      I1 => a(2),
+      I2 => a(0),
+      I3 => a(1),
+      I4 => a(3),
+      I5 => a(5),
       O => \spo[2]_INST_0_i_1_n_0\
     );
 end STRUCTURE;
@@ -72,7 +58,7 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity Instrution_Memory_dist_mem_gen_v8_0_13_synth is
   port (
-    spo : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    spo : out STD_LOGIC_VECTOR ( 0 to 0 );
     a : in STD_LOGIC_VECTOR ( 9 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
@@ -84,7 +70,7 @@ begin
 \gen_rom.rom_inst\: entity work.Instrution_Memory_rom
      port map (
       a(9 downto 0) => a(9 downto 0),
-      spo(1 downto 0) => spo(1 downto 0)
+      spo(0) => spo(0)
     );
 end STRUCTURE;
 library IEEE;
@@ -181,7 +167,7 @@ end Instrution_Memory_dist_mem_gen_v8_0_13;
 
 architecture STRUCTURE of Instrution_Memory_dist_mem_gen_v8_0_13 is
   signal \<const0>\ : STD_LOGIC;
-  signal \^spo\ : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^spo\ : STD_LOGIC_VECTOR ( 2 to 2 );
 begin
   dpo(31) <= \<const0>\;
   dpo(30) <= \<const0>\;
@@ -283,12 +269,12 @@ begin
   spo(30) <= \<const0>\;
   spo(29) <= \^spo\(2);
   spo(28) <= \^spo\(2);
-  spo(27) <= \^spo\(2);
-  spo(26) <= \^spo\(2);
+  spo(27) <= \<const0>\;
+  spo(26) <= \<const0>\;
   spo(25) <= \<const0>\;
-  spo(24) <= \<const0>\;
+  spo(24) <= \^spo\(2);
   spo(23) <= \<const0>\;
-  spo(22) <= \<const0>\;
+  spo(22) <= \^spo\(2);
   spo(21) <= \<const0>\;
   spo(20) <= \<const0>\;
   spo(19) <= \^spo\(2);
@@ -304,13 +290,13 @@ begin
   spo(9) <= \<const0>\;
   spo(8) <= \<const0>\;
   spo(7) <= \<const0>\;
-  spo(6) <= \<const0>\;
-  spo(5) <= \<const0>\;
+  spo(6) <= \^spo\(2);
+  spo(5) <= \^spo\(2);
   spo(4) <= \<const0>\;
   spo(3) <= \<const0>\;
   spo(2) <= \^spo\(2);
   spo(1) <= \<const0>\;
-  spo(0) <= \^spo\(0);
+  spo(0) <= \<const0>\;
 GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
@@ -318,8 +304,7 @@ GND: unisim.vcomponents.GND
 \synth_options.dist_mem_inst\: entity work.Instrution_Memory_dist_mem_gen_v8_0_13_synth
      port map (
       a(9 downto 0) => a(9 downto 0),
-      spo(1) => \^spo\(2),
-      spo(0) => \^spo\(0)
+      spo(0) => \^spo\(2)
     );
 end STRUCTURE;
 library IEEE;

@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Mon Sep  6 11:44:28 2021
+// Date        : Tue Sep  7 11:20:56 2021
 // Host        : DESKTOP-VQQ5FPJ running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               C:/Users/91867/Desktop/CPU/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.srcs/sources_1/ip/Instrution_Memory/Instrution_Memory_sim_netlist.v
@@ -127,7 +127,7 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
 
   wire \<const0> ;
   wire [9:0]a;
-  wire [2:0]\^spo ;
+  wire [2:2]\^spo ;
 
   assign dpo[31] = \<const0> ;
   assign dpo[30] = \<const0> ;
@@ -229,12 +229,12 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   assign spo[30] = \<const0> ;
   assign spo[29] = \^spo [2];
   assign spo[28] = \^spo [2];
-  assign spo[27] = \^spo [2];
-  assign spo[26] = \^spo [2];
+  assign spo[27] = \<const0> ;
+  assign spo[26] = \<const0> ;
   assign spo[25] = \<const0> ;
-  assign spo[24] = \<const0> ;
+  assign spo[24] = \^spo [2];
   assign spo[23] = \<const0> ;
-  assign spo[22] = \<const0> ;
+  assign spo[22] = \^spo [2];
   assign spo[21] = \<const0> ;
   assign spo[20] = \<const0> ;
   assign spo[19] = \^spo [2];
@@ -250,29 +250,29 @@ module Instrution_Memory_dist_mem_gen_v8_0_13
   assign spo[9] = \<const0> ;
   assign spo[8] = \<const0> ;
   assign spo[7] = \<const0> ;
-  assign spo[6] = \<const0> ;
-  assign spo[5] = \<const0> ;
+  assign spo[6] = \^spo [2];
+  assign spo[5] = \^spo [2];
   assign spo[4] = \<const0> ;
   assign spo[3] = \<const0> ;
   assign spo[2] = \^spo [2];
   assign spo[1] = \<const0> ;
-  assign spo[0] = \^spo [0];
+  assign spo[0] = \<const0> ;
   GND GND
        (.G(\<const0> ));
   Instrution_Memory_dist_mem_gen_v8_0_13_synth \synth_options.dist_mem_inst 
        (.a(a),
-        .spo({\^spo [2],\^spo [0]}));
+        .spo(\^spo ));
 endmodule
 
 (* ORIG_REF_NAME = "dist_mem_gen_v8_0_13_synth" *) 
 module Instrution_Memory_dist_mem_gen_v8_0_13_synth
    (spo,
     a);
-  output [1:0]spo;
+  output [0:0]spo;
   input [9:0]a;
 
   wire [9:0]a;
-  wire [1:0]spo;
+  wire [0:0]spo;
 
   Instrution_Memory_rom \gen_rom.rom_inst 
        (.a(a),
@@ -283,41 +283,31 @@ endmodule
 module Instrution_Memory_rom
    (spo,
     a);
-  output [1:0]spo;
+  output [0:0]spo;
   input [9:0]a;
 
   wire [9:0]a;
-  wire [1:0]spo;
+  wire [0:0]spo;
   wire \spo[2]_INST_0_i_1_n_0 ;
 
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
-    .INIT(32'h00000020)) 
-    \spo[0]_INST_0 
-       (.I0(a[0]),
-        .I1(a[7]),
-        .I2(\spo[2]_INST_0_i_1_n_0 ),
-        .I3(a[8]),
-        .I4(a[9]),
-        .O(spo[0]));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
+    .INIT(32'h00000010)) 
     \spo[2]_INST_0 
        (.I0(a[8]),
-        .I1(\spo[2]_INST_0_i_1_n_0 ),
-        .I2(a[7]),
-        .I3(a[9]),
-        .O(spo[1]));
+        .I1(a[6]),
+        .I2(\spo[2]_INST_0_i_1_n_0 ),
+        .I3(a[7]),
+        .I4(a[9]),
+        .O(spo));
   LUT6 #(
     .INIT(64'h0000000000000001)) 
     \spo[2]_INST_0_i_1 
-       (.I0(a[5]),
-        .I1(a[3]),
-        .I2(a[1]),
-        .I3(a[2]),
-        .I4(a[4]),
-        .I5(a[6]),
+       (.I0(a[4]),
+        .I1(a[2]),
+        .I2(a[0]),
+        .I3(a[1]),
+        .I4(a[3]),
+        .I5(a[5]),
         .O(\spo[2]_INST_0_i_1_n_0 ));
 endmodule
 `ifndef GLBL
