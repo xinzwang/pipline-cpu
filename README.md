@@ -2,29 +2,43 @@
 
 ## 测试日志
 
+### 1、数学运算指令
+
 |序号|指令名|测试状态|测试者|测试汇编指令|
 |:--:|:--:|:--:|:--:|:--:|
-||lw| √ | wzl | |
-||sw| √ | wzl | |
-||lui| √ | wzl| |
-||andi| √ | wzl | |
-||xori| √ | wzl | |
-||slti| √| wzl | |
-||addi| √ | wzl | |
-||addiu| √ | wzl | |
-|| j  | 正在测试 | wzl |  |
-|| beq  | 正在测试 | wzl |  |
-||or| √ |wxz | |
-||and| √ |wxz | |
-||xor| √ |wxz| |
-||nor| √ |wxz| |
-||sllv| √ | wxz| |
-||srlv| √ | wxz | |
-||movn| 正在测试 | wxz| |
-||slt| √ | wxz| |
-|| sltu |正在测试 | wxz |  |
 || add | √ | wxz |  |
+|| addi| √ | wzl | |
 || addu | √ | wxz |  |
-|| sub | 正在测试 | wxz |  |
-|| subu | 正在测试 | wxz |  |
-|| ori  | 正在测试 | wxz |  |
+|| addiu | √ | wzl | |
+|| sub | √ | wxz |  |
+|| subu | √ | wxz |  |
+|| and| √ |wxz | |
+|| andi| √ | wzl | |
+|| sll | 待测试 | wxz |  |
+|| sllv| √ | wxz| |
+|| srl | 待测试 | wxz |  |
+|| srlv| √ | wxz | |
+|| or| √ |wxz | |
+|| ori  | √ | wxz |  |
+|| xor| √ |wxz| |
+|| xori| √ | wzl | |
+|| nor| √ |wxz| |
+|| slt| √ | wxz| |
+|| slti| √| wzl | |
+|| sltu | √ | wxz |  |
+
+### 2、访存指令
+
+|序号|指令名|测试状态|测试者|测试汇编指令|
+|:--:|:--:|:--:|:--:|:--:|
+|| lw| √ | wzl | |
+|| sw| 正在测试 | wzl | |
+|| lui| √ | wzl| |
+
+### 3、跳转指令
+
+|序号|指令名|测试状态|测试者|测试汇编指令|
+|:--:|:--:|:--:|:--:|:--:|
+|| j  | √ | wzl |  |
+|| beq  | 正在测试 | wzl |  |
+|| movn| 正在测试 | wxz| |
