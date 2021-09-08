@@ -11,6 +11,7 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
+<<<<<<< HEAD
       <ZoomStartTime time="132630fs"></ZoomStartTime>
       <ZoomEndTime time="193731fs"></ZoomEndTime>
       <Cursor1Time time="164780fs"></Cursor1Time>
@@ -18,8 +19,17 @@
    <column_width_setting>
       <NameColumnWidth column_width="216"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
+=======
+      <ZoomStartTime time="180372fs"></ZoomStartTime>
+      <ZoomEndTime time="248573fs"></ZoomEndTime>
+      <Cursor1Time time="256347fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="270"></NameColumnWidth>
+      <ValueColumnWidth column_width="210"></ValueColumnWidth>
+>>>>>>> dd94231bb477af599c2ba6672cf728a3df5a205a
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/testbench/sys_clk" type="logic">
       <obj_property name="ElementShortName">sys_clk</obj_property>
       <obj_property name="ObjectShortName">sys_clk</obj_property>
@@ -28,21 +38,49 @@
       <obj_property name="ElementShortName">sys_rst_n</obj_property>
       <obj_property name="ObjectShortName">sys_rst_n</obj_property>
    </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/PC_cpu/O_ToIM_IFID_pc" type="array">
+      <obj_property name="ElementShortName">O_ToIM_IFID_pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">O_ToIM_IFID_pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/IM_cpu/spo" type="array">
+      <obj_property name="ElementShortName">spo[31:0]</obj_property>
+      <obj_property name="ObjectShortName">spo[31:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromIFID_ins" type="array">
       <obj_property name="ElementShortName">I_FromIFID_ins[31:0]</obj_property>
       <obj_property name="ObjectShortName">I_FromIFID_ins[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/I_FromMEM_WB_we" type="logic">
-      <obj_property name="ElementShortName">I_FromMEM_WB_we</obj_property>
-      <obj_property name="ObjectShortName">I_FromMEM_WB_we</obj_property>
+   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/I_FromIDEX_ins" type="array">
+      <obj_property name="ElementShortName">I_FromIDEX_ins[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_FromIDEX_ins[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/I_FromMEM_WB_waddr" type="array">
-      <obj_property name="ElementShortName">I_FromMEM_WB_waddr[4:0]</obj_property>
-      <obj_property name="ObjectShortName">I_FromMEM_WB_waddr[4:0]</obj_property>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromEX_wreg" type="logic">
+      <obj_property name="ElementShortName">I_FromEX_wreg</obj_property>
+      <obj_property name="ObjectShortName">I_FromEX_wreg</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/I_FromMEM_WB_wdata" type="array">
-      <obj_property name="ElementShortName">I_FromMEM_WB_wdata[31:0]</obj_property>
-      <obj_property name="ObjectShortName">I_FromMEM_WB_wdata[31:0]</obj_property>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromEX_wreg_addr" type="array">
+      <obj_property name="ElementShortName">I_FromEX_wreg_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_FromEX_wreg_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromEX_wreg_data" type="array">
+      <obj_property name="ElementShortName">I_FromEX_wreg_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_FromEX_wreg_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/RF_cpu/RF_regs_local" type="array">
+      <obj_property name="ElementShortName">RF_regs_local[0:31][31:0]</obj_property>
+      <obj_property name="ObjectShortName">RF_regs_local[0:31][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromMEM_wreg" type="logic">
+      <obj_property name="ElementShortName">I_FromMEM_wreg</obj_property>
+      <obj_property name="ObjectShortName">I_FromMEM_wreg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromMEM_wreg_addr" type="array">
+      <obj_property name="ElementShortName">I_FromMEM_wreg_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_FromMEM_wreg_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/ID_cpu/I_FromMEM_wreg_data" type="array">
+      <obj_property name="ElementShortName">I_FromMEM_wreg_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_FromMEM_wreg_data[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/I_FromIDEX_aluop" type="array">
       <obj_property name="ElementShortName">I_FromIDEX_aluop[7:0]</obj_property>
@@ -58,17 +96,21 @@
       <obj_property name="ObjectShortName">I_FromIDEX_reg2[31:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/O_To_ID_EXMEM_wreg" type="logic">
-      <obj_property name="ElementShortName">O_To_ID_EXMEM_wreg</obj_property>
-      <obj_property name="ObjectShortName">O_To_ID_EXMEM_wreg</obj_property>
+   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/switch_complement_reg2" type="logic">
+      <obj_property name="ElementShortName">switch_complement_reg2</obj_property>
+      <obj_property name="ObjectShortName">switch_complement_reg2</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/O_To_ID_EXMEM_wreg_addr" type="array">
-      <obj_property name="ElementShortName">O_To_ID_EXMEM_wreg_addr[4:0]</obj_property>
-      <obj_property name="ObjectShortName">O_To_ID_EXMEM_wreg_addr[4:0]</obj_property>
+   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/mux_sum" type="array">
+      <obj_property name="ElementShortName">mux_sum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mux_sum[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/O_To_ID_EXMEM_wreg_data" type="array">
       <obj_property name="ElementShortName">O_To_ID_EXMEM_wreg_data[31:0]</obj_property>
       <obj_property name="ObjectShortName">O_To_ID_EXMEM_wreg_data[31:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/pipeline_cpu/EX_cpu/arithmetic_out" type="array">
+      <obj_property name="ElementShortName">arithmetic_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">arithmetic_out[31:0]</obj_property>
    </wvobject>
 </wave_config>

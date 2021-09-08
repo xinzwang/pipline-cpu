@@ -133,7 +133,7 @@ module EX(
 								  ~(I_FromIDEX_reg2)+1 :I_FromIDEX_reg2;
 	assign mux_sum = I_FromIDEX_reg1 + switch_complement_reg2;
 	// assign mux_lt = ((I_FromIDEX_aluop == 8'b00101010)) ?
-	// 				((I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31]) ||	// 1 2 0 ||  0 || 0  
+	// 				((I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31]) ||
 	// 				(!I_FromIDEX_reg1[31] && !I_FromIDEX_reg2[31] && mux_sum[31]) ||
 	// 				(I_FromIDEX_reg1[31] && I_FromIDEX_reg2[31] && mux_sum[31]))
 	// 				: (I_FromIDEX_reg1 < I_FromIDEX_reg2);
