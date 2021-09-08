@@ -191,7 +191,45 @@ module Instruction_Decoder(
 		  						    O_ToRF_reg1 <= 1'b1;	
 		  						    O_ToRF_reg2 <= 1'b1;
 		  						    ID_instvalid_local <= 1'b0;	
-								end 					
+								end 
+								6'b000111: begin//srav
+									O_ToIDEX_wreg <= 1'b1;
+									O_ToIDEX_aluop <= 8'b00000011;
+									O_ToIDEX_alusel <= 3'b010;	
+									O_ToRF_reg1 <= 1'b1;	
+		  						    O_ToRF_reg2 <= 1'b1;
+		  						    ID_instvalid_local <= 1'b0;		
+		  					end		
+								// 6'b010000: begin //mfhi
+								// 	wreg_o <= 1'b1;		
+								// 	aluop_o <= 6'b010000;
+		  						// 	alusel_o <= 3'b011;   
+								// 	reg1_read_o <= 1'b0;
+								// 	reg2_read_o <= 1'b0;
+		  						// 	instvalid <= 1'b0;	
+								// end
+								// 6'b010010: begin //mflo
+								// 	wreg_o <= 1'b1;
+								// 	aluop_o <= 6'b010010;
+		  						// 	alusel_o <= 3'b011;
+								// 	reg1_read_o <= 1'b0;
+								// 	reg2_read_o <= 1'b0;
+		  						// 	instvalid <= 1'b0;	
+								// end
+								// 6'b010001: begin //mthi
+								// 	wreg_o <= 1'b0;		
+								// 	aluop_o <= 6'b010001;
+		  						// 	reg1_read_o <= 1'b1;	
+								//   	reg2_read_o <= 1'b0; 
+								//   	instvalid <= 1'b0;	
+								// end
+								// 6'b010011: begin 	//mlto
+								// 	wreg_o <= 1'b0;	
+								// 	aluop_o <= 6'b010011;
+		  						// 	reg1_read_o <= 1'b1;	
+								// 	reg2_read_o <= 1'b0; 
+								// 	instvalid <= 1'b0;	
+								// end			
 								6'b001011: begin//movn
 									O_ToIDEX_aluop <= 8'b00001011;
 		  						    O_ToIDEX_alusel <= 3'b011;  
@@ -203,6 +241,18 @@ module Instruction_Decoder(
 	 								end else begin
 	 									O_ToIDEX_wreg <= 1'b0;
 	 								end
+	 							end
+								6'b001010: begin 	//movz
+									O_ToIDEX_aluop <= 8'b00001010;
+		  						    O_ToIDEX_alusel <= 3'b011;  
+		  						    O_ToRF_reg1 <= 1'b1;	
+		  						    O_ToRF_reg2 <= 1'b1;
+		  						    ID_instvalid_local <= 1'b0;
+								 	if(O_ToIDEX_reg2 == 32'h00000000) begin
+	 									O_ToIDEX_wreg <= 1'b1;
+	 								end else begin
+	 									O_ToIDEX_wreg <= 1'b0;
+	 								end  							
 								end
 								6'b101010: begin//slt
 									O_ToIDEX_wreg <= 1'b1;		

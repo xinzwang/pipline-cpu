@@ -113,9 +113,10 @@ module EX(
 				8'b00000010: begin //srl
 					shift_out <=  I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
 				end
-				8'b00000011: begin //sra
+				8'b00000011: begin //sra,srav
 					shift_out <= ({32{I_FromIDEX_reg2[31]}} << (6'd32-{1'b0,I_FromIDEX_reg1[4:0]}))| I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
 				end
+
 				default: begin
 					shift_out <= 32'h00000000;
 				end
@@ -221,14 +222,17 @@ module EX(
 	// 	end
 	// end
 
-	//movn
+	//movn movz
 	reg[31:0] movers;
 	always @ (*) begin
 		if(rst == 1'b0) begin
 			movers <= 32'h00000000;
 		end else begin
 			case (I_FromIDEX_aluop)
-			8'b00001011: begin
+			8'b00001011: begin //movn
+				movers <= I_FromIDEX_reg1;
+			end
+			8'b00001010: begin //movz
 				movers <= I_FromIDEX_reg1;
 			end
 			default : begin

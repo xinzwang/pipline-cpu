@@ -1,14 +1,11 @@
 add $t1,$t1,3
-add $t2,$t2,-7
+add $t2,$t2,1
+add $t3,$t3,0
 
-sll $t3,$t2,4
-srl $t4,$t3,3
-sra $5,$t2, 2
+movn $t4,$t1,$t2
+movn $t5, $t1,$t3
 
-andi $t1,$t2,100
-xori $t1,$t2,100
-slti $t1,$t2,-100
-addi $t1,$t2,99
-addiu $t1,$t2,-100
-lw $t1,12
-sw $t1,20
+movz $t6,$t1,$t2
+movz $t7, $t1,$t3
+
+srav $t8,$t1,$t2
