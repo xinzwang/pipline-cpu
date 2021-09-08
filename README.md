@@ -1,10 +1,24 @@
 # 流水线CPU
 
-#### 介绍
+## 测试日志
 
-实现流水线CPU
+|
 
-#### 软件架构
+# 娴佹按绾緾PU
+
+#### 宸茬粡瀹炵幇
+
+已实现
+wzl: LW SW LUI ANDI XORI SLTI ADDI ADDIU 
+
+wxz:or and xor nor
+
+计划
+wxz:sllv srlv movn slt sltu add addu sub subu ori
+
+#### 浠嬬粛
+
+瀹炵幇娴佹按绾緾PU
 
 Vivado2019.2
 
