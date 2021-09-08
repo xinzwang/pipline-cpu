@@ -7,7 +7,7 @@ wzl: LW SW LUI ANDI XORI SLTI ADDI ADDIU
 
 wxz:or and xor nor
 
-计划
+计划 
 wxz:sllv srlv movn slt sltu add addu sub subu ori
 
 #### 安装教程
