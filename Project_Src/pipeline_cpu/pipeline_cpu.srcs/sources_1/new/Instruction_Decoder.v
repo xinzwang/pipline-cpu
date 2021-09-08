@@ -58,10 +58,10 @@ module Instruction_Decoder(
 //新增变量
 //    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
 //    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
-//    output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
-output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
+      output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
+      output wire[31:0] O_ToIDEX_ins,//当前处于译码阶段的指令
 //    output wire[31:0] O_ToIDEX_excepttype, //收集的异常信息
-//    output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
+      output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
 );
 
 
@@ -99,7 +99,7 @@ output wire[31:0] O_ToIDEX_ins //当前处于译码阶段的指令
   //assign O_ToIDEX_excepttype = {19'b0,ID_excepttype_is_eret_local,2'b0,ID_instvalid_local, ID_excepttype_is_syscall_local,8'b0};
   
   //输入信号pci就是当前处于译码阶段的指令的地址
-  //assign O_ToIDEX_current_inst_address = I_FromIFID_pc;
+  assign O_ToIDEX_current_inst_address = I_FromIFID_pc;
     
     //对指令进行译码
 	always @ (*) begin	

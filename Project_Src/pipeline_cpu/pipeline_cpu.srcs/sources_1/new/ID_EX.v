@@ -33,7 +33,9 @@ module ID_EX(
     input wire [4:0] ID_wreg_addr,//译码阶段指令要写入的目的寄存器地址
     input wire [31:0] ID_ins,//来自ID的具体指令值
     input wire [31:0] ID_ins_addr,//来自ID的具体指令地址
-    output reg ID_isindelayslot,//延迟槽
+    input wire  ID_isindelayslot,//延迟槽
+    input wire ID_next_ins_isindelayslot,
+    
     output reg [2:0] EX_alusel,//执行阶段要进行运算的类型
     output reg [7:0] EX_aluop,//执行阶段要进行运算的子类型
     output reg [31:0] EX_reg1,//执行阶段指令要进行运算的源操作数一
@@ -42,7 +44,8 @@ module ID_EX(
     output reg EX_wreg,//执行阶段指令是否要写入目的寄存器
     output reg [31:0] EX_ins,//给ex的具体指令值
     output reg [31:0] EX_ins_addr,//给EX的具体指令地址
-    output reg EX_isindelayslot
+    output reg EX_isindelayslot,
+    output reg IDEX_ID_isindelayslot
     );
     
 //时序控制部分，每个时钟上升沿信号传送到锁存器另一端
@@ -57,7 +60,30 @@ always @(posedge clk) begin
         EX_ins<=32'b0;
         EX_ins_addr<=32'b0;
         EX_isindelayslot<=1'b0;
-    end else begin
+        IDEX_ID_isindelayslot<=1'b0;
+    end else if (CL_flush==1'b1) begin
+        EX_aluop<=8'b0;
+        EX_alusel<=3'b0;
+        EX_reg1<=32'b0;
+        EX_reg2<=32'b0;
+        EX_wreg_addr<=5'b0;
+        EX_wreg<=1'b0;
+        EX_ins<=32'b0;
+        EX_ins_addr<=32'b0;
+        EX_isindelayslot<=1'b0;
+        IDEX_ID_isindelayslot<=1'b0;
+    end else if(CL_stall[2]==1'b1 && CL_stall[3]==1'b0) begin
+        EX_aluop<=8'b0;
+        EX_alusel<=3'b0;
+        EX_reg1<=32'b0;
+        EX_reg2<=32'b0;
+        EX_wreg_addr<=5'b0;
+        EX_wreg<=1'b0;
+        EX_ins<=32'b0;
+        EX_ins_addr<=32'b0;
+        EX_isindelayslot<=1'b0;
+        IDEX_ID_isindelayslot<=1'b0;
+    end else if(CL_stall[2]==1'b0) begin
         EX_aluop<=ID_aluop;
         EX_alusel<=ID_alusel;
         EX_reg1<=ID_reg1;
@@ -67,6 +93,7 @@ always @(posedge clk) begin
         EX_ins<=ID_ins;
         EX_ins_addr<=ID_ins_addr;
         EX_isindelayslot<=ID_isindelayslot;
+        IDEX_ID_isindelayslot<=ID_next_ins_isindelayslot;
     end
 end
     

@@ -49,7 +49,21 @@ always @(posedge clk) begin
         WB_whilo<=1'b0;
         WB_hi_data<=32'b0;
         WB_lo_data<=32'b0;
-    end else begin
+    end else if (CL_flush==1'b1) begin
+        WB_wreg<=1'b0;
+        WB_wreg_addr<=5'b0;
+        WB_wreg_data<=32'b0;
+        WB_whilo<=1'b0;
+        WB_hi_data<=32'b0;
+        WB_lo_data<=32'b0;
+    end else if (CL_stall[4]==1'b1 && CL_stall[5]==1'b0) begin
+        WB_wreg<=1'b0;
+        WB_wreg_addr<=5'b0;
+        WB_wreg_data<=32'b0;
+        WB_whilo<=1'b0;
+        WB_hi_data<=32'b0;
+        WB_lo_data<=32'b0;
+    end else if (CL_stall[4]==1'b0) begin
         WB_wreg<=MEM_wreg;
         WB_wreg_addr<=MEM_wreg_addr;
         WB_wreg_data<=MEM_wreg_data;

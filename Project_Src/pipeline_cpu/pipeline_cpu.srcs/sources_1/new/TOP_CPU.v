@@ -232,6 +232,9 @@ Instruction_Decoder ID_cpu(
 //    .O_ToIDEX_current_inst_address //����׶�ָ��ĵ�ַ
 );
 
+wire ID_IDEX_next_ins_isindelayslot;
+wire IDEX_ID_is_indelayslot;
+
 ID_EX IDEX_cpu(
     .clk(clk),
     .rst(rst),
@@ -246,6 +249,8 @@ ID_EX IDEX_cpu(
     .ID_ins(ID_IDEX_ins),//����ID�ľ���ָ��ֵ
     .ID_ins_addr(ID_IDEX_ins_addr),//����ID�ľ���ָ����?
     .ID_isindelayslot(ID_IDEX_isindelaysolt),//�ӳٲ�
+    .ID_next_ins_isindelayslot(ID_IDEX_next_ins_isindelayslot),
+    
     .EX_alusel(IDEX_EX_alusel),//ִ�н׶�Ҫ�������������?
     .EX_aluop(IDEX_EX_aluop),//ִ�н׶�Ҫ���������������?
     .EX_reg1(IDEX_EX_reg1_data),//ִ�н׶�ָ��Ҫ���������Դ�������?
@@ -254,7 +259,8 @@ ID_EX IDEX_cpu(
     .EX_wreg(IDEX_EX_wreg),//ִ�н׶�ָ���Ƿ�Ҫд��Ŀ�ļĴ���
     .EX_ins(IDEX_EX_ins),//��ex�ľ���ָ��ֵ
     .EX_ins_addr(IDEX_EX_ins_addr),//��EX�ľ���ָ����?
-    .EX_isindelayslot(IDEX_EX_isindelayslot)
+    .EX_isindelayslot(IDEX_EX_isindelayslot),
+    .IDEX_ID_isindelayslot(IDEX_ID_is_indelayslot)
 );
 
 
@@ -349,8 +355,8 @@ EX_MEM EXMEM_cpu(
     .MEM_reg2(EXMEM_MEM_reg2),
     .MEM_isindelayslot(EXMEM_MEM_isindelayslot),
     .MEM_ins_addr(EXMEM_MEM_ins_addr),
-    .MEM_hilo(EXMEM_EX_hilo_temp),
-    .MEM_cnt(EXMEM_EX_cnt) 
+    .EXMEM_EX_hilo(EXMEM_EX_hilo_temp),
+    .EXMEM_EX_cnt(EXMEM_EX_cnt) 
 );
 
 wire MEM_OUT_1;

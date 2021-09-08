@@ -49,8 +49,8 @@ module EX_MEM(
     output reg [31:0] MEM_reg2 ,
     output reg MEM_isindelayslot,
     output reg [31:0] MEM_ins_addr ,
-    output reg [63:0] MEM_hilo ,
-    output reg [1:0] MEM_cnt 
+    output reg [63:0] EXMEM_EX_hilo ,
+    output reg [1:0] EXMEM_EX_cnt 
     );
     //时序控制部分，每个时钟上升沿信号传送到锁存器另一端
 always @(posedge clk) begin
@@ -58,7 +58,45 @@ always @(posedge clk) begin
         MEM_wreg<=1'b0;
         MEM_wreg_addr<=5'b0;
         MEM_wreg_data<=32'b0;
-    end else begin
+		MEM_hi <= 32'b0;
+		MEM_lo <= 32'b0;
+		MEM_whilo <= 1'b0;
+		MEM_aluop <= 8'b0;
+		MEM_mem_addr <= 32'b0;
+		MEM_reg2 <= 32'b0;
+		MEM_isindelayslot <= 1'b0;
+		MEM_ins_addr <= 32'b0;
+		EXMEM_EX_hilo <= 64'b0;
+		EXMEM_EX_cnt <= 2'b0;
+    end else if(CL_flush==1'b1) begin
+        MEM_wreg<=1'b0;
+        MEM_wreg_addr<=5'b0;
+        MEM_wreg_data<=32'b0;
+		MEM_hi <= 32'b0;
+		MEM_lo <= 32'b0;
+		MEM_whilo <= 1'b0;
+		MEM_aluop <= 8'b0;
+		MEM_mem_addr <= 32'b0;
+		MEM_reg2 <= 32'b0;
+		MEM_isindelayslot <= 1'b0;
+		MEM_ins_addr <= 32'b0;
+		EXMEM_EX_hilo <= 64'b0;
+		EXMEM_EX_cnt <= 2'b0;
+    end else if(CL_stall[3] == 1'b1 && CL_stall[4] == 1'b0) begin 
+        MEM_wreg<=1'b0;
+        MEM_wreg_addr<=5'b0;
+        MEM_wreg_data<=32'b0;
+		MEM_hi <= 32'b0;
+		MEM_lo <= 32'b0;
+		MEM_whilo <= 1'b0;
+		MEM_aluop <= 8'b0;
+		MEM_mem_addr <= 32'b0;
+		MEM_reg2 <= 32'b0;
+		MEM_isindelayslot <= 1'b0;
+		MEM_ins_addr <= 32'b0;
+		EXMEM_EX_hilo <= EX_hilo;
+		EXMEM_EX_cnt <=  EX_cnt;
+    end else if(CL_stall[3]==1'b0) begin
         MEM_wreg<=EX_wreg;
         MEM_wreg_addr <= EX_wreg_addr;
         MEM_wreg_data <= EX_wreg_data;
@@ -70,8 +108,8 @@ always @(posedge clk) begin
 		MEM_reg2 <= EX_reg2;
 		MEM_isindelayslot <= EX_isindelayslot;
 		MEM_ins_addr <= EX_ins_addr;
-		MEM_hilo <= EX_hilo;
-		MEM_cnt <= EX_cnt;
+		EXMEM_EX_hilo <= EX_hilo;
+		EXMEM_EX_cnt <= 2'b0;
     end
 end
 endmodule

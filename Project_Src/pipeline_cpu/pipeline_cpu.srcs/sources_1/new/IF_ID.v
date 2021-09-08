@@ -38,7 +38,13 @@ always @(posedge clk) begin
     if(rst==1'b0) begin
         ID_pc<=32'b0;
         ID_ins<=32'b0;
-    end else begin
+    end else if(CL_flush==1'b1) begin
+        ID_pc<=32'b0;
+        ID_ins<=32'b0;
+    end else if (CL_stall[1]==1'b1 && CL_stall[2]==1'b1) begin
+        ID_pc<=32'b0;
+        ID_ins<=32'b0;
+    end else if(CL_stall[1]==1'b0) begin
         ID_pc<=IF_pc;
         ID_ins<=IF_ins;
     end
