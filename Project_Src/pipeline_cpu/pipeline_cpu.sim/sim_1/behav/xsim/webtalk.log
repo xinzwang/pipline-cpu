@@ -2,13 +2,13 @@
 # Webtalk v2019.2 (64-bit)
 # SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
 # IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
-# Start of session at: Wed Sep  8 13:05:36 2021
-# Process ID: 7940
-# Current directory: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim
-# Command line: wbtcv.exe -mode batch -source C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/xsim_webtalk.tcl -notrace
-# Log file: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/webtalk.log
-# Journal file: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim\webtalk.jou
+# Start of session at: Wed Sep  8 15:50:19 2021
+# Process ID: 15736
+# Current directory: D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim\webtalk.jou
 #-----------------------------------------------------------
-source C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/xsim_webtalk.tcl -notrace
-INFO: [Common 17-186] 'C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Wed Sep  8 13:05:40 2021. For additional details about this file, please refer to the WebTalk help file at D:/Xilinx/Vivado/2019.2/doc/webtalk_introduction.html.
-INFO: [Common 17-206] Exiting Webtalk at Wed Sep  8 13:05:41 2021...
+source D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] 'D:/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.sim/sim_1/behav/xsim/xsim.dir/testbench_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Wed Sep  8 15:50:22 2021. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2019.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Wed Sep  8 15:50:22 2021...

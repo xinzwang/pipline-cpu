@@ -14,10 +14,11 @@
 || subu | √ | wxz |  |
 || and| √ |wxz | |
 || andi| √ | wzl | |
-|| sll | 待测试 | wxz |  |
+|| sll | √ | wxz |  |
 || sllv| √ | wxz| |
-|| srl | 待测试 | wxz |  |
+|| srl | √ | wxz |  |
 || srlv| √ | wxz | |
+|| sra | √ | wxz | |
 || or| √ |wxz | |
 || ori  | √ | wxz |  |
 || xor| √ |wxz| |
