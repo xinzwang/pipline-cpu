@@ -5,7 +5,7 @@ or $t1,$t2,100		;t1 = 0005 0064
 and $t1,$t2,100		;t1 = 00000000
 xor $t1,$t2,100 	;t1 = 0005 0064
 nor $t1,$t2,$t3 	;t1 = fff8 ffff
-sllv $t1,$t2,$t3 	;t1 = 
+sllv $t1,$t2,$t3 	;t1 = 0006 0000
 srlv $t1,$t2,$t3
 movn $t1,$t2,$t3
 slt  $t1,$t2,$t3
