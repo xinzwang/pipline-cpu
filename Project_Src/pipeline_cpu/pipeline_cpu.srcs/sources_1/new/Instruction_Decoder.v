@@ -389,7 +389,7 @@ module Instruction_Decoder(
 		  		O_ToRF_reg1 <= 1'b0;	
 		  		O_ToRF_reg2 <= 1'b0;
 		  		//O_ToIDEX_link_addr <= 32'h00000000;
-			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
+			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:26], I_FromIFID_ins[25:0]};
 			    O_ToPC_branchflag <= 1'b1;
 			    O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
 			    ID_instvalid_local <= 1'b0;	
@@ -587,12 +587,11 @@ module Instruction_Decoder(
 			O_ToIDEX_reg2 <= I_FromEX_wreg_data; 
 		end else if((O_ToRF_reg2 == 1'b1) && (I_FromMEM_wreg == 1'b1) && (I_FromMEM_wreg_addr == O_ToRF_reg2_addr)) begin
 			O_ToIDEX_reg2 <= I_FromMEM_wreg_data;			
-	  end else if(O_ToRF_reg2 == 1'b1) begin
-	  	O_ToIDEX_reg2 <= I_FromRF_reg2_data;
-	  end else if(O_ToRF_reg2 == 1'b0) begin
-	  	O_ToIDEX_reg2 <= ID_imm_local;
-
-	  end else begin
+	    end else if(O_ToRF_reg2 == 1'b1) begin
+	  	    O_ToIDEX_reg2 <= I_FromRF_reg2_data;
+	    end else if(O_ToRF_reg2 == 1'b0) begin
+	  	    O_ToIDEX_reg2 <= ID_imm_local;
+	    end else begin
 	    O_ToIDEX_reg2 <= 32'h00000000;
 	  end
 	end

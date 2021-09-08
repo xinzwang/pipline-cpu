@@ -382,7 +382,8 @@ MEM MEM_cpu(
     .O_TOMEM_WB_EX_lo(MEM_OUT_6),
     .I_FROMEX_MEM_aloup(EXMEM_MEM_aluop),
     .I_FROMEX_MEM_mem_addr(EXMEM_MEM_mem_addr),
-//    .I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
+    .I_FROMEX_MEM_reg2(EXMEM_MEM_reg2),
+    //.I_FROMEX_MEM_mem_data(EXMEM_MEM_mem_data),
     . I_FROMDATA_RAM_mem_data(DM_data),
 	.O_TODATA_RAM_mem_addr(MEM_DM_mem_addr),//要�?�问的数�?存储器的地址
 	.O_TODATA_RAM_mem_we(MEM_DM_mem_we),//�?否是写操作，�?1表示�?写操�?

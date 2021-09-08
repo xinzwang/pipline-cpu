@@ -42,7 +42,7 @@ always @(posedge clk or negedge rst) begin
     end else if(I_FromCL_flush == 1'b1) begin
         O_ToIM_IFID_pc <= I_FromCL_newpc;
     end else if(I_FromCL_stall[0] == 1'b0) begin
-        if (I_FromID_branch_taraddr == 1'b1) begin
+        if (I_FromID_branchflag == 1'b1) begin
             O_ToIM_IFID_pc <= I_FromID_branch_taraddr;
         end else begin
             O_ToIM_IFID_pc <= O_ToIM_IFID_pc  + 1;
