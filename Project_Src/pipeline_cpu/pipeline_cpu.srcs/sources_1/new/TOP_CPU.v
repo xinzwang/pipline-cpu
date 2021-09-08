@@ -214,25 +214,25 @@ Instruction_Decoder ID_cpu(
     .I_FromMEM_wreg_addr(MEM_ID_wreg_addr),//���ڷô�׶ε�ָ���?дĿ�ļĴ�����??
     .I_FromMEM_wreg_data(MEM_ID_wreg_data),//���ڷô�׶ε�ָ��дĿ�ļĴ�������?
 //��תָ���ӳٲ��ź�
-    .I_FromIDEX_isindelayslot(IDEX_ID_isindelayslot),//��ǰ����ָ���Ƿ����ӳٲ�
-    .O_ToIDEX_isindelayslot(ID_IDEX_next_isindelaysolt),//��ǰ����ָ���Ƿ����ӳٲ�  �޸�Ϊreg����
+    .I_FromIDEX_isindelayslot(IDEX_ID_is_indelayslot),//��ǰ����ָ���Ƿ����ӳٲ�
+    .O_ToIDEX_isindelayslot(ID_IDEX_isindelaysolt),//��ǰ����ָ���Ƿ����ӳٲ�  �޸�Ϊreg����
     .O_ToPC_branchflag(ID_PC_branchflag),//��ת�ź�
     .O_ToPC_branch_taraddr(ID_PC_branch_taraddr),//��תĿ�ĵ�ַ
 //������ָ����ˮֹͣ�����ź�
-    .stallreq(stallreq_from_ID), //�޸�Ϊwire����
+    .stallreq(stallreq_from_ID),
     .O_ToIDEX_ins_addr(ID_IDEX_ins_addr),
-    .O_ToIDEX_ins(ID_IDEX_ins)
+    .O_ToIDEX_ins(ID_IDEX_ins),
 //��������Ŀǰ�ò���
 //    .I_FromEX_aluop_i, //����ִ�н׶�ָ�������������?
 //    .O_ToIDEX_wd, //����׶ε�ָ���?д���Ŀ�ļĴ������?
 //    .O_ToIDEX_link_addr, //ת��ָ��Ҫ����ķ��ص��?
-//    .O_ToIDEX_next_isindelayslot, //��һ����������׶ε�ָ���Ƿ�λ���ӳٲ�?
+     .O_ToIDEX_next_isindelayslot(ID_IDEX_next_isindelayslot) //��һ����������׶ε�ָ���Ƿ�λ���ӳٲ�?
 //    .O_ToIDEX_inst, //��ǰ��������׶ε�ָ��?
 //    .O_ToIDEX_excepttype, //�ռ����쳣��Ϣ
 //    .O_ToIDEX_current_inst_address //����׶�ָ��ĵ�ַ
 );
 
-wire ID_IDEX_next_ins_isindelayslot;
+wire ID_IDEX_next_isindelayslot;
 wire IDEX_ID_is_indelayslot;
 
 ID_EX IDEX_cpu(
@@ -249,7 +249,7 @@ ID_EX IDEX_cpu(
     .ID_ins(ID_IDEX_ins),//����ID�ľ���ָ��ֵ
     .ID_ins_addr(ID_IDEX_ins_addr),//����ID�ľ���ָ����?
     .ID_isindelayslot(ID_IDEX_isindelaysolt),//�ӳٲ�
-    .ID_next_ins_isindelayslot(ID_IDEX_next_ins_isindelayslot),
+    .ID_next_ins_isindelayslot(ID_IDEX_next_isindelayslot),
     
     .EX_alusel(IDEX_EX_alusel),//ִ�н׶�Ҫ�������������?
     .EX_aluop(IDEX_EX_aluop),//ִ�н׶�Ҫ���������������?

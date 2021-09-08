@@ -54,14 +54,10 @@ module Instruction_Decoder(
 //多周期指令流水停止请求信号
     output wire stallreq, //修改为wire类型
     output wire [31:0] O_ToIDEX_ins_addr,//指令地址
-    output reg O_ToIDEX_next_inst_in_delayslot,
+    output reg O_ToIDEX_next_isindelayslot,
 //新增变量
-//    output reg [4:0] O_ToIDEX_wd, //译码阶段的指令要写入的目的寄存器地址
-//    output reg [31:0] O_ToIDEX_link_addr, //转移指令要保存的返回地址
-      output reg O_ToIDEX_next_isindelayslot, //下一条进入译码阶段的指令是否位于延迟槽
-      output wire[31:0] O_ToIDEX_ins,//当前处于译码阶段的指令
-//    output wire[31:0] O_ToIDEX_excepttype, //收集的异常信息
-      output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
+    output wire[31:0] O_ToIDEX_ins,//当前处于译码阶段的指令
+    output wire[31:0] O_ToIDEX_current_inst_address //译码阶段指令的地址
 );
 
 
@@ -117,7 +113,7 @@ module Instruction_Decoder(
 			//O_ToIDEX_link_addr <= 32'h00000000;
 			O_ToPC_branch_taraddr <= 32'h00000000;
 			O_ToPC_branchflag <= 1'b0;
-			O_ToIDEX_next_inst_in_delayslot <= 1'b0;
+			O_ToIDEX_next_isindelayslot <= 1'b0;
 			ID_excepttype_is_syscall_local <= 1'b0;
 			ID_excepttype_is_eret_local <= 1'b0;								
 	  end else begin
@@ -134,7 +130,7 @@ module Instruction_Decoder(
 			//O_ToIDEX_link_addr <= 32'h00000000;
 			O_ToPC_branch_taraddr <= 32'h00000000;
 			O_ToPC_branchflag <= 1'b0;	
-			O_ToIDEX_next_inst_in_delayslot <= 1'b0;
+			O_ToIDEX_next_isindelayslot <= 1'b0;
 			ID_excepttype_is_syscall_local <= 1'b0;	
 			ID_excepttype_is_eret_local <= 1'b0;		
 			
@@ -289,7 +285,7 @@ module Instruction_Decoder(
 		  						    //O_ToIDEX_link_addr <= 32'h00000000;					
 			            	        O_ToPC_branch_taraddr <= O_ToIDEX_reg1;
 			            	        O_ToPC_branchflag <= 1'b1;
-			                        O_ToIDEX_next_inst_in_delayslot <= 1'b1;
+			                        O_ToIDEX_next_isindelayslot <= 1'b1;
 			                        ID_instvalid_local <= 1'b0;	
 								end							 											  											
 						    default:	begin
@@ -391,7 +387,7 @@ module Instruction_Decoder(
 		  		//O_ToIDEX_link_addr <= 32'h00000000;
 			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:26], I_FromIFID_ins[25:0]};
 			    O_ToPC_branchflag <= 1'b1;
-			    O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    ID_instvalid_local <= 1'b0;	
 				end
 				6'b000011:			begin//jal
@@ -402,7 +398,7 @@ module Instruction_Decoder(
 		  		//O_ToIDEX_link_addr <= ID_pc_plus_8_local ;
 			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
 			    O_ToPC_branchflag <= 1'b1;
-			    O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    ID_instvalid_local <= 1'b0;	
 				end
 				6'b000100:			begin//beq
@@ -415,7 +411,7 @@ module Instruction_Decoder(
 		  		if(O_ToIDEX_reg1 == O_ToIDEX_reg2) begin
 			    	O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    	O_ToPC_branchflag <= 1'b1;
-			    	O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    	O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    end
 				end
 				6'b000111:			begin//bgtz
@@ -428,7 +424,7 @@ module Instruction_Decoder(
 		  		if((O_ToIDEX_reg1[31] == 1'b0) && (O_ToIDEX_reg1 != 32'h00000000)) begin
 			    	O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    	O_ToPC_branchflag <= 1'b1;
-			    	O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    	O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    end
 				end
 				6'b000110:			begin//blez
@@ -440,7 +436,7 @@ module Instruction_Decoder(
 		  		if((O_ToIDEX_reg1[31] == 1'b1) || (O_ToIDEX_reg1 == 32'h00000000)) begin
 			    	O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    	O_ToPC_branchflag <= 1'b1;
-			    	O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    	O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    end
 				end
 				6'b000101:			begin//bne
@@ -453,7 +449,7 @@ module Instruction_Decoder(
 		  		if(O_ToIDEX_reg1 != O_ToIDEX_reg2) begin
 			    	O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    	O_ToPC_branchflag <= 1'b1;
-			    	O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    	O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    end
 				end
 				6'b100011:			begin//lw
@@ -485,7 +481,7 @@ module Instruction_Decoder(
 		  				if(O_ToIDEX_reg1[31] == 1'b0) begin
 			    			O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    			O_ToPC_branchflag <= 1'b1;
-			    			O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    			O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			   			end
 						end
 						5'b00000:		begin//bltz
@@ -497,7 +493,7 @@ module Instruction_Decoder(
 		  				if(O_ToIDEX_reg1[31] == 1'b1) begin
 			    			O_ToPC_branch_taraddr <= ID_pc_plus_4_local + ID_imm_sll2_signedext_local;
 			    			O_ToPC_branchflag <= 1'b1;
-			    			O_ToIDEX_next_inst_in_delayslot <= 1'b1;		  	
+			    			O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			   			end
 						end
 						default:	begin

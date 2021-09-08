@@ -31,12 +31,18 @@ module Ctrl(
 always @(*) begin
     if(rst==1'b0) begin
         stall<=6'b0;
+        flush<=1'b0;
+        O_ToPC_new_pc<=32'b0;
     end else if(I_FromID_stallreq==1'b1) begin
         stall<=6'b001111;
+        flush<=1'b0;
     end else if(I_FromEX_stallreq==1'b1) begin
         stall<=6'b000111;
+        flush<=1'b0;
     end else begin
-        stall<=6'b0;
+        stall<=6'b000000;
+        flush<=1'b0;
+        O_ToPC_new_pc<=32'b0;
     end
 end
 endmodule
