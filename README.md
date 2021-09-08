@@ -16,13 +16,13 @@
 |and| √ |wxz | |
 |xor| √ |wxz| |
 |nor| √ |wxz| |
-|sllv| 正在测试 | wxz| |
-|srlv| 正在测试| wxz | |
-|movn|正在测试 | wxz| |
-|slt|正在测试 | wxz| |
+|sllv| √ | wxz| |
+|srlv| √ | wxz | |
+|movn| 正在测试 | wxz| |
+|slt| √ | wxz| |
 | sltu |正在测试 | wxz |  |
-| add |正在测试 | wxz |  |
-| addu |正在测试 | wxz |  |
+| add | √ | wxz |  |
+| addu | √ | wxz |  |
 | sub | 正在测试 | wxz |  |
 | subu | 正在测试 | wxz |  |
 | ori  | 正在测试 | wxz |  |
