@@ -108,10 +108,10 @@ module EX(
 		end else begin
 			case (I_FromIDEX_aluop)
 				8'b01111100: begin  //sll
-					shift_out <=  I_FromIDEX_reg2[4:0] << I_FromIDEX_reg1;
+					shift_out <=  I_FromIDEX_reg2 << I_FromIDEX_reg1[4:0];
 				end
 				8'b00000010: begin //srl
-					shift_out <=  I_FromIDEX_reg2[4:0] >> I_FromIDEX_reg1;
+					shift_out <=  I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
 				end
 				8'b00000011: begin //sra
 					shift_out <= ({32{I_FromIDEX_reg2[31]}} << (6'd32-{1'b0,I_FromIDEX_reg1[4:0]}))| I_FromIDEX_reg2 >> I_FromIDEX_reg1[4:0];
