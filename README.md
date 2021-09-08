@@ -12,6 +12,8 @@
 |slti| √| wzl | |
 |addi| √ | wzl | |
 |addiu| √ | wzl | |
+| j  | 正在测试 | wzl |  |
+| beq  | 正在测试 | wzl |  |
 |or| √ |wxz | |
 |and| √ |wxz | |
 |xor| √ |wxz| |
@@ -26,3 +28,4 @@
 | sub | 正在测试 | wxz |  |
 | subu | 正在测试 | wxz |  |
 | ori  | 正在测试 | wxz |  |
+
