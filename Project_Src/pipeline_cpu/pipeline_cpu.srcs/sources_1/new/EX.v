@@ -125,7 +125,7 @@ module EX(
 
 	// exe arithmetic 
 	reg [31:0]arithmetic_out;
-	wire switch_complement_reg2;	//根据符号取补码
+	wire [31:0]switch_complement_reg2;	//根据符号取补码
 	wire [31:0]mux_sum;
 	wire [31:0]mux_lt;
 	assign switch_complement_reg2 = (I_FromIDEX_aluop == 8'b00100010) || 
