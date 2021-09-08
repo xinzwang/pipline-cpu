@@ -2,12 +2,6 @@
 
 ## 测试日志
 
-|
-
-# 娴佹按绾緾PU
-
-#### 宸茬粡瀹炵幇
-
 已实现
 wzl: LW SW LUI ANDI XORI SLTI ADDI ADDIU 
 
