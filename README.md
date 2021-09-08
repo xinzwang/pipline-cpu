@@ -1,5 +1,6 @@
 # 流水线CPU
-
+#### 已经实现
+LW SW LUI ANDI XORI SLTI ADDI ADDIU
 #### 介绍
 实现流水线CPU
 
