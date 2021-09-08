@@ -171,7 +171,7 @@ Program_Counter PC_cpu(
     assign PC_IM_addr=PC_OUT_1;
     assign PC_IFID_pc=PC_OUT_1;
     
-Instrution_Memory IM_cpu(
+Instruction_Memory IM_cpu(
     .a(PC_IM_addr),
     .spo(IM_IFID_ins)
 );
