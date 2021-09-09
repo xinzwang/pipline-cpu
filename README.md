@@ -47,5 +47,6 @@
 |29| beq  | √ | wzl |  |
 |30| bne  | √ | wzl |  |
 |31| blez  | √ | wzl |  |
-|32| bgtz  | √ | wzl |  |
-|33| bgez  | √ | wzl |  |
+|32| bltz  | √ | wzl |  |
+|33| bgtz  | √ | wzl |  |
+|34| bgez  | √ | wzl |  |
