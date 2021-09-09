@@ -46,4 +46,5 @@
 |29| j  | √ | wzl |  |
 || beq  | √ | wzl |  |
 || bne  | √ | wzl |  |
-|| blez  | 正在测试 | wzl |  |
+|| blez  | √ | wzl |  |
+|| brtz  | 正在测试 | wzl |  |
