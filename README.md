@@ -48,3 +48,4 @@
 || bne  | √ | wzl |  |
 || blez  | √ | wzl |  |
 || bgtz  | √ | wzl |  |
+|| bgez  | √ | wzl |  |
