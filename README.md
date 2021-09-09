@@ -12,8 +12,8 @@
 |4| addiu | √ | wzl | |
 |5| sub | √ | wxz |  |
 |6| subu | √ | wxz |  |
-|7| clz | 正在测试 | wxz | |
-|8| clo | 正在测试 | wxz | |
+|7| clz | 未实现 | wxz | |
+|8| clo | 未实现 | wxz | |
 |9| and| √ |wxz | |
 |10| andi| √ | wzl | |
 |11| sll | √ | wxz |  |
@@ -21,7 +21,7 @@
 |13| srl | √ | wxz |  |
 |14| srlv| √ | wxz | |
 |15| sra | √ | wxz | |
-|16| srav | 正在测试 | wxz | |
+|16| srav | √ | wxz | |
 |17| or| √ |wxz | |
 |18| ori  | √ | wxz |  |
 |19| xor| √ |wxz| |
