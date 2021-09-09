@@ -84,7 +84,7 @@ module Instruction_Decoder(
   
   assign ID_pc_plus_8_local = I_FromIFID_pc + 2;//保存当前译码阶段指令后面第二条指令的地址
   assign ID_pc_plus_4_local = I_FromIFID_pc +1;//保存当前译码阶段指令后面紧接着指令的地址
-  assign ID_imm_sll2_signedext_local = {{14{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0], 2'b00 };  
+  assign ID_imm_sll2_signedext_local = {{16{I_FromIFID_ins[15]}}, I_FromIFID_ins[15:0]};  
   assign stallreq = ID_stallreq_for_reg1_loadrelate_local | ID_stallreq_for_reg2_loadrelate_local;
   //根据输入信号的值，判断上一条指令是不是加载指令，如果是，至ID_pre_inst_is_load_local为1
   assign ID_pre_inst_is_load_local = ((I_FromEX_aluop ==  8'b11100000) || (I_FromEX_aluop == 8'b11100100)||(I_FromEX_aluop == 8'b11100001) ||(I_FromEX_aluop == 8'b11100101)||(I_FromEX_aluop == 8'b11100011) ||(I_FromEX_aluop == 8'b11100110)||(I_FromEX_aluop == 8'b11100010)||(I_FromEX_aluop == 8'b11110000) ||(I_FromEX_aluop == 8'b11111000)) ? 1'b1 : 1'b0;
@@ -446,7 +446,7 @@ module Instruction_Decoder(
 		  		O_ToIDEX_alusel <= 3'b110; O_ToRF_reg1 <= 1'b0;	O_ToRF_reg2 <= 1'b0;
 		  		O_ToIDEX_wreg_addr<= 5'b11111;	
 		  		//O_ToIDEX_link_addr <= ID_pc_plus_8_local ;
-			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:28], I_FromIFID_ins[25:0], 2'b00};
+			    O_ToPC_branch_taraddr <= {ID_pc_plus_4_local[31:26], I_FromIFID_ins[25:0]};
 			    O_ToPC_branchflag <= 1'b1;
 			    O_ToIDEX_next_isindelayslot <= 1'b1;		  	
 			    ID_instvalid_local <= 1'b0;	
