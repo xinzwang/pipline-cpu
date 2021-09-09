@@ -47,4 +47,4 @@
 || beq  | √ | wzl |  |
 || bne  | √ | wzl |  |
 || blez  | √ | wzl |  |
-|| brtz  | 正在测试 | wzl |  |
+|| bgtz  | √ | wzl |  |
