@@ -31,7 +31,7 @@ module HILO(
 );
 //HILOµÄÐ´Âß¼­
 always @(posedge clk) begin
-    if(rst==1'b0) begin
+    if(rst == 1'b0) begin
         O_ToEX_hi<=32'b0;
         O_ToEX_lo<=32'b0;
     end else if (I_FromMEMWB_wreg==1'b1) begin

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Thu Sep  9 16:38:09 2021
+# Process ID: 16364
+# Current directory: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.runs/synth_1
+# Command line: vivado.exe -log TOP_CPU.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source TOP_CPU.tcl
+# Log file: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.runs/synth_1/TOP_CPU.vds
+# Journal file: C:/Users/91867/Desktop/pipeline-cpu/Project_Src/pipeline_cpu/pipeline_cpu.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source TOP_CPU.tcl -notrace

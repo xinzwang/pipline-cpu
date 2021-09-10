@@ -22,9 +22,18 @@
 //ï¿½ï¿½ï¿½ï¿½Ä£ï¿½é¶¨ï¿½ï¿½æ·¶ï¿½ï¿½[ï¿½ÅºÅ·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½]_[ï¿½ÅºÅ½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½]_[ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½]
 
 module TOP_CPU(
-    input clk,
-    input rst
+    input sys_clk,
+    input rst,
+    output reg[7:0] test,
+    output      [6:0] O_led,        //Æß¶ÎÊýÂë¹Ü¶ÎÑ¡ÐÅºÅ
+    output      [3:0] O_px          //Æß¶ÎÊýÂë¹ÜÎ»Ñ¡ÐÅºÅ
 );
+    
+
+
+
+
+
 //pcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 wire [5:0] CL_PC_stall;//ctrlï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Í£ï¿½Åºï¿½
 wire CL_PC_flush;//ctrlï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Í£ï¿½Åºï¿½
@@ -156,6 +165,42 @@ wire [31:0] ID_RF_re2_addr;
 wire MEMWB_RF_wreg;//Ê¹ÄÜ
 wire [31:0] MEMWB_RF_wreg_addr;//µØÖ·
 wire [31:0] MEMWB_RF_wreg_data;//Êý¾Ý
+
+// ·ÖÆµ
+reg clk;
+integer cnt = 0;
+always @(posedge sys_clk or negedge rst)begin
+    if(rst == 1'b0) begin
+        clk <= 0;
+        cnt = 0;
+//    end else if(cnt < 20000000) begin
+    end else if(cnt < 2) begin
+        cnt = cnt + 1;
+    end else begin
+        clk <= ~clk;
+        cnt = 0;
+    end
+end
+
+reg [31:0]show_num;
+always @(posedge clk or negedge rst) begin
+    if(rst == 1'b0) begin
+        show_num = 32'hffffff;
+    end else begin
+        if(MEM_DM_mem_we) begin
+            show_num <= MEM_DM_mem_data;
+        end
+    end
+end
+
+light_show LS_cpu(
+    .I_clk(sys_clk),
+    .I_rst_n(rst),
+    .I_show_num(show_num),
+    .O_led(O_led),
+    .O_px(O_px)
+);
+
 //ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½È?ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½é¶¨ï¿½ï??
 Program_Counter PC_cpu(
     .clk(clk),
@@ -187,6 +232,9 @@ IF_ID IFID_cpu(
     .ID_ins(IFID_ID_ins)
 );
 
+
+wire ID_IDEX_next_isindelayslot;
+wire IDEX_ID_is_indelayslot;
 Instruction_Decoder ID_cpu(
     .clk(clk),
     .rst(rst),
@@ -232,8 +280,7 @@ Instruction_Decoder ID_cpu(
 //    .O_ToIDEX_current_inst_address //ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö¸ï¿½ï¿½Äµï¿½Ö·
 );
 
-wire ID_IDEX_next_isindelayslot;
-wire IDEX_ID_is_indelayslot;
+
 
 ID_EX IDEX_cpu(
     .clk(clk),
@@ -487,5 +534,14 @@ Register_File RF_cpu(
     .I_FromID_raddr2(ID_RF_reg2_addr),
     .O_ToID_rdata2(RF_ID_reg2_data)
 );
+
+always @ (posedge clk or negedge rst) begin
+    if(rst==1'b0) begin
+        test <= test;
+    end else begin
+        test <= PC_IFID_pc[7:0];
+    end
+end
+
 
 endmodule
